@@ -21,7 +21,7 @@
   left: 0;
   background-color: var(--color-bg-default);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-elevation-02);
   pointer-events: none;
   z-index: 0;
   transition:

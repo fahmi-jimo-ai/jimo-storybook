@@ -1,0 +1,56 @@
+.experience-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-default);
+  color: var(--color-text-secondary);
+}
+
+.experience-tags__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.experience-tags__pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.experience-tags__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-xl);
+  font: var(--text-body-4);
+}
+
+/* Blue */
+.experience-tags__pill--blue {
+  background: var(--color-blue-100);
+  color: var(--color-blue-500);
+}
+
+/* Orange */
+.experience-tags__pill--orange {
+  background: var(--color-orange-100);
+  color: var(--color-orange-500);
+}
+
+/* Purple */
+.experience-tags__pill--purple {
+  background: var(--color-purple-100);
+  color: var(--color-purple-500);
+}
+
+/* Overflow "+N" chip */
+.experience-tags__pill--overflow {
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+}

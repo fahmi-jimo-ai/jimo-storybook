@@ -1,16 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-/**
- * Foundations/Shadows — ElevationScale
- * --shadow-sm through --shadow-xl as white cards on a gray background.
- */
 const meta: Meta = {
   title: 'Foundations/Shadows',
   parameters: {
     layout: 'padded',
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji',
+      url: 'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=3104-4642',
     },
   },
 };
@@ -20,27 +16,27 @@ type Story = StoryObj;
 
 const shadows: Array<{ token: string; label: string; value: string; usage: string }> = [
   {
-    token: '--shadow-sm',
-    label: 'Shadow sm',
-    value: '0 1px 3px rgba(7,19,49,0.08), 0 1px 2px rgba(7,19,49,0.06)',
-    usage: 'Buttons, inputs — subtle lift',
+    token: '--shadow-elevation-01',
+    label: 'Elevation 01',
+    value: '0px 2px 2px rgba(0,0,0,0.04)',
+    usage: 'Buttons, inputs, selectors — subtle lift',
   },
   {
-    token: '--shadow-md',
-    label: 'Shadow md',
-    value: '0 4px 6px rgba(7,19,49,0.07), 0 2px 4px rgba(7,19,49,0.06)',
-    usage: 'Dropdown panels, cards',
+    token: '--shadow-elevation-02',
+    label: 'Elevation 02',
+    value: '0px 5px 15px rgba(0,0,0,0.07)',
+    usage: 'Dropdown panels, tab pills, cards',
   },
   {
-    token: '--shadow-lg',
-    label: 'Shadow lg',
-    value: '0 10px 15px rgba(7,19,49,0.1), 0 4px 6px rgba(7,19,49,0.05)',
+    token: '--shadow-elevation-03',
+    label: 'Elevation 03',
+    value: '0px 5px 28px rgba(0,0,0,0.09)',
     usage: 'Modals, sheets',
   },
   {
-    token: '--shadow-xl',
-    label: 'Shadow xl',
-    value: '0 20px 25px rgba(7,19,49,0.1), 0 10px 10px rgba(7,19,49,0.04)',
+    token: '--shadow-elevation-04',
+    label: 'Elevation 04',
+    value: '0px 12px 38px rgba(0,0,0,0.15)',
     usage: 'Popovers, floating panels',
   },
 ];

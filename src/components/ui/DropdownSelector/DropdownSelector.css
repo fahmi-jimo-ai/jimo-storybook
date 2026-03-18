@@ -6,68 +6,80 @@
 .dropdown-selector {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
-  background-color: var(--color-neutral-white);
+  background-color: var(--color-bg-default);
   cursor: pointer;
   color: var(--color-text-primary);
+  box-shadow: var(--shadow-elevation-01);
   transition:
     border-color var(--transition-fast),
     background-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    color var(--transition-fast);
   white-space: nowrap;
-  width: 100%;
 }
 
 /* ── Sizes ── */
 .dropdown-selector--big {
-  padding: 10px 12px;
-  font: var(--text-body-3); /* Inter Medium 14px */
-  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  font: var(--text-body-3);
 }
 
 .dropdown-selector--small {
-  padding: 6px 10px;
-  font: var(--text-body-4); /* Inter Medium 12px */
-  min-height: 36px;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  font: var(--text-body-4);
 }
 
-/* Hover */
-.dropdown-selector:hover:not(.dropdown-selector--disabled) {
-  border-color: var(--color-neutral-400);
-  background-color: var(--color-neutral-50);
+/* ── States ── */
+
+/* Hover — neutral-100 bg, same border */
+.dropdown-selector:hover:not(.dropdown-selector--disabled):not(.dropdown-selector--open):not(.dropdown-selector--selected) {
+  background-color: var(--color-bg-muted);
 }
 
-/* Active / Opened */
-.dropdown-selector--open,
+/* Onclick / pressed — neutral-300 bg */
 .dropdown-selector:active:not(.dropdown-selector--disabled) {
-  border-color: var(--color-blue-400);
-  background-color: var(--color-blue-100);
-  box-shadow: 0 0 0 3px rgba(18, 96, 235, 0.15);
+  background-color: var(--color-neutral-300);
 }
 
-/* Selected */
-.dropdown-selector--selected .dropdown-selector__text {
-  color: var(--color-blue-400);
+/* Opened (dropdown is visible) — blue border + blue-100 bg, text stays primary */
+.dropdown-selector--open {
+  border-color: var(--color-border-focus);
+  background-color: var(--color-brand-subtle);
+}
+
+/* Selected (has value) — blue border + blue-100 bg + blue text + blue icon */
+.dropdown-selector--selected {
+  border-color: var(--color-border-focus);
+  background-color: var(--color-brand-subtle);
+  color: var(--color-brand-default);
+}
+
+/* Placeholder — muted text + icon */
+.dropdown-selector--placeholder {
+  color: var(--color-text-tertiary);
 }
 
 /* Disabled */
 .dropdown-selector--disabled {
-  background-color: var(--color-neutral-100);
+  background-color: var(--color-bg-muted);
   border-color: var(--color-neutral-200);
   color: var(--color-text-disabled);
   cursor: not-allowed;
 }
 
-/* Left icon */
+/* ── Slots ── */
+
+/* Left icon — inherits color from button state */
 .dropdown-selector__icon {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  color: var(--color-neutral-700);
+  width: 20px;
+  height: 20px;
+  color: currentColor;
 }
 
 /* Text */
@@ -79,17 +91,17 @@
 }
 
 .dropdown-selector__placeholder {
-  color: var(--color-neutral-500);
+  color: var(--color-text-tertiary);
 }
 
-/* Chevron */
+/* Chevron — inherits color, rotates when open */
 .dropdown-selector__chevron {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: var(--color-neutral-500);
+  color: currentColor;
   transition: transform var(--transition-fast);
 }
 

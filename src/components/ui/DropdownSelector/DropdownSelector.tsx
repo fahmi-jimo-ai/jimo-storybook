@@ -23,6 +23,8 @@ export interface DropdownSelectorProps
   withIcon?: boolean;
   /** Icon to display on the left */
   icon?: React.ReactNode;
+  /** Show text and chevron (false = icon-only mode) */
+  withText?: boolean;
   /** Whether the dropdown is open (controls open indicator) */
   isOpen?: boolean;
   /** Whether a value has been selected (blue text treatment) */
@@ -37,6 +39,7 @@ export const DropdownSelector = React.forwardRef<HTMLButtonElement, DropdownSele
       text,
       withIcon = false,
       icon,
+      withText = true,
       isOpen = false,
       hasValue = false,
       disabled,
@@ -51,7 +54,7 @@ export const DropdownSelector = React.forwardRef<HTMLButtonElement, DropdownSele
       isOpen ? 'dropdown-selector--open' : '',
       hasValue ? 'dropdown-selector--selected' : '',
       disabled ? 'dropdown-selector--disabled' : '',
-      !text ? 'dropdown-selector--placeholder' : '',
+      withText && !text ? 'dropdown-selector--placeholder' : '',
       className ?? '',
     ]
       .filter(Boolean)
@@ -69,15 +72,19 @@ export const DropdownSelector = React.forwardRef<HTMLButtonElement, DropdownSele
       >
         {withIcon && (
           <span className="dropdown-selector__icon">
-            {icon ?? <HambergerMenu size={24} variant="Linear" />}
+            {icon ?? <HambergerMenu size={20} variant="Linear" />}
           </span>
         )}
-        <span className="dropdown-selector__text">
-          {text ?? <span className="dropdown-selector__placeholder">Select…</span>}
-        </span>
-        <span className={`dropdown-selector__chevron${isOpen ? ' dropdown-selector__chevron--up' : ''}`} aria-hidden="true">
-          <ArrowDown2 size={20} variant="Linear" />
-        </span>
+        {withText && (
+          <span className="dropdown-selector__text">
+            {text ?? <span className="dropdown-selector__placeholder">Select…</span>}
+          </span>
+        )}
+        {withText && (
+          <span className={`dropdown-selector__chevron${isOpen ? ' dropdown-selector__chevron--up' : ''}`} aria-hidden="true">
+            <ArrowDown2 size={20} variant="Linear" />
+          </span>
+        )}
       </button>
     );
   }

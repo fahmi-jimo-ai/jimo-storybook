@@ -1,0 +1,17 @@
+/* ============================================================
+   DropdownFilter — Moji Design System
+   Figma: node 3110-1617
+   ============================================================ */
+
+.dropdown-filter {
+  position: relative;
+  display: inline-block;
+}
+
+/* Menu panel — absolutely positioned below the selector */
+.dropdown-filter__menu {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  z-index: var(--z-dropdown);
+}

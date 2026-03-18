@@ -16,7 +16,7 @@
   font: var(--text-body-4); /* Inter Medium 12px / line-height 1.5 */
   padding: 8px 12px;
   border-radius: var(--radius-full);
-  width: fit-content;
+  width: max-content;
   max-width: 200px;
   white-space: normal;
   word-break: break-word;

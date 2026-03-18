@@ -1,0 +1,227 @@
+/* ============================================================
+   ExperienceCard — Moji Design System
+   Figma: node 1240-6718
+   ============================================================ */
+
+/* ─── Base card ──────────────────────────────────────────── */
+.experience-card {
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-border-default);
+  cursor: pointer;
+  transition:
+    background var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base),
+    border-radius var(--transition-base);
+}
+
+/* ─── Grid layout ────────────────────────────────────────── */
+.experience-card--grid {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  padding: var(--space-4);
+  gap: var(--space-4);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.experience-card--grid:hover,
+.experience-card--grid.experience-card--hover {
+  background: var(--color-bg-subtle);
+  box-shadow: var(--shadow-elevation-01);
+}
+
+.experience-card--grid:hover .experience-card__thumbnail-inner,
+.experience-card--grid.experience-card--hover .experience-card__thumbnail-inner {
+  background: var(--color-blue-150);
+  box-shadow: var(--shadow-elevation-01);
+}
+
+.experience-card--grid:hover .experience-card__title,
+.experience-card--grid.experience-card--hover .experience-card__title {
+  color: var(--color-brand-default);
+}
+
+.experience-card--grid .experience-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.experience-card--grid .experience-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.experience-card--grid .experience-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+}
+
+/* ─── Line layout ────────────────────────────────────────── */
+.experience-card--line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: none;
+  border-bottom: 1px solid var(--color-border-default);
+  border-radius: 0;
+}
+
+.experience-card--line:hover,
+.experience-card--line.experience-card--hover {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+}
+
+.experience-card--line:hover .experience-card__title,
+.experience-card--line.experience-card--hover .experience-card__title {
+  color: var(--color-brand-default);
+}
+
+.experience-card--line:hover .experience-card__thumbnail-inner,
+.experience-card--line.experience-card--hover .experience-card__thumbnail-inner {
+  background: var(--color-blue-150);
+  box-shadow: var(--shadow-elevation-01);
+}
+
+.experience-card--line .experience-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+  min-width: 0;
+}
+
+.experience-card--line .experience-card__chips--row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+/* ─── Compact layout ─────────────────────────────────────── */
+.experience-card--compact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: none;
+  border-bottom: 1px solid var(--color-border-default);
+  border-radius: 0;
+}
+
+.experience-card--compact:hover,
+.experience-card--compact.experience-card--hover {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+}
+
+.experience-card--compact:hover .experience-card__title,
+.experience-card--compact.experience-card--hover .experience-card__title {
+  color: var(--color-brand-default);
+}
+
+.experience-card--compact .experience-card__title {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.experience-card--compact .experience-card__chips--row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.experience-card--compact .experience-card__date {
+  flex-shrink: 0;
+}
+
+/* ─── Thumbnail ──────────────────────────────────────────── */
+.experience-card__thumbnail {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.experience-card--grid .experience-card__thumbnail {
+  width: 100%;
+}
+
+.experience-card--line .experience-card__thumbnail {
+  flex: 1 0 0;
+  max-width: 280px;
+  flex-shrink: 0;
+}
+
+.experience-card__thumbnail-inner {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-muted);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+}
+
+.experience-card--grid .experience-card__thumbnail-inner {
+  height: 152px;
+}
+
+.experience-card--line .experience-card__thumbnail-inner {
+  aspect-ratio: 312 / 152;
+  height: auto;
+  border: 1px solid var(--color-border-default);
+}
+
+.experience-card__thumbnail-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-muted);
+}
+
+.experience-card__status-badge {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+}
+
+/* ─── Texts wrapper ──────────────────────────────────────── */
+.experience-card__texts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ─── Typography ─────────────────────────────────────────── */
+.experience-card__title {
+  font: var(--text-subtitle-2);
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.experience-card__date {
+  font: var(--text-body-3);
+  color: var(--color-text-secondary);
+}
+
+/* ─── Metadata chips ─────────────────────────────────────── */
+.experience-card__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-default);
+  font: var(--text-body-3);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}

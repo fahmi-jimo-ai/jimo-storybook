@@ -76,7 +76,7 @@
 /* Active */
 .tab-secondary-item--active {
   background-color: var(--color-bg-default);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-elevation-02);
 }
 
 .tab-secondary-item--active .tab-secondary-item__icon {

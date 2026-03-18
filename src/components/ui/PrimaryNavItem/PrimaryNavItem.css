@@ -78,6 +78,7 @@
   opacity: 0;
   transition: opacity var(--transition-fast);
   z-index: var(--z-dropdown);
+  white-space: nowrap;
 }
 
 .nav-item-primary--collapsed:hover .nav-item-primary__tooltip-wrap,

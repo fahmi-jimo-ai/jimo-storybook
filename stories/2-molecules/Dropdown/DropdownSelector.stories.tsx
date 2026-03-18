@@ -35,6 +35,10 @@ const meta: Meta<SelectorStoryArgs> = {
       control: 'boolean',
       table: { defaultValue: { summary: 'false' } },
     },
+    withText: {
+      control: 'boolean',
+      table: { defaultValue: { summary: 'true' } },
+    },
     isOpen: {
       control: 'boolean',
       table: { defaultValue: { summary: 'false' } },
@@ -81,6 +85,10 @@ export const Placeholder: Story = {
 
 export const WithIcon: Story = {
   args: { size: 'big', text: 'With icon', withIcon: true },
+};
+
+export const IconOnly: Story = {
+  args: { size: 'big', withIcon: true, withText: false, iconName: 'Layer' },
 };
 
 export const Selected: Story = {
@@ -144,6 +152,7 @@ export const Playground: Story = {
     size: 'big',
     text: 'Select an option',
     withIcon: false,
+    withText: true,
     isOpen: false,
     hasValue: false,
     disabled: false,

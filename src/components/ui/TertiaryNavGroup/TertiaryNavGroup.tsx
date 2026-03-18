@@ -19,7 +19,7 @@ export const TertiaryNavGroup: React.FC<TertiaryNavGroupProps> = ({
   return (
     <div className={classes} {...rest}>
       <div className="nav-group-tertiary__start">{start}</div>
-      <div className="nav-group-tertiary__end">{end}</div>
+      {/* <div className="nav-group-tertiary__end">{end}</div> */}
     </div>
   );
 };
