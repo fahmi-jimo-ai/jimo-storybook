@@ -15,9 +15,10 @@ The living documentation and development environment for the **Moji design syste
 |-------|-----------|
 | **Foundations** | Colors, Typography, Spacing, Border Radius, Shadows, Icons |
 | **Atoms** | Button, Checkbox, Toggle, Radio, Icon, Tooltip |
-| **Molecules** | Input, Chip, DropdownSelector, DropdownMenuList, DropdownMenuGroup, Toast, Infobox |
+| **Molecules** | Input, Chip, DropdownSelector, DropdownMenuList, Toast, Infobox, PrimaryNavItem, SecondaryNavItem, TertiaryNavItem, PrimaryHorizontalMenuItem, SecondaryHorizontalMenuItem |
+| **Organisms** | DropdownMenuGroup, Composed Dropdown, PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar, PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup, PageHeader |
 
-All 13 components are fully documented with:
+All components are fully documented with:
 - Interactive controls via Storybook's args panel
 - Live Figma design links on every story
 - Accessibility (a11y) audit built in
@@ -150,7 +151,8 @@ jimo-storybook/
 ├── stories/
 │   ├── 0-foundations/          # Token documentation stories
 │   ├── 1-atoms/                # Atom component stories
-│   ├── 2-molecules/            # Molecule component stories
+│   ├── 2-molecules/            # Molecule stories (individual items: inputs, nav items, tab items)
+│   ├── 3-organisms/            # Organism stories (groups, sidebars, composed UI sections)
 │   └── utils/
 │       └── icons.ts            # 993 iconsax icon names + resolver
 │
@@ -229,6 +231,18 @@ Every story links back to its corresponding Figma node via `@storybook/addon-des
 
 ## Visual Regression (Chromatic)
 
+After every push, run Chromatic to capture snapshots and update baselines:
+
+```bash
+# 1. Push changes (gh auth required for this private repo)
+gh auth setup-git && git push origin main
+
+# 2. Run Chromatic to catch visual changes
+npx chromatic --project-token=chpt_b32490bc392df97
+```
+
+Or use the npm shortcut (skips the push step):
+
 ```bash
 npm run chromatic
 ```
@@ -236,6 +250,7 @@ npm run chromatic
 - Every story is snapshotted at 1280px viewport
 - Playground stories are excluded (`chromatic: { disableSnapshot: true }`)
 - Hover/interaction stories that can't be reliably captured are also excluded
+- Review and accept changes at https://www.chromatic.com/builds?appId=69b720a3c8212007bac651ed
 
 ---
 

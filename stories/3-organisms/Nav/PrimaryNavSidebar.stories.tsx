@@ -12,7 +12,7 @@ const FIGMA_URL =
   'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=3015-2969';
 
 const meta: Meta<typeof PrimaryNavSidebar> = {
-  title: 'Molecules/Nav/PrimaryNavSidebar',
+  title: 'Organisms/Nav/PrimaryNavSidebar',
   component: PrimaryNavSidebar,
   tags: ['autodocs'],
   argTypes: {

@@ -126,7 +126,7 @@ function MultiSelectDropdown({
 }
 
 const meta: Meta = {
-  title: 'Molecules/Dropdown/Composed',
+  title: 'Organisms/Dropdown/Composed',
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',

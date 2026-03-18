@@ -1,0 +1,105 @@
+/* ============================================================
+   SecondaryHorizontalMenuItem — Moji Design System
+   Figma: node 611:1617
+   ============================================================ */
+
+.tab-secondary-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  background-color: transparent;
+  transition: background-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* ── Padding by size + type ── */
+
+/* Text + Icon, Small: py-4px px-16px */
+.tab-secondary-item--text-icon.tab-secondary-item--small {
+  padding: var(--space-1) var(--space-4);
+}
+
+/* Text + Icon, Big: py-8px px-16px */
+.tab-secondary-item--text-icon.tab-secondary-item--big {
+  padding: var(--space-2) var(--space-4);
+}
+
+/* Icon Only, any size: p-8px */
+.tab-secondary-item--icon-only {
+  padding: var(--space-2);
+}
+
+.tab-secondary-item:focus-visible {
+  outline: 2px solid var(--color-blue-400);
+  outline-offset: 2px;
+}
+
+/* ── Content row ── */
+.tab-secondary-item__content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Icon-only: no gap needed */
+.tab-secondary-item--icon-only .tab-secondary-item__content {
+  gap: 0;
+}
+
+/* ── Icon ── */
+.tab-secondary-item__icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-neutral-600);
+  transition: color var(--transition-base);
+}
+
+/* ── Label ── */
+.tab-secondary-item__label {
+  font: var(--text-body-3);
+  color: var(--color-neutral-600);
+  white-space: nowrap;
+  text-align: center;
+  transition: color var(--transition-base);
+}
+
+.tab-secondary-item--big .tab-secondary-item__label {
+  font: var(--text-body-2);
+}
+
+/* ─────────────── States ─────────────── */
+
+/* Active */
+.tab-secondary-item--active {
+  background-color: var(--color-bg-default);
+  box-shadow: var(--shadow-md);
+}
+
+.tab-secondary-item--active .tab-secondary-item__icon {
+  color: var(--color-text-primary);
+}
+
+.tab-secondary-item--active .tab-secondary-item__label {
+  color: var(--color-text-primary);
+}
+
+/* Hover — via prop or CSS :hover on inactive */
+.tab-secondary-item--hover,
+.tab-secondary-item--inactive:hover {
+  /* neutral-300 per Figma update */
+  background-color: var(--color-neutral-300);
+}
+
+.tab-secondary-item--hover .tab-secondary-item__icon,
+.tab-secondary-item--inactive:hover .tab-secondary-item__icon {
+  color: var(--color-neutral-700);
+}
+
+.tab-secondary-item--hover .tab-secondary-item__label,
+.tab-secondary-item--inactive:hover .tab-secondary-item__label {
+  color: var(--color-neutral-700);
+}

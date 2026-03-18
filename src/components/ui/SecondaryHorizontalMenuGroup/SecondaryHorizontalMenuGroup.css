@@ -1,0 +1,45 @@
+/* ============================================================
+   SecondaryHorizontalMenuGroup — Moji Design System
+   Figma: node 611:1630
+   ============================================================ */
+
+.tab-secondary-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-muted);
+}
+
+/* ── Sliding pill ── */
+.tab-secondary-group__pill {
+  position: absolute;
+  top: var(--space-1);
+  bottom: var(--space-1);
+  left: 0;
+  background-color: var(--color-bg-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    transform var(--transition-base),
+    width var(--transition-base),
+    opacity var(--transition-fast);
+}
+
+/* Items sit above the pill */
+.tab-secondary-group__item {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Active items inside group: pill provides the background, not the item itself */
+.tab-secondary-group .tab-secondary-item--active {
+  background-color: transparent;
+  box-shadow: none;
+}

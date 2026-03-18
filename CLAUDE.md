@@ -83,7 +83,8 @@ src/
 stories/
 ├── 0-foundations/   ← token documentation (Colors, Typography, Spacing, Radius, Shadows, Icons)
 ├── 1-atoms/         ← Button, Checkbox, Toggle, Radio, Icon, Tooltip
-└── 2-molecules/     ← Input, Chip, Dropdown(3), Toast, Infobox
+├── 2-molecules/     ← Input, Chip, DropdownSelector, DropdownMenuList, Toast, Infobox, NavItems, HorizontalMenuItems
+└── 3-organisms/     ← DropdownMenuGroup, Composed, NavGroups, NavSidebars, HorizontalMenuGroups, PageHeader
 ```
 
 **Commands:**
@@ -92,6 +93,15 @@ npm run storybook        # start dev server at :6006
 npm run build-storybook  # static build into storybook-static/
 npx tsc --noEmit         # type-check all story files — run before committing
 ```
+
+**Deploying changes — always run in this order:**
+```bash
+gh auth setup-git && git push origin main
+npx chromatic --project-token=chpt_b32490bc392df97
+```
+
+`gh auth setup-git` is required before pushing — bare `git push` fails on this private repo.
+Run Chromatic after every push so visual snapshots are captured and baselines are updated.
 
 ---
 
@@ -165,8 +175,12 @@ export const Playground: Story = {
 | Foundation | `Foundations/TokenGroup` | `Foundations/Colors` |
 | Atom | `Atoms/ComponentName` | `Atoms/Button` |
 | Molecule | `Molecules/ComponentName` | `Molecules/Input` |
-| Dropdown sub | `Molecules/Dropdown/ComponentName` | `Molecules/Dropdown/DropdownSelector` |
-| Dropdown composed | `Molecules/Dropdown/Composed` | `Molecules/Dropdown/Composed` |
+| Molecule nav item | `Molecules/Nav/ComponentName` | `Molecules/Nav/PrimaryNavItem` |
+| Molecule menu item | `Molecules/HorizontalMenu/ComponentName` | `Molecules/HorizontalMenu/PrimaryItem` |
+| Organism | `Organisms/ComponentName` | `Organisms/PageHeader` |
+| Organism nav | `Organisms/Nav/ComponentName` | `Organisms/Nav/PrimaryNavGroup` |
+| Organism dropdown | `Organisms/Dropdown/ComponentName` | `Organisms/Dropdown/DropdownMenuGroup` |
+| Organism menu group | `Organisms/HorizontalMenu/ComponentName` | `Organisms/HorizontalMenu/PrimaryGroup` |
 
 Story export names: **PascalCase** state names only. No `Story1`, `Story2`.
 
@@ -333,8 +347,13 @@ A component story is **complete** when:
 |-------|-----------|
 | Foundations | Colors, Typography, Spacing, Radius, Shadows, Icons |
 | Atoms | Button, Checkbox, Toggle, Radio, Icon, Tooltip |
-| Molecules | Input, Chip, DropdownSelector, DropdownMenuList, DropdownMenuGroup, Toast, Infobox |
-| Nav (Molecules/Nav/) | PrimaryNavItem, SecondaryNavItem, TertiaryNavItem, PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar |
+| Molecules | Input, Chip, DropdownSelector, DropdownMenuList, Toast, Infobox |
+| Molecules/Nav/ | PrimaryNavItem, SecondaryNavItem, TertiaryNavItem |
+| Molecules/HorizontalMenu/ | PrimaryHorizontalMenuItem, SecondaryHorizontalMenuItem |
+| Organisms | PageHeader |
+| Organisms/Nav/ | PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar |
+| Organisms/Dropdown/ | DropdownMenuGroup, Composed |
+| Organisms/HorizontalMenu/ | PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup |
 
 For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.tsx` directly.
 For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`

@@ -9,7 +9,7 @@ const FIGMA_URL =
   'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=3015-2967';
 
 const meta: Meta<typeof TertiaryNavGroup> = {
-  title: 'Molecules/Nav/TertiaryNavGroup',
+  title: 'Organisms/Nav/TertiaryNavGroup',
   component: TertiaryNavGroup,
   tags: ['autodocs'],
   argTypes: {

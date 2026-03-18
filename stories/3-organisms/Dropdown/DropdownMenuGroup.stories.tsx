@@ -10,7 +10,7 @@ const FIGMA_URL =
 const SAMPLE_ITEMS = ['Option one', 'Option two', 'Option three', 'Option four'];
 
 const meta: Meta<typeof DropdownMenuGroup> = {
-  title: 'Molecules/Dropdown/DropdownMenuGroup',
+  title: 'Organisms/Dropdown/DropdownMenuGroup',
   component: DropdownMenuGroup,
   tags: ['autodocs'],
   argTypes: {

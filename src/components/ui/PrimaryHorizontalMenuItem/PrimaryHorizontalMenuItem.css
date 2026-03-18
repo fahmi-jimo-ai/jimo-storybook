@@ -1,0 +1,125 @@
+/* ============================================================
+   PrimaryHorizontalMenuItem — Moji Design System
+   Figma: node 3047:2154
+   ============================================================ */
+
+.tab-primary-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.tab-primary-item:focus-visible .tab-primary-item__content {
+  outline: 2px solid var(--color-blue-400);
+  outline-offset: 2px;
+}
+
+/* ── Content wrap (provides bottom padding above indicator) ── */
+.tab-primary-item__content-wrap {
+  padding-bottom: var(--space-1);
+}
+
+/* ── Content row ── */
+.tab-primary-item__content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  /* Regular: py-4px px-8px */
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  transition: background-color var(--transition-base);
+}
+
+/* Small: py-2px px-6px gap-4px — Figma spec */
+.tab-primary-item--small .tab-primary-item__content {
+  padding: 2px 6px;
+  gap: var(--space-1);
+}
+
+/* ── Icon ── */
+.tab-primary-item__icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-neutral-600);
+  transition: color var(--transition-base);
+}
+
+/* ── Label ── */
+.tab-primary-item__label {
+  font: var(--text-body-3);
+  color: var(--color-neutral-600);
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.tab-primary-item--small .tab-primary-item__label {
+  font: var(--text-body-4);
+}
+
+/* ── Counter ── */
+.tab-primary-item__counter {
+  font: var(--text-body-3);
+  color: var(--color-neutral-600);
+  opacity: 0.5;
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.tab-primary-item--small .tab-primary-item__counter {
+  font: var(--text-body-4);
+}
+
+/* ── Per-item indicator (standalone use only — hidden inside group) ── */
+.tab-primary-item__indicator {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-blue-400);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.tab-primary-item--active .tab-primary-item__indicator {
+  transform: scaleX(1);
+}
+
+/* ─────────────── States ─────────────── */
+
+/* Hover — via prop or CSS :hover on default */
+.tab-primary-item--hover .tab-primary-item__content,
+.tab-primary-item--default:hover .tab-primary-item__content {
+  background-color: var(--color-bg-muted);
+}
+
+.tab-primary-item--hover .tab-primary-item__label,
+.tab-primary-item--default:hover .tab-primary-item__label {
+  color: var(--color-neutral-700);
+}
+
+.tab-primary-item--hover .tab-primary-item__icon,
+.tab-primary-item--default:hover .tab-primary-item__icon {
+  color: var(--color-neutral-700);
+}
+
+.tab-primary-item--hover .tab-primary-item__counter,
+.tab-primary-item--default:hover .tab-primary-item__counter {
+  color: var(--color-neutral-800);
+}
+
+/* Active */
+.tab-primary-item--active .tab-primary-item__label {
+  color: var(--color-blue-400);
+}
+
+.tab-primary-item--active .tab-primary-item__icon {
+  color: var(--color-blue-400);
+}
+
+.tab-primary-item--active .tab-primary-item__counter {
+  color: var(--color-blue-400);
+}

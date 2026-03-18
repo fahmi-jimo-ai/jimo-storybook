@@ -1,0 +1,54 @@
+/* ============================================================
+   PageHeader — Moji Design System
+   Figma: node 1317:2115
+   ============================================================ */
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--space-6) var(--space-8) 0;
+  width: 100%;
+}
+
+/* Sub-page variant has more top breathing room */
+.page-header--sub {
+  padding-top: var(--space-8);
+}
+
+/* ── Title row ── */
+.page-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-6);
+}
+
+/* Main page: Heading 3 (Montserrat Bold 32px) */
+.page-header__title {
+  margin: 0;
+  font: var(--text-heading-3);
+  letter-spacing: var(--text-heading-tracking);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* Sub page: Subtitle 1 (Montserrat SemiBold 24px) */
+.page-header__title--sub {
+  font: var(--text-subtitle-1);
+  letter-spacing: 0;
+}
+
+/* Sub-page back button + title wrapper */
+.page-header__title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ── Button group (right side) ── */
+.page-header__button-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
