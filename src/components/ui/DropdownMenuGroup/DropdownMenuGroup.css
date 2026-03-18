@@ -1,0 +1,36 @@
+/* ============================================================
+   DropdownMenuGroup — Moji Design System
+   Figma: node 738-1190
+   ============================================================ */
+
+.menu-group {
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg); /* 12px */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  min-width: 225px;
+}
+
+/* ── Scrollable variant ── */
+.menu-group--scrollable {
+  overflow-y: auto;
+}
+
+/* Custom scrollbar styling */
+.menu-group--scrollable::-webkit-scrollbar {
+  width: 4px;
+}
+
+.menu-group--scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu-group--scrollable::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-300);
+  border-radius: 9px;
+}
+
+.menu-group--scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-400);
+}

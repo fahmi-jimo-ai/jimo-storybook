@@ -1,0 +1,156 @@
+/* ============================================================
+   Chip / Label — Moji Design System
+   Figma: node 666-1652
+   ============================================================ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+/* ── Sizes ── */
+.chip--regular {
+  font: var(--text-body-3); /* Inter Medium 14px */
+  padding: 8px 12px;
+}
+
+.chip--small {
+  font: var(--text-body-4); /* Inter Medium 12px */
+  padding: 4px 12px;
+}
+
+.chip--x-small {
+  font: var(--text-body-4); /* Inter Medium 12px */
+  padding: 4px 8px;
+}
+
+.chip--xx-small {
+  font: var(--text-body-4); /* Inter Medium 12px */
+  padding: 2px 8px;
+}
+
+/* ── Icon sizing ── */
+.chip__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Remove button ── */
+.chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.chip__remove:hover {
+  opacity: 1;
+}
+
+/* ── Neutral ── */
+.chip--neutral.chip--secondary {
+  background-color: var(--color-neutral-white);
+  border-color: var(--color-neutral-300);
+  color: var(--color-neutral-800);
+}
+
+.chip--neutral.chip--primary {
+  background-color: var(--color-neutral-200);
+  color: var(--color-neutral-800);
+}
+
+/* ── Positive (green) ── */
+.chip--positive.chip--secondary {
+  background-color: var(--color-green-100);
+  border-color: var(--color-green-300);
+  color: var(--color-green-500);
+}
+
+.chip--positive.chip--primary {
+  background-color: var(--color-green-400);
+  color: var(--color-neutral-white);
+}
+
+/* ── Negative (red) ── */
+.chip--negative.chip--secondary {
+  background-color: var(--color-red-100);
+  border-color: var(--color-red-300);
+  color: var(--color-red-500);
+}
+
+.chip--negative.chip--primary {
+  background-color: var(--color-red-400);
+  color: var(--color-neutral-white);
+}
+
+/* ── Alert (orange) ── */
+.chip--alert.chip--secondary {
+  background-color: var(--color-orange-100);
+  border-color: var(--color-orange-300);
+  color: var(--color-orange-500);
+}
+
+.chip--alert.chip--primary {
+  background-color: var(--color-orange-500);
+  color: var(--color-neutral-white);
+}
+
+/* ── Brand (blue) ── */
+.chip--brand.chip--secondary {
+  background-color: var(--color-blue-100);
+  border-color: var(--color-blue-300);
+  color: var(--color-blue-500);
+}
+
+.chip--brand.chip--primary {
+  background-color: var(--color-blue-400);
+  color: var(--color-neutral-white);
+}
+
+/* ── Icon-only ── */
+.chip--icon-only {
+  gap: 0;
+}
+
+.chip--icon-only.chip--regular {
+  padding: 8px;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+}
+
+.chip--icon-only.chip--small {
+  padding: 4px;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+}
+
+.chip--icon-only.chip--x-small {
+  padding: 4px;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+}
+
+.chip--icon-only.chip--xx-small {
+  padding: 2px;
+  width: 16px;
+  height: 16px;
+  justify-content: center;
+}

@@ -2,7 +2,7 @@
 
 **Prepared by:** Fahmi
 **Status:** Draft
-**Last Updated:** March 15, 2026
+**Last Updated:** March 16, 2026
 **Scope:** Internal tooling / Design system infrastructure
 **Audience:** Fahmi, Raph (CPO), Andy, Sam
 
@@ -10,9 +10,9 @@
 
 ## 1. Problem Statement
 
-The Moji component library (`jimo-component-library`) provides 13 production components — Button, Chip, Checkbox, Toggle, Radio, Input, Toast, Infobox, DropdownSelector, DropdownMenuList, DropdownMenuGroup, Tooltip, and Icon — along with a full design token system. Today, this library is documented through a custom-built doc site and a machine-readable `COMPONENTS.md`. While that setup is effective for Claude Code references, it does not support interactive state browsing, visual regression testing, or live design review.
+The Moji design system provides 13 production components — Button, Chip, Checkbox, Toggle, Radio, Input, Toast, Infobox, DropdownSelector, DropdownMenuList, DropdownMenuGroup, Tooltip, and Icon — along with a full design token system. All component source, CSS, and tokens now live inside `jimo-storybook/src/` (self-contained). There is no external `jimo-component-library` dependency.
 
-There is no isolated workshop environment where components can be reviewed across all their variants — size, semantic type, interaction state, disabled, error — without running the full application. Design reviews require navigating to specific states in the running app or reading static Figma frames. Dev handoff relies on `COMPONENTS.md` annotations rather than a living reference that reflects what is actually in production.
+There is no isolated workshop environment where components can be reviewed across all their variants — size, semantic type, interaction state, disabled, error — without running the full application. Design reviews require navigating to specific states in the running app or reading static Figma frames. Dev handoff relies on Figma annotations rather than a living reference that reflects what is actually in production.
 
 The core unmet need is: **a single interactive source of truth for every component state, accessible by link, with visual regression protection and a direct bridge to the Figma design system.**
 
@@ -20,12 +20,12 @@ The core unmet need is: **a single interactive source of truth for every compone
 
 ## 2. Goals
 
-- Migrate the Moji component library from its current custom doc site to a Storybook instance that covers all design levels (Foundations through Molecules), scoped exactly to what exists in `jimo-component-library` — no additional components.
+- Build a self-contained Storybook instance that covers all design levels (Foundations through Molecules), scoped exactly to the 13 components in `src/components/ui/` — no additional components.
 - Enable any team member to review any component state — every variant, status, size, and interaction state — via a shareable URL without running the application.
 - Expose every meaningful prop as a live control in a `Playground` story so that variant combinations can be explored interactively without touching code.
 - Establish a Figma-to-Storybook link per story using `@storybook/addon-designs` so that design intent and implementation can be compared in one step.
 - Connect Chromatic for visual snapshot testing on every PR that touches a story file, with the published URL always reflecting `main`.
-- Follow a clean migration path from the existing `jimo-component-library` doc site to Storybook without introducing scope creep or new components.
+- Keep `jimo-storybook` fully standalone — no sibling repo dependencies, no external component library imports.
 
 ---
 
@@ -63,9 +63,9 @@ A new engineer needs to understand what `Input` accepts, what its statuses look 
 
 ## 5. Proposed Solution
 
-### 5.1 Migration Scope
+### 5.1 Scope
 
-This Storybook is a migration and transition of the existing `jimo-component-library` doc site. The component scope is frozen to what currently exists in that project. No new components are added as part of this migration.
+The component scope is frozen to the 13 components bundled inside `src/components/ui/`. No new components are added here. All component source, CSS, and design tokens are self-contained within `jimo-storybook` — there is no dependency on any external repo.
 
 **Components in scope (13 total):**
 
@@ -236,12 +236,14 @@ The `level` prop maps to a `variant` control in Storybook argTypes — following
 
 The `arrowPosition` prop has 9 values. Each position has distinct visual output — all positions must be covered.
 
+**arrowPosition semantics:** The name describes **where the arrow is on the bubble**, not where the tooltip floats. `'bottom'` = arrow at bottom → tooltip floats **above** the trigger. `'up'` = arrow at top → tooltip floats **below** the trigger. The `Default` story uses `HoverWrapper` which keeps the tooltip always in DOM and toggles `opacity` + `scale(0.85→1)` for a scale-in animation. `getTransformOrigin()` sets the CSS `transform-origin` to the arrow's side (toward the trigger), so the animation scales in from the correct direction.
+
 | Story | Description |
 |---|---|
-| `Default` | `arrowPosition="up-left"` (library default) |
-| `ArrowPositions` | A grid showing all 9 positions with the same content: `up`, `up-left`, `up-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `right`, `none` |
+| `Default` | `HoverWrapper` with hover trigger — tooltip scales in on hover. `arrowPosition="up-left"` default. Chromatic disabled (interaction). |
+| `ArrowPositions` | Static grid of all 9 positions. Snapshotted by Chromatic. |
 | `LongContent` | Tooltip with a longer text string to verify wrapping behavior |
-| `Playground` | All props as controls |
+| `Playground` | All props as controls. Chromatic disabled. |
 
 ### 5.5 Level 2 — Molecules
 
@@ -249,7 +251,7 @@ Molecules compose atoms into a functional unit or expose a richer internal struc
 
 **Input**
 
-The `inputType` prop maps to a `type` control in Storybook argTypes, and `status` maps to a `state` control — normalizing to Storybook's standard vocabulary.
+The `inputType` prop maps to a `type` control in Storybook argTypes, and `status` maps to a `state` control — normalizing to Storybook's standard vocabulary. The HTML `type` prop is separately exposed as `'htmlType'` (select: text / number / email / tel / url / password / search) so the keyboard/validation behavior can be controlled. Always set `type="number"` for numeric fields — e.g. `WithTrailingText` sets `type="number"` because it represents a day count.
 
 | Story | Description |
 |---|---|
@@ -328,15 +330,21 @@ The three Dropdown components are documented in a shared `Dropdown/` folder. A f
 
 **Toast**
 
+Toast stories for Default/Positive/Warning/Negative use a `ToastDemo` interactive wrapper that shows a `<Button>` trigger. Clicking it mounts the Toast, which animates in. `onDismiss` unmounts it. These stories have `chromatic: { disableSnapshot: true }`. Static stories (`AllTypes`, `WithBody`, `WithActions`, `NonDismissable`) render the toast directly with `duration={Infinity}` and are snapshotted by Chromatic.
+
+Toast CTA action buttons use the `Button` atom (`level="secondary/primary"`, `size="small"`). When there is no `body` prop, the `toast--no-body` CSS class is added, which vertically centers the icon and title.
+
 | Story | Description |
 |---|---|
-| `Default` | Neutral type, title only |
-| `Variants` | All four types side by side: `neutral`, `positive`, `warning`, `negative` |
-| `WithBody` | Title + body text |
-| `WithPrimaryAction` | `primaryAction` label with handler |
-| `WithBothActions` | `primaryAction` + `secondaryAction` (e.g., Confirm + Undo) |
-| `Dismissable` | `dismissable=true` — shows ✕ icon |
-| `Playground` | All props as controls |
+| `Default` | Interactive — `<Button>` trigger reveals a neutral toast with spring animation. Chromatic disabled. |
+| `Positive` | Interactive — button trigger, positive type. Chromatic disabled. |
+| `Warning` | Interactive — button trigger, warning type. Chromatic disabled. |
+| `Negative` | Interactive — button trigger, negative type. Chromatic disabled. |
+| `AllTypes` | Static — all four types stacked, `duration={Infinity}` |
+| `WithBody` | Static — title + body text, `duration={Infinity}` |
+| `WithActions` | Static — both CTA Button actions shown, `duration={Infinity}` |
+| `NonDismissable` | Static — `dismissable=false`, `duration={Infinity}` |
+| `Playground` | All props as controls. Chromatic disabled. |
 
 **Infobox**
 
@@ -414,8 +422,8 @@ flowchart TD
 
 ### 7.1 Functional Requirements
 
-**FR-1: Scope frozen to jimo-component-library**
-The Storybook covers exactly the 13 components in the current `jimo-component-library`. No new components are introduced as part of this migration. Any future component addition follows the existing library's authoring workflow first, then gets a story.
+**FR-1: Scope frozen to src/components/ui/**
+The Storybook covers exactly the 13 components in `src/components/ui/`. No new components are introduced here. Any future component addition must first be authored inside `src/components/ui/` with its `.tsx` and `.css` files, then get a story.
 
 **FR-2: Every component has a Playground story**
 Every atom and molecule must have one story named `Playground` that exposes all props as live controls via `argTypes`. The Playground supplements — never replaces — explicit state stories. Playground stories have `chromatic: { disableSnapshot: true }` to prevent noisy diffs from interactive controls.
@@ -428,7 +436,7 @@ Props whose names diverge from Storybook convention must be remapped in `argType
 All `select` controls must use `options` arrays matching the TypeScript union values from the component source.
 
 **FR-4: Figma link per atom and molecule story**
-Every atom and molecule story must have `parameters.design.url` configured via `@storybook/addon-designs`, linking to the corresponding Figma frame in the Moji design file (`https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`). Figma node IDs are documented in `jimo-component-library/COMPONENTS.md`.
+Every atom and molecule story must have `parameters.design.url` configured via `@storybook/addon-designs`, linking to the corresponding Figma frame in the Moji design file (`https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`). Figma node IDs can be retrieved directly from the Figma file.
 
 **FR-5: TypeScript CSF3 format exclusively**
 All stories must be written in CSF3 with TypeScript. No MDX stories for component stories (MDX may be used for documentation intro pages only). No legacy `storiesOf()` format.
@@ -457,7 +465,7 @@ Chromatic visual snapshot must run on every PR that touches a `.stories.tsx` fil
 The Chromatic-hosted Storybook URL must always reflect the latest `main` branch build. Branch builds are available for PR review but are not the canonical link shared with the team.
 
 **NFR-4: Token-driven rendering**
-All Storybook stories consume CSS custom properties from `tokens.css`. No hardcoded hex values or px values appear in story files or decorators. The global Storybook stylesheet imports `tokens.css` so all tokens are available to every story.
+All Storybook stories consume CSS custom properties from `src/styles/tokens.css`. No hardcoded hex values or px values appear in story files or decorators. `.storybook/preview.ts` imports `tokens.css` globally so all tokens are available to every story.
 
 ### 7.3 Out of Scope (v1)
 
@@ -484,9 +492,9 @@ Deliverables:
 ### Phase 2 — Environment Setup
 
 Deliverables:
-- Storybook installed with Vite builder and TypeScript into a new repository
+- Storybook installed with Vite builder and TypeScript — self-contained in `jimo-storybook`
 - Addons installed: `@storybook/addon-designs`, `@storybook/addon-a11y`, `@chromatic-com/storybook`
-- `.storybook/preview.ts` configured: imports `tokens.css`, sets global viewport defaults
+- `.storybook/preview.ts` configured: imports `src/styles/tokens.css`, sets global viewport defaults
 - Repository connected to git and pushed to remote
 - Chromatic project created and CI workflow added (runs on every PR touching `.stories.tsx`)
 - Initial Chromatic baseline established from an empty `main` build
@@ -494,7 +502,7 @@ Deliverables:
 ### Phase 3 — Design System Codification
 
 Deliverables:
-- Token sync from Figma using the `sync-tokens` script from `jimo-component-library` — `tokens.css` is the source of truth for all Storybook token rendering
+- `src/styles/tokens.css` is the source of truth for all Storybook token rendering — edit it directly inside `jimo-storybook` when tokens change
 - All `0-foundations/` stories complete: Colors (3 stories), Typography (2 stories), Spacing (1 story), Radius (1 story), Shadows (1 story), Icons (1 story)
 - Figma link configured on all foundation stories
 - Design token rendering validated: every semantic alias, every color scale, every typography token renders correctly in Storybook

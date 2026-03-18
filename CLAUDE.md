@@ -5,21 +5,81 @@
 
 ---
 
+## Agent Workflow — How to Work in This Repo
+
+These rules apply to every task, regardless of size. Read them first.
+
+### 1. Plan Before You Build
+
+For any task involving 3+ steps or an architectural decision (new story, refactor, config change):
+- Enter plan mode and outline the approach before touching any file
+- Identify which files change and why
+- Stop and re-plan immediately if you hit a blocker — never brute-force through it
+- Create your own to-dos, and run thoroughly each ones
+- For simple single-file edits (one-line fix, typo): proceed directly without planning
+
+### 2. Verify Before Marking Done
+
+A task is not complete until you can prove it works:
+- Run `npx tsc --noEmit` after any story or source change — zero errors required
+- Ask: *"Would a senior engineer approve this?"* before wrapping up
+- Never call a component story done unless all **Definition of Done** criteria are met (see § Definition of Done)
+- Differentiate behavior between before and after your change when reporting results
+
+### 3. Self-Improvement After Corrections
+
+When the user corrects your work:
+- Identify the root cause, not just the symptom
+- Write a `feedback_*.md` memory file with the rule, **Why**, and **How to apply** it
+- Apply the correction consistently to all similar patterns in the same session
+- Do not repeat the same mistake in subsequent stories in the same file or across files
+
+### 4. Demand Elegance
+
+For non-trivial changes, pause and ask: is there a simpler way?
+- If a fix feels like a workaround, trace it to the root cause
+- Prefer the minimal correct solution over the expedient one
+- Do not add abstractions or helpers for one-time use
+- Do not make style, structure, or "cleanup" improvements that were not asked for
+
+### 5. Autonomous Bug Fixing
+
+When given a build error, type error, or broken story:
+- Read the error, trace it to the source, fix it without asking for hand-holding
+- Run `npx tsc --noEmit` to confirm the fix
+- If Storybook fails to start, check `.storybook/main.ts` and `vite.config.ts` first
+- Reference the exact file and line number in your response
+
+### 6. Task Tracking for Multi-Step Work
+
+For tasks spanning more than one file or component:
+1. Write a brief plan: what changes, which files, in what order
+2. Confirm the plan before implementing
+3. Mark steps complete as you go
+4. End with a summary of *what is now different*, not a list of what you did
+5. After any correction: update the memory system with the lesson (`feedback_*.md`)
+
+---
+
 ## Font Loading
 
 Google Fonts (Inter + Montserrat) are loaded via `.storybook/preview-head.html`.
 - Inter weight 500 → all `--text-body-*` tokens
 - Montserrat weights 600, 700 → all `--text-heading-*` and `--text-subtitle-*` tokens
 
-Do NOT add `@import` for Google Fonts inside any CSS file — the `preview-head.html` is the single source of truth for font loading in Storybook.
+Do NOT add `@import` for Google Fonts inside any CSS file — `preview-head.html` is the single source of truth.
 
 ---
 
 ## Project Overview
 
-This is the Storybook instance for the Moji design system. It mirrors the component library at `../jimo-component-library/` and documents every component at Foundations, Atoms, and Molecules levels.
+This is the Storybook instance for the Moji design system. It is **fully self-contained** — all component source, CSS, and design tokens live inside this repo under `src/`. Do NOT reference any external sibling repo (e.g. `jimo-component-library`).
 
 ```
+src/
+├── styles/          ← tokens.css, global.css (source of truth for all tokens)
+└── components/ui/   ← all 13 components
+
 stories/
 ├── 0-foundations/   ← token documentation (Colors, Typography, Spacing, Radius, Shadows, Icons)
 ├── 1-atoms/         ← Button, Checkbox, Toggle, Radio, Icon, Tooltip
@@ -38,7 +98,7 @@ npx tsc --noEmit         # type-check all story files — run before committing
 ## The ONE Rule — Tokens Only
 
 **NEVER hardcode a hex value, pixel value, or rgba value in a story file.**
-Always reference a CSS custom property from `../jimo-component-library/src/styles/tokens.css`.
+Always reference a CSS custom property from `src/styles/tokens.css`.
 
 ```tsx
 // ✅ correct
@@ -58,97 +118,7 @@ style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
 
 React inline styles: numbers are treated as pixels. Always pass spacing as `'var(--space-N)'` strings.
 
----
-
-## Design Token Quick Reference
-
-Source: `../jimo-component-library/src/styles/tokens.css` — imported globally via `.storybook/preview.ts`.
-
-### Typography (composite — use font shorthand)
-```css
-var(--text-heading-1)   /* Montserrat 700, 48px, line-height 1.2 */
-var(--text-heading-2)   /* Montserrat 700, 40px */
-var(--text-heading-3)   /* Montserrat 700, 32px */
-var(--text-heading-4)   /* Montserrat 700, 24px */
-var(--text-heading-5)   /* Montserrat 700, 20px */
-var(--text-subtitle-1)  /* Montserrat 600, 24px, line-height 1.25 */
-var(--text-subtitle-2)  /* Montserrat 600, 20px */
-var(--text-subtitle-3)  /* Montserrat 600, 16px */
-var(--text-subtitle-4)  /* Montserrat 600, 14px */
-var(--text-body-1)      /* Inter 500, 20px, line-height 1.5 */
-var(--text-body-2)      /* Inter 500, 16px */
-var(--text-body-3)      /* Inter 500, 14px */
-var(--text-body-4)      /* Inter 500, 12px */
-var(--text-heading-tracking) /* -0.5px — always add to heading elements */
-```
-
-### Colors — Semantic (always prefer semantic over primitive)
-```css
-var(--color-text-primary)     /* neutral-800 #071331 */
-var(--color-text-secondary)   /* neutral-700 */
-var(--color-text-tertiary)    /* neutral-500 */
-var(--color-text-disabled)    /* neutral-400 */
-var(--color-text-inverse)     /* white */
-var(--color-bg-default)       /* white */
-var(--color-bg-subtle)        /* neutral-50 */
-var(--color-bg-muted)         /* neutral-100 */
-var(--color-bg-emphasis)      /* neutral-200 */
-var(--color-border-default)   /* neutral-300 */
-var(--color-border-strong)    /* neutral-400 */
-var(--color-border-focus)     /* blue-400 */
-var(--color-brand-default)    /* blue-400 #1260eb */
-var(--color-brand-hover)      /* blue-500 */
-var(--color-brand-subtle)     /* blue-100 */
-var(--color-success-default)  /* green-400 */
-var(--color-success-subtle)   /* green-100 */
-var(--color-warning-default)  /* orange-500 */
-var(--color-warning-subtle)   /* orange-100 */
-var(--color-danger-default)   /* red-400 */
-var(--color-danger-subtle)    /* red-100 */
-```
-
-### Colors — Primitive (use when semantic alias doesn't exist)
-```css
-var(--color-neutral-white)   var(--color-neutral-50..800)
-var(--color-blue-50..500)    var(--color-green-100..500)
-var(--color-orange-100..500) var(--color-red-100..500)
-var(--color-purple-100..500) var(--color-yellow-100..500)
-```
-
-### Spacing (4px grid)
-```css
-var(--space-1)   /*  4px */ var(--space-2)  /*  8px */
-var(--space-3)   /* 12px */ var(--space-4)  /* 16px */
-var(--space-5)   /* 20px */ var(--space-6)  /* 24px */
-var(--space-7)   /* 28px */ var(--space-8)  /* 32px */
-var(--space-9)   /* 36px */ var(--space-10) /* 40px */
-var(--space-11)  /* 44px */ var(--space-12) /* 48px */
-```
-
-### Border Radius
-```css
-var(--radius-sm)    /*  4px — Checkbox, small elements */
-var(--radius-md)    /*  8px — Input, DropdownSelector */
-var(--radius-lg)    /* 12px — Button, modals */
-var(--radius-xl)    /* 16px — large cards */
-var(--radius-xxl)   /* 20px — extra-large surfaces */
-var(--radius-full)  /* 9999px — Chip, Toggle, Tooltip */
-```
-
-### Shadows
-```css
-var(--shadow-sm)  /* buttons, inputs */
-var(--shadow-md)  /* dropdown panels, cards */
-var(--shadow-lg)  /* modals, sheets */
-var(--shadow-xl)  /* popovers, floating panels */
-```
-
-### Transitions
-```css
-var(--transition-fast)  /* 120ms ease */
-var(--transition-base)  /* 200ms ease */
-var(--transition-slow)  /* 300ms ease */
-```
+**Token reference:** Read `src/styles/tokens.css` directly for the complete list of color, spacing, typography, radius, shadow, and transition tokens.
 
 ---
 
@@ -156,8 +126,8 @@ var(--transition-slow)  /* 300ms ease */
 
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { MyComponent } from '../../../jimo-component-library/src/components/ui/MyComponent/MyComponent';
-import '../../../jimo-component-library/src/components/ui/MyComponent/MyComponent.css';
+import { MyComponent } from '../../../src/components/ui/MyComponent/MyComponent';
+import '../../../src/components/ui/MyComponent/MyComponent.css';
 
 const FIGMA_URL = 'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=XXXX-XXXX';
 
@@ -166,8 +136,6 @@ const meta: Meta<typeof MyComponent> = {
   component: MyComponent,
   tags: ['autodocs'],
   argTypes: {
-    // remap non-standard prop names per FR-3:
-    // level → 'variant', inputType → 'type', status → 'state'
     myProp: { control: 'select', options: ['a', 'b', 'c'] },
     onSomeHandler: { control: false },
   },
@@ -201,97 +169,149 @@ export const Playground: Story = {
 | Dropdown composed | `Molecules/Dropdown/Composed` | `Molecules/Dropdown/Composed` |
 
 Story export names: **PascalCase** state names only. No `Story1`, `Story2`.
-```tsx
-export const Default: Story = { ... }       // ✅
-export const SemanticTypes: Story = { ... } // ✅
-export const story1: Story = { ... }        // ❌
-```
 
 ---
 
 ## argType Remapping (FR-3)
-
-These three props are remapped so control labels follow Storybook conventions:
 
 | Component | Prop in code | Control label | Pattern |
 |-----------|-------------|---------------|---------|
 | Button | `level` | `variant` | `name: 'variant'` in argTypes |
 | Input | `inputType` | `type` | `name: 'type'` in argTypes |
 | Input | `status` | `state` | `name: 'state'` in argTypes |
+| Input | `type` (HTML type) | `htmlType` | `name: 'htmlType'` in argTypes |
 
-All other props keep their original name as the control label.
+**Input has two type-related props** — both must be exposed:
+- `inputType` → `'type'` control (variant: text / textarea / dropdown / dropdown-search)
+- `type` → `'htmlType'` control (HTML input type: text / number / email / tel / url / password / search)
+
+Always set `type="number"` for numeric fields (duration, count, days, etc.). All other props keep their original name.
 
 ---
 
 ## Import Paths
 
-Components come from the sibling `jimo-component-library`:
-```tsx
-// Components
-import { Button } from '../../../jimo-component-library/src/components/ui/Button/Button';
-import '../../../jimo-component-library/src/components/ui/Button/Button.css';
+All story files sit 3 levels deep (`stories/{level}/{Component}/`), so the prefix is always `../../../src/`:
 
-// Tokens are already globally available via .storybook/preview.ts
-// Do NOT re-import tokens.css in individual story files
+```tsx
+import { Button } from '../../../src/components/ui/Button/Button';
+import '../../../src/components/ui/Button/Button.css';
 
 // Icons — always iconsax-react (993 named exports, v0.0.8)
-// For story files that only need a few icons: named imports
-import { Add, Trash } from 'iconsax-react';
-// For gallery/documentation stories that need all icons: wildcard import
-import * as IcnsaxReact from 'iconsax-react';
-// Custom Moji icons
-import { CloseIcon, SpinnerIcon, Icon } from '../../../jimo-component-library/src/components/ui/Icon/Icon';
-// Shared icon utility (ALL_ICON_NAMES + getIcon) — use for any component with an icon control
-import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';
+import { Add, Trash } from 'iconsax-react';                                          // named imports
+import * as IcnsaxReact from 'iconsax-react';                                        // gallery stories
+import { CloseIcon, SpinnerIcon, Icon } from '../../../src/components/ui/Icon/Icon'; // Moji icons
+import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';                         // icon control utility
 ```
 
-Do NOT use `@lib/` alias in story files — use relative paths as shown above.
+- Do NOT use `@lib/` alias — use relative paths as shown above
+- Do NOT reference `jimo-component-library` — legacy, must not be used
+- Do NOT re-import `tokens.css` — already loaded globally via `.storybook/preview.ts`
+
+---
+
+## Molecules Must Use Atoms Internally
+
+| Molecule | Part | Atom to use |
+|----------|------|-------------|
+| Toast | CTA action buttons | `<Button level="secondary/primary" size="small" />` |
+| Chip | Remove × button icon | `<CloseCircle size={16} variant="Bold" color="currentColor" />` from `iconsax-react` |
+| PrimaryNavItem (collapsed) | Label tooltip | `<Tooltip arrowPosition="left">` |
+| TertiaryNavItem | Label tooltip | `<Tooltip arrowPosition="bottom">` |
+
+If you see a raw `<button>` or custom SVG inside a molecule where an atom exists, replace it with the atom.
+
+**Tooltip rule for nav components:** Never implement tooltips with CSS `border` triangle tricks. Always use the `<Tooltip>` component from `src/components/ui/Tooltip/Tooltip`. Import its CSS too. Wrap it in a positioned `<span>` that handles the placement and `opacity` fade — the `<Tooltip>` component itself only renders the bubble + SVG arrow.
+
+---
+
+## iconsax Icon Color — Always `currentColor`
+
+When an iconsax icon sits inside a CSS class that sets `color:` via a token, always pass `color="currentColor"` — never hardcode a hex value.
+
+```tsx
+// ✅ correct — CSS token controls the color
+<InfoCircle size={24} variant="Bold" color="currentColor" />
+// ❌ wrong — hardcodes hex, ignores CSS token
+<InfoCircle size={24} variant="Bold" color="#1260EB" />
+```
+
+---
+
+## Interactive Stories for Show/Hide Components
+
+Components with show/hide lifecycle (Toast, Tooltip) must use **wrapper components with a visible trigger** — never pre-render them in a static state. Chromatic must be disabled on these stories.
+
+- **Toast** → `ToastDemo` wrapper with a `<Button>` trigger. Clicking it mounts `<Toast>`. `onDismiss` unmounts it.
+- **Tooltip** → `HoverWrapper` with `onMouseEnter`/`onMouseLeave`. Always keep the wrapper in DOM (never `{visible && <Tooltip>}`); toggle `opacity` + `scale` for animation.
+
+```tsx
+// Toast pattern
+function ToastDemo(props) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Button level="secondary" size="small" onClick={() => setVisible(true)}>Show Toast</Button>
+      <ToastContainer>
+        {visible && <Toast {...props} onDismiss={() => setVisible(false)} />}
+      </ToastContainer>
+    </>
+  );
+}
+
+// Tooltip — always rendered, opacity/scale toggled on hover
+<div style={{ opacity: visible ? 1 : 0, transform: `scale(${visible ? 1 : 0.85})`, transformOrigin: origin, transition: 'var(--transition-base)' }}>
+  <Tooltip arrowPosition={arrowPosition}>{children}</Tooltip>
+</div>
+```
+
+---
+
+## Tooltip — arrowPosition Semantics
+
+`arrowPosition` names **where the arrow sits on the bubble**, not where the tooltip floats:
+
+| arrowPosition | Arrow location | Tooltip floats |
+|--------------|----------------|----------------|
+| `up` / `up-left` / `up-right` | Top of bubble, points up | **Below** the trigger |
+| `bottom` / `bottom-left` / `bottom-right` | Bottom of bubble, points down | **Above** the trigger |
+| `left` | Left of bubble, points left | **Right** of the trigger |
+| `right` | Right of bubble, points right | **Left** of the trigger |
+
+`getFloatStyle()` implements positioning; `getTransformOrigin()` returns `transform-origin` for scale animations — origin is always the arrow side (toward the trigger).
 
 ---
 
 ## Icon Controls — Full Set Required
 
-**Any component story that exposes an icon prop as a Storybook control MUST use the complete 993-icon set, not a curated subset.**
-
-Use the shared utility at `stories/utils/icons.ts`:
+**Any story exposing an icon prop as a control MUST use the complete 993-icon set.**
 
 ```tsx
 import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';
 
-// Build the options list
 const ICON_OPTIONS = ['none', ...ALL_ICON_NAMES];
 
-// In argTypes — name the control after the prop it maps to
-leftIconName: {
-  name: 'leftIcon',
-  control: 'select',
-  options: ICON_OPTIONS,
-  ...
-},
+// argTypes
+leftIconName: { name: 'leftIcon', control: 'select', options: ICON_OPTIONS },
 
-// In the meta render — resolve string → React element
+// meta-level render — resolve string → React element for all stories
 render: ({ leftIconName, rightIconName, ...args }) => (
-  <Button
-    {...args}
-    leftIcon={resolveIcon(leftIconName)}
-    rightIcon={resolveIcon(rightIconName)}
-  />
+  <Button {...args} leftIcon={getIcon(leftIconName)} rightIcon={getIcon(rightIconName)} />
 ),
 ```
 
-Rules:
-- **Never** build a hand-picked `ICON_MAP` with a subset of icons for a control — always pull from `ALL_ICON_NAMES`.
-- When a story has an `iconOnly` or similar mode, set the icon via the `*IconName` arg (e.g. `leftIconName: 'Add'`) so it is live in controls, not via a hardcoded `leftIcon: <Add />` in args.
-- The meta-level `render` function is the right place for the name→element mapping so all stories in the file (Default, state variants, Playground) inherit working icon controls automatically.
+- Never build a hand-picked `ICON_MAP` subset — always pull from `ALL_ICON_NAMES`
+- Set icon args via `*IconName` string (e.g. `leftIconName: 'Add'`), not hardcoded elements in args
+- Put the `render` at meta level so all stories inherit icon controls automatically
 
 ---
 
-## Chromatic Rules (FR-2, Appendix C)
+## Chromatic Rules (FR-2)
 
 - `Playground` stories **always** have `parameters: { chromatic: { disableSnapshot: true } }`
 - Hover/focus interaction stories that can't be reliably captured also get `disableSnapshot: true`
 - Every other story is snapshotted at 1280px viewport
-- Never disable snapshots on Default or state variant stories
+- Never disable snapshots on `Default` or state variant stories
 
 ---
 
@@ -307,20 +327,106 @@ A component story is **complete** when:
 
 ---
 
-## Component Scope (Frozen)
-
-This Storybook covers exactly these 13 components. No new components are added here:
+## Component Scope
 
 | Level | Components |
 |-------|-----------|
 | Foundations | Colors, Typography, Spacing, Radius, Shadows, Icons |
 | Atoms | Button, Checkbox, Toggle, Radio, Icon, Tooltip |
 | Molecules | Input, Chip, DropdownSelector, DropdownMenuList, DropdownMenuGroup, Toast, Infobox |
+| Nav (Molecules/Nav/) | PrimaryNavItem, SecondaryNavItem, TertiaryNavItem, PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar |
 
-For component API reference (props, when to use, variants), see:
-`../jimo-component-library/COMPONENTS.md`
+For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.tsx` directly.
+For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
 
-For Figma node IDs per component:
-`../jimo-component-library/COMPONENTS.md` → Quick Reference table
+---
 
-Figma file: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
+## Nav Component Patterns
+
+### Tooltip implementation in nav items
+
+**NEVER build custom CSS tooltips (border triangle hack).** Always use `<Tooltip>` from `src/components/ui/Tooltip/Tooltip`.
+
+```tsx
+// ✅ Correct — uses Tooltip component
+import { Tooltip } from '../Tooltip/Tooltip';
+import '../Tooltip/Tooltip.css';
+
+// PrimaryNavItem collapsed tooltip (floats RIGHT, arrow on LEFT)
+{type === 'collapsed' && label && (
+  <span className="nav-item-primary__tooltip-wrap">
+    <Tooltip arrowPosition="left">{label}</Tooltip>
+  </span>
+)}
+
+// TertiaryNavItem tooltip (floats ABOVE, arrow at BOTTOM)
+{label && (
+  <span className="nav-item-tertiary__tooltip-wrap">
+    <Tooltip arrowPosition="bottom">{label}</Tooltip>
+  </span>
+)}
+```
+
+The wrapper span handles `position: absolute`, placement, and `opacity` fade. The `<Tooltip>` handles the bubble + SVG arrow shape.
+
+### Hover states
+
+Add CSS `:hover` on the `--idle` state class so the playground reflects hover without needing the `state='hover'` prop:
+
+```css
+.nav-item-primary--idle:hover { background: var(--color-bg-muted); color: var(--color-text-primary); }
+.nav-item-secondary--idle:hover { background: var(--color-bg-muted); }
+```
+
+### href prop — polymorphic rendering
+
+All nav item components accept `href?: string`. When provided, render as `<a href={href}>` for real navigation in external projects. Without it, render as `<div role="button">`. Pattern:
+
+```tsx
+if (href) {
+  return <a className={classes} href={href} {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>{content}</a>;
+}
+return <div className={classes} role="button" tabIndex={0} {...rest}>{content}</div>;
+```
+
+### Overflow in collapsed sidebar
+
+**CSS rule:** `overflow-y: auto` on a scroll container clips ALL positioned descendants (including tooltips) on the x-axis — even if `overflow-x: visible` is set. The spec silently converts it to `auto`.
+
+**Fix:** Only apply `overflow-y: auto` when tooltips will never appear. For the collapsed primary sidebar, the body must have `overflow: visible`. Restrict scroll to the expanded variant only:
+
+```css
+.nav-sidebar-primary__body { overflow: visible; }
+.nav-sidebar-primary--expanded .nav-sidebar-primary__body { overflow-y: auto; }
+```
+
+### Interactive sidebars
+
+Sidebars expose `onItemClick?: (label: string) => void`. Use `useState` in Playground story render functions:
+
+```tsx
+export const Playground: Story = {
+  render: (args) => {
+    const [activeItem, setActiveItem] = useState('Tours');
+    return <PrimaryNavSidebar {...args} activeItem={activeItem} onItemClick={setActiveItem} />;
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+```
+
+### Separator rules
+
+- **Primary sidebar:** separators are full-width (`width: 100%`, no horizontal padding). Groups handle their own `padding: 0 var(--space-1)` internally via `PrimaryNavGroup`.
+- **Secondary sidebar:** sidebar has `padding: var(--space-3) var(--space-2)`, so dividers are naturally contained within the sidebar bounds.
+
+---
+
+## Figma Node Type Rule (for /jimo-add-component)
+
+**When a Figma node returned by `get_design_context` is NOT a "component" node** (i.e. it's a frame, group, or instance), do NOT generate a brand-new component from scratch. Instead:
+
+1. Check `src/components/ui/` for an existing component that matches the design
+2. Use that existing component — adapt its props and CSS if needed
+3. Only generate a new component if no match exists in `src/components/ui/` AND the user explicitly instructs it
+
+This prevents duplicate implementations of the same UI pattern.

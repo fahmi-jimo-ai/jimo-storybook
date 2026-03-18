@@ -1,0 +1,86 @@
+/* ============================================================
+   PrimaryNavItem — Moji Design System
+   Figma: node 2950-613
+   ============================================================ */
+
+.nav-item-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  font: var(--text-body-3);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+/* ── Type variants ── */
+.nav-item-primary--default {
+  width: 232px;
+}
+
+.nav-item-primary--collapsed {
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  gap: 0;
+}
+
+/* ── State variants ── */
+.nav-item-primary--idle {
+  background: var(--color-bg-default);
+  color: var(--color-text-secondary);
+}
+
+.nav-item-primary--idle:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.nav-item-primary--hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.nav-item-primary--active {
+  background: var(--color-brand-subtle);
+  color: var(--color-brand-default);
+}
+
+/* ── Inner parts ── */
+.nav-item-primary__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-item-primary__label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Collapsed tooltip wrapper (positions the Tooltip component to the right) ── */
+.nav-item-primary__tooltip-wrap {
+  position: absolute;
+  left: calc(100% + var(--space-1));
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: var(--z-dropdown);
+}
+
+.nav-item-primary--collapsed:hover .nav-item-primary__tooltip-wrap,
+.nav-item-primary--collapsed.nav-item-primary--hover .nav-item-primary__tooltip-wrap {
+  opacity: 1;
+}

@@ -1,7 +1,20 @@
 node_modules
 storybook-static/
 .claude/
+.claire/
 memory/
+
+# macOS
+.DS_Store
+
+# Build artifacts & debug logs
+build-storybook.log
+debug-storybook.log
+design-preview.html
+filetree.json
+*.pen
+
+# Images (screenshots, etc.)
 *.png
 *.jpg
 *.jpeg

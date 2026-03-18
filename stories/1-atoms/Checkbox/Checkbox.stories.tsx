@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Checkbox } from '../../../../jimo-component-library/src/components/ui/Checkbox/Checkbox';
+import { Checkbox } from '../../../src/components/ui/Checkbox/Checkbox';
 
-import '../../../../jimo-component-library/src/components/ui/Checkbox/Checkbox.css';
+import '../../../src/components/ui/Checkbox/Checkbox.css';
 
 const FIGMA_URL =
   'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=604-1424';

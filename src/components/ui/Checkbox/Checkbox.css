@@ -1,0 +1,102 @@
+/* ============================================================
+   Checkbox — Moji Design System
+   Figma: node 604-1424
+   ============================================================ */
+
+.checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-wrapper--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.checkbox__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* The visible box */
+.checkbox__box {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-neutral-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-neutral-white);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+  color: transparent;
+}
+
+/* Hover */
+.checkbox-wrapper:hover:not(.checkbox-wrapper--disabled) .checkbox__box {
+  border-color: var(--color-blue-300);
+}
+
+/* Checked state */
+.checkbox__input:checked + .checkbox__box {
+  background-color: var(--color-blue-400);
+  border-color: var(--color-blue-400);
+  color: var(--color-neutral-white);
+}
+
+/* Indeterminate */
+.checkbox__input:indeterminate + .checkbox__box {
+  background-color: var(--color-blue-400);
+  border-color: var(--color-blue-400);
+  color: var(--color-neutral-white);
+}
+
+/* Disabled unchecked */
+.checkbox__input:disabled + .checkbox__box {
+  border-color: var(--color-neutral-200);
+  background-color: var(--color-neutral-50);
+}
+
+/* Disabled checked */
+.checkbox__input:disabled:checked + .checkbox__box {
+  background-color: var(--color-neutral-400);
+  border-color: var(--color-neutral-400);
+  color: var(--color-neutral-white);
+}
+
+/* Checkmark SVG */
+.checkbox__check {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* Label */
+.checkbox__label {
+  font: var(--text-body-3);
+  color: var(--color-text-primary);
+}
+
+.checkbox-wrapper--disabled .checkbox__label {
+  color: var(--color-text-disabled);
+}

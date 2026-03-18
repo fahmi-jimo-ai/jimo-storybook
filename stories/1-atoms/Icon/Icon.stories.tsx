@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { IconProps } from 'iconsax-react';
 import { Add, Heart, Star1, Setting2, SearchNormal, Notification, Edit2, Copy, Trash } from 'iconsax-react';
 
 type VariantOption = NonNullable<IconProps['variant']>;
-import { Icon, CloseIcon, SpinnerIcon } from '../../../../jimo-component-library/src/components/ui/Icon/Icon';
+import { Icon, CloseIcon, SpinnerIcon } from '../../../src/components/ui/Icon/Icon';
 
 const FIGMA_URL = 'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji';
 

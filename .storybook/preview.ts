@@ -1,9 +1,8 @@
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 
-// Import design tokens from jimo-component-library
-// This makes all CSS custom properties available to every story
-import '../../jimo-component-library/src/styles/tokens.css';
-import '../../jimo-component-library/src/styles/global.css';
+// Import design tokens — locally bundled inside jimo-storybook
+import '../src/styles/tokens.css';
+import '../src/styles/global.css';
 
 const preview: Preview = {
   parameters: {
@@ -14,8 +13,7 @@ const preview: Preview = {
       },
     },
     viewport: {
-      defaultViewport: 'desktop',
-      viewports: {
+      options: {
         desktop: {
           name: 'Desktop',
           styles: { width: '1280px', height: '900px' },
@@ -28,10 +26,17 @@ const preview: Preview = {
           name: 'Mobile',
           styles: { width: '375px', height: '812px' },
         },
-      },
+      }
     },
     layout: 'centered',
   },
+
+  initialGlobals: {
+    viewport: {
+      value: 'desktop',
+      isRotated: false
+    }
+  }
 };
 
 export default preview;

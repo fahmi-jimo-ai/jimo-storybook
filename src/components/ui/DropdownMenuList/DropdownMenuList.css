@@ -1,0 +1,142 @@
+/* ============================================================
+   DropdownMenuList — Moji Design System
+   Figma: node 683-508
+   ============================================================ */
+
+.menu-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 225px;
+  padding: 12px;
+  background-color: var(--color-neutral-white);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: var(--text-body-3); /* Inter Medium 14px */
+  color: var(--color-neutral-800);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+/* ── List header ── */
+.menu-list-item--list-header {
+  background-color: var(--color-neutral-100);
+  font: var(--text-body-4);
+  color: var(--color-neutral-700);
+  padding: 8px 12px;
+  cursor: default;
+}
+
+/* ── Disabled ── */
+.menu-list-item--disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-700);
+  cursor: not-allowed;
+}
+
+.menu-list-item--disabled .menu-list-item__description {
+  color: var(--color-neutral-500);
+}
+
+/* ── Danger ── */
+.menu-list-item--danger {
+  color: var(--color-red-400);
+}
+
+/* ── Selected ── */
+.menu-list-item--selected {
+  color: var(--color-blue-400);
+}
+
+/* ── CSS :hover (non-danger) ── */
+.menu-list-item:not(.menu-list-item--danger):hover:not(:disabled):not(.menu-list-item--disabled):not(.menu-list-item--list-header) {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-400);
+}
+
+/* ── CSS :hover (danger) ── */
+.menu-list-item.menu-list-item--danger:hover:not(:disabled):not(.menu-list-item--disabled):not(.menu-list-item--list-header) {
+  background-color: var(--color-red-100);
+  /* text stays red from .menu-list-item--danger */
+}
+
+/* ── Forced hover state (from state prop) ── */
+.menu-list-item--hover:not(.menu-list-item--danger) {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-400);
+}
+
+.menu-list-item--hover.menu-list-item--danger {
+  background-color: var(--color-red-100);
+}
+
+/* ── Checkbox ── */
+.menu-list-item__checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  color: var(--color-neutral-400); /* unchecked border color */
+}
+
+.menu-list-item__checkbox--checked {
+  color: var(--color-blue-400); /* checked fill color */
+}
+
+/* ── Left icon ── */
+.menu-list-item__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-700);
+  transition: color var(--transition-fast);
+}
+
+/* Icon inherits text color on hover, selected, and danger states */
+.menu-list-item:not(.menu-list-item--danger):hover:not(:disabled):not(.menu-list-item--disabled):not(.menu-list-item--list-header) .menu-list-item__icon,
+.menu-list-item--hover:not(.menu-list-item--danger) .menu-list-item__icon,
+.menu-list-item--selected .menu-list-item__icon {
+  color: var(--color-blue-400);
+}
+
+.menu-list-item--danger .menu-list-item__icon {
+  color: var(--color-red-400);
+}
+
+/* ── Content ── */
+.menu-list-item__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0; /* allow text-overflow to work in flex */
+}
+
+.menu-list-item__text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu-list-item__text--header {
+  font: var(--text-body-4);
+  color: var(--color-neutral-700);
+}
+
+.menu-list-item__description {
+  display: block;
+  font: var(--text-body-4);
+  color: var(--color-neutral-700);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

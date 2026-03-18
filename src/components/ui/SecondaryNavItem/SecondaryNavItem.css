@@ -1,0 +1,64 @@
+/* ============================================================
+   SecondaryNavItem — Moji Design System
+   Figma: node 2950-712
+   ============================================================ */
+
+.nav-item-secondary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  font: var(--text-body-3);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── State variants ── */
+.nav-item-secondary--idle {
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+}
+
+.nav-item-secondary--idle:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.nav-item-secondary--hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.nav-item-secondary--active {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.nav-item-secondary--disabled {
+  background: var(--color-bg-default);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ── Inner parts ── */
+.nav-item-secondary__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-item-secondary__label {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

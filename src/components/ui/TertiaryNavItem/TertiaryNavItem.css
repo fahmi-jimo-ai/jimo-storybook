@@ -1,0 +1,54 @@
+/* ============================================================
+   TertiaryNavItem — Moji Design System
+   Figma: node 3015-2831 / 3015-2842
+   ============================================================ */
+
+.nav-item-tertiary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: var(--space-2);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-subtle);
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.nav-item-tertiary:hover,
+.nav-item-tertiary--hover {
+  background: var(--color-bg-muted);
+}
+
+/* ── Icon ── */
+.nav-item-tertiary__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-secondary);
+}
+
+/* ── Tooltip wrapper (positions the Tooltip component above the item) ── */
+.nav-item-tertiary__tooltip-wrap {
+  position: absolute;
+  bottom: calc(100% + var(--space-1));
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: var(--z-dropdown);
+  white-space: nowrap;
+}
+
+.nav-item-tertiary:hover .nav-item-tertiary__tooltip-wrap,
+.nav-item-tertiary--hover .nav-item-tertiary__tooltip-wrap {
+  opacity: 1;
+}

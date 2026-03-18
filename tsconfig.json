@@ -16,7 +16,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@lib/*": ["../jimo-component-library/src/*"]
+      "@lib/*": ["./src/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "stories", ".storybook"]

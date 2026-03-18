@@ -1,0 +1,105 @@
+/* ============================================================
+   Radio — Moji Design System
+   Figma: node 604-1379
+   Colors: neutral-100 (bg idle), neutral-300/neutral-400 border,
+           blue-300 hover, blue-400 selected
+   ============================================================ */
+
+.radio-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-wrapper--disabled {
+  cursor: not-allowed;
+}
+
+.radio {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.radio__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+/* Visible circle */
+.radio__circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-neutral-300);
+  background-color: var(--color-neutral-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+/* Hover */
+.radio-wrapper:hover:not(.radio-wrapper--disabled) .radio__circle {
+  border-color: var(--color-blue-300);
+}
+
+/* Selected */
+.radio__input:checked + .radio__circle {
+  border-color: var(--color-blue-400);
+  background-color: var(--color-neutral-white);
+}
+
+/* Dot inside when selected */
+.radio__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.radio__input:checked + .radio__circle .radio__dot {
+  background-color: var(--color-blue-400);
+}
+
+/* Disabled unchecked */
+.radio__input:disabled + .radio__circle {
+  border-color: var(--color-neutral-300);
+  background-color: var(--color-neutral-100);
+  opacity: 0.5;
+}
+
+/* Disabled selected */
+.radio__input:disabled:checked + .radio__circle {
+  border-color: var(--color-neutral-400);
+  background-color: var(--color-neutral-white);
+  opacity: 0.6;
+}
+
+.radio__input:disabled:checked + .radio__circle .radio__dot {
+  background-color: var(--color-neutral-400);
+}
+
+/* Label */
+.radio__label {
+  font: var(--text-body-3);
+  color: var(--color-text-primary);
+}
+
+.radio-wrapper--disabled .radio__label {
+  color: var(--color-text-disabled);
+}

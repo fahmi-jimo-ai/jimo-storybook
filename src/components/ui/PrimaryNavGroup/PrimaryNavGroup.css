@@ -1,0 +1,21 @@
+/* ============================================================
+   PrimaryNavGroup — Moji Design System
+   Figma: node 3015-2968
+   ============================================================ */
+
+.nav-group-primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0 var(--space-1);
+  box-sizing: border-box;
+}
+
+.nav-group-primary--expanded {
+  width: 240px;
+}
+
+.nav-group-primary--collapsed {
+  width: 48px;
+  align-items: center;
+}

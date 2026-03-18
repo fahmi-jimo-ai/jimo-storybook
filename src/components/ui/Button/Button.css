@@ -1,0 +1,194 @@
+/* ============================================================
+   Button — Moji Design System
+   Figma: node 2906-5218 / 1177-11033
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  text-decoration: none;
+  position: relative;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Icon wrappers ── */
+.btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Big buttons: 20×20 icons */
+.btn--big .btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Small buttons: 16×16 icons */
+.btn--small .btn__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Size: Big (default) ── */
+.btn--big {
+  font: var(--text-subtitle-3); /* Montserrat SemiBold 16px */
+  padding: 10px 16px;
+  min-height: 44px;
+}
+
+/* ── Size: Small ── */
+.btn--small {
+  font: var(--text-subtitle-4); /* Montserrat SemiBold 14px */
+  padding: 8px 12px;
+  min-height: 36px;
+}
+
+/* ── Level: Primary ── */
+.btn--primary {
+  background-color: var(--color-neutral-800);
+  color: var(--color-neutral-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background-color: #1a2440;
+}
+
+.btn--primary:active:not(:disabled) {
+  background-color: #0a1526;
+  box-shadow: none;
+}
+
+.btn--primary:disabled {
+  background-color: var(--color-neutral-400);
+  color: var(--color-neutral-white);
+  box-shadow: none;
+}
+
+/* ── Level: Secondary ── */
+.btn--secondary {
+  background-color: var(--color-neutral-white);
+  color: var(--color-neutral-800);
+  border: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background-color: var(--color-neutral-50);
+  border-color: var(--color-neutral-400);
+}
+
+.btn--secondary:active:not(:disabled) {
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-neutral-500);
+  box-shadow: none;
+}
+
+.btn--secondary:disabled {
+  color: var(--color-neutral-400);
+  border-color: var(--color-neutral-200);
+  box-shadow: none;
+}
+
+/* ── Level: Tertiary (text-only link style) ── */
+.btn--tertiary {
+  background-color: transparent;
+  color: var(--color-neutral-800);
+  padding-left: 0;
+  padding-right: 0;
+  min-height: auto;
+  box-shadow: none;
+}
+
+.btn--tertiary:hover:not(:disabled) {
+  color: var(--color-blue-400);
+  text-decoration: underline;
+}
+
+.btn--tertiary:active:not(:disabled) {
+  color: var(--color-blue-500);
+}
+
+.btn--tertiary:disabled {
+  color: var(--color-neutral-400);
+}
+
+/* ── Danger modifier ── */
+.btn--primary.btn--danger {
+  background-color: var(--color-red-400);
+  color: var(--color-neutral-white);
+}
+
+.btn--primary.btn--danger:hover:not(:disabled) {
+  background-color: var(--color-red-500);
+}
+
+.btn--primary.btn--danger:active:not(:disabled) {
+  background-color: var(--color-red-500);
+}
+
+.btn--secondary.btn--danger {
+  color: var(--color-red-400);
+  border-color: var(--color-red-300);
+}
+
+.btn--secondary.btn--danger:hover:not(:disabled) {
+  background-color: var(--color-red-100);
+  border-color: var(--color-red-400);
+}
+
+.btn--tertiary.btn--danger {
+  color: var(--color-red-400);
+}
+
+.btn--tertiary.btn--danger:hover:not(:disabled) {
+  color: var(--color-red-500);
+}
+
+/* ── Icon-only: equal padding so the button is square ── */
+/*
+ * Big icon-only: 20px icon + 10px padding on each side = 40px × 40px
+ * Small icon-only: 16px icon + 9px padding on each side = 34px × 34px
+ */
+.btn--icon-only.btn--big {
+  padding: 10px;
+  min-height: unset;
+  width: 40px;
+  height: 40px;
+}
+
+.btn--icon-only.btn--small {
+  padding: 9px;
+  min-height: unset;
+  width: 34px;
+  height: 34px;
+}
+
+/* Icon wrapper is the same size as the icon itself in icon-only mode */
+.btn--icon-only .btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn--icon-only.btn--small .btn__icon {
+  width: 16px;
+  height: 16px;
+}

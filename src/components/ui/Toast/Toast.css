@@ -1,0 +1,163 @@
+/* ============================================================
+   Toast — Moji Design System
+   Figma: node 1760-7178
+   ============================================================ */
+
+/* ── Fixed container: bottom-centre of the viewport ── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 9999;
+  pointer-events: none; /* children re-enable pointer events */
+}
+
+.toast-container > * {
+  pointer-events: auto;
+}
+
+/* ── Toast card ── */
+.toast {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 360px;
+  width: 400px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 2px solid;
+  box-shadow: 0px 12px 38px 0px rgba(0, 0, 0, 0.15);
+
+  /*
+   * Animation states:
+   *  entering  → slide up from below + opacity 0   (before first paint)
+   *  visible   → settled at resting position        (800 ms spring)
+   *  exiting   → slide back down + opacity 0        (400 ms ease-in)
+   */
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast--exiting {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.4s ease-in,
+    transform 0.4s ease-in;
+}
+
+/* ── Type variants ── */
+.toast--neutral {
+  background-color: var(--color-neutral-white);
+  border-color: var(--color-neutral-300);
+}
+
+.toast--positive {
+  background-color: var(--color-green-100);
+  border-color: var(--color-green-300);
+}
+
+.toast--warning {
+  background-color: var(--color-orange-100);
+  border-color: var(--color-orange-300);
+}
+
+.toast--negative {
+  background-color: var(--color-red-100);
+  border-color: var(--color-red-200);
+}
+
+/* ── Main row ── */
+.toast__main {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.toast__content {
+  display: flex;
+  flex: 1;
+  gap: 16px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+/* Icon */
+.toast__type-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+}
+
+/* Text block */
+.toast__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.toast__title {
+  font: var(--text-subtitle-3);
+  color: var(--color-neutral-800);
+}
+
+.toast__body {
+  font: var(--text-body-3);
+  color: var(--color-neutral-700);
+}
+
+/* Dismiss button */
+.toast__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-neutral-500);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.toast__dismiss:hover {
+  color: var(--color-neutral-800);
+}
+
+/* ── Action buttons ── */
+.toast__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Each Button atom fills equal share of the actions row */
+.toast__btn {
+  flex: 1;
+}
+
+/* ── No-body: vertically center icon + title when there is no body text ── */
+.toast--no-body .toast__main,
+.toast--no-body .toast__content {
+  align-items: center;
+}

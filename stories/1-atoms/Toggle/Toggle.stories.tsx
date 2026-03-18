@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Toggle } from '../../../../jimo-component-library/src/components/ui/Toggle/Toggle';
+import { Toggle } from '../../../src/components/ui/Toggle/Toggle';
 
-import '../../../../jimo-component-library/src/components/ui/Toggle/Toggle.css';
+import '../../../src/components/ui/Toggle/Toggle.css';
 
 const FIGMA_URL =
   'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=604-1467';

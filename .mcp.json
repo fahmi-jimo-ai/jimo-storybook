@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "moji-storybook": {
+      "type": "http",
+      "url": "http://localhost:6006/mcp",
+      "note": "Run `npm run storybook` first. MCP provides: get-storybook-story-instructions, list-all-documentation, get-documentation, preview-stories"
+    }
+  }
+}

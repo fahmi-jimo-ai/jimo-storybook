@@ -1,8 +1,8 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Trash } from 'iconsax-react';
-import { Button } from '../../../../jimo-component-library/src/components/ui/Button/Button';
-import '../../../../jimo-component-library/src/components/ui/Button/Button.css';
+import { Button } from '../../../src/components/ui/Button/Button';
+import '../../../src/components/ui/Button/Button.css';
 import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';
 
 const FIGMA_URL =

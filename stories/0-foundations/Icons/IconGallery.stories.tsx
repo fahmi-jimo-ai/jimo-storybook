@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, useMemo } from 'react';
 import * as IcnsaxReact from 'iconsax-react';
-import { Icon, CloseIcon, SpinnerIcon } from '../../../../jimo-component-library/src/components/ui/Icon/Icon';
+import { Icon, CloseIcon, SpinnerIcon } from '../../../src/components/ui/Icon/Icon';
 
 /**
  * Foundations/Icons — IconGallery

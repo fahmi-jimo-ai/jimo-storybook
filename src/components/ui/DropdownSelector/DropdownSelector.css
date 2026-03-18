@@ -1,0 +1,98 @@
+/* ============================================================
+   DropdownSelector — Moji Design System
+   Figma: node 1177-8683
+   ============================================================ */
+
+.dropdown-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background-color: var(--color-neutral-white);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+  width: 100%;
+}
+
+/* ── Sizes ── */
+.dropdown-selector--big {
+  padding: 10px 12px;
+  font: var(--text-body-3); /* Inter Medium 14px */
+  min-height: 44px;
+}
+
+.dropdown-selector--small {
+  padding: 6px 10px;
+  font: var(--text-body-4); /* Inter Medium 12px */
+  min-height: 36px;
+}
+
+/* Hover */
+.dropdown-selector:hover:not(.dropdown-selector--disabled) {
+  border-color: var(--color-neutral-400);
+  background-color: var(--color-neutral-50);
+}
+
+/* Active / Opened */
+.dropdown-selector--open,
+.dropdown-selector:active:not(.dropdown-selector--disabled) {
+  border-color: var(--color-blue-400);
+  background-color: var(--color-blue-100);
+  box-shadow: 0 0 0 3px rgba(18, 96, 235, 0.15);
+}
+
+/* Selected */
+.dropdown-selector--selected .dropdown-selector__text {
+  color: var(--color-blue-400);
+}
+
+/* Disabled */
+.dropdown-selector--disabled {
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-neutral-200);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Left icon */
+.dropdown-selector__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-neutral-700);
+}
+
+/* Text */
+.dropdown-selector__text {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-selector__placeholder {
+  color: var(--color-neutral-500);
+}
+
+/* Chevron */
+.dropdown-selector__chevron {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-500);
+  transition: transform var(--transition-fast);
+}
+
+.dropdown-selector__chevron--up {
+  transform: rotate(180deg);
+}

@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@lib': resolve(__dirname, '../jimo-component-library/src'),
+      '@lib': resolve(__dirname, './src'),
+      '@': resolve(__dirname, './src'),
     },
   },
 });

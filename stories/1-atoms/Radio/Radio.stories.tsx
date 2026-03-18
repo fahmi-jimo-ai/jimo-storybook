@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Radio } from '../../../../jimo-component-library/src/components/ui/Radio/Radio';
+import { Radio } from '../../../src/components/ui/Radio/Radio';
 
-import '../../../../jimo-component-library/src/components/ui/Radio/Radio.css';
+import '../../../src/components/ui/Radio/Radio.css';
 
 const FIGMA_URL =
   'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=604-1379';

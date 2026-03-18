@@ -1,0 +1,126 @@
+/* ============================================================
+   Tooltip — Moji Design System
+   Figma: node 1438-1729
+   Arrow: SVG triangle (11×10), color: --color-neutral-800
+   ============================================================ */
+
+.tooltip {
+  display: inline-block;
+  position: relative;
+}
+
+/* ── Bubble ── */
+.tooltip__bubble {
+  background-color: var(--color-neutral-800);
+  color: var(--color-neutral-white);
+  font: var(--text-body-4); /* Inter Medium 12px / line-height 1.5 */
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  max-width: 200px;
+  white-space: normal;
+  word-break: break-word;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Arrow wrapper (absolutely positioned) ── */
+.tooltip__arrow {
+  position: absolute;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip__arrow-svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UP positions  — arrow sits above the bubble, points up
+   Container gets padding-top to make room.
+   Arrow: no rotation (SVG naturally points up).
+   ═══════════════════════════════════════════════════════════ */
+.tooltip--arrow-up,
+.tooltip--arrow-up-left,
+.tooltip--arrow-up-right {
+  padding-top: 6px;
+}
+
+/* Arrow centered horizontally, tip overlaps top of bubble */
+.tooltip--arrow-up .tooltip__arrow {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip--arrow-up-left .tooltip__arrow {
+  top: 0;
+  left: 16px;
+}
+
+.tooltip--arrow-up-right .tooltip__arrow {
+  top: 0;
+  right: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BOTTOM positions — arrow sits below the bubble, points down
+   Arrow: rotate 180°.
+   ═══════════════════════════════════════════════════════════ */
+.tooltip--arrow-bottom,
+.tooltip--arrow-bottom-left,
+.tooltip--arrow-bottom-right {
+  padding-bottom: 6px;
+}
+
+.tooltip--arrow-bottom .tooltip__arrow {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+}
+
+.tooltip--arrow-bottom-left .tooltip__arrow {
+  bottom: 0;
+  left: 16px;
+  transform: rotate(180deg);
+}
+
+.tooltip--arrow-bottom-right .tooltip__arrow {
+  bottom: 0;
+  right: 16px;
+  transform: rotate(180deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LEFT — arrow at left side, points left
+   Arrow: rotate −90°.
+   padding-left = SVG width (11px) − 2px overlap = 9px
+   Arrow is absolutely placed flush to the left of the bubble
+   with top:50% + translateY so it stays vertically centered.
+   ═══════════════════════════════════════════════════════════ */
+.tooltip--arrow-left {
+  padding-left: 6px;
+}
+
+.tooltip--arrow-left .tooltip__arrow {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RIGHT — arrow at right side, points right
+   Arrow: rotate 90°.
+   ═══════════════════════════════════════════════════════════ */
+.tooltip--arrow-right {
+  padding-right: 6px;
+}
+
+.tooltip--arrow-right .tooltip__arrow {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}

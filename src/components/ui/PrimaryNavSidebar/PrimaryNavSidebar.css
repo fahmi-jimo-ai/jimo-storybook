@@ -1,0 +1,91 @@
+/* ============================================================
+   PrimaryNavSidebar — Moji Design System
+   Figma: node 3015-2969 (expanded), 2950-1133 (collapsed)
+   ============================================================ */
+
+.nav-sidebar-primary {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: var(--color-bg-default);
+  border-right: 1px solid var(--color-border-default);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.nav-sidebar-primary--expanded {
+  width: 240px;
+}
+
+.nav-sidebar-primary--collapsed {
+  width: 48px;
+}
+
+/* ── Body (scrollable nav items) ── */
+.nav-sidebar-primary__body {
+  flex: 1;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-2);
+}
+
+/* Expanded sidebar scrolls — tooltips never appear in expanded mode so this is safe */
+.nav-sidebar-primary--expanded .nav-sidebar-primary__body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ── Project selector ── */
+.nav-sidebar-primary__project-section {
+  padding: 0 var(--space-1);
+}
+
+.nav-sidebar-primary__project-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-fast);
+}
+
+.nav-sidebar-primary__project-item:hover {
+  background: var(--color-bg-muted);
+}
+
+.nav-sidebar-primary__project-item--collapsed {
+  justify-content: center;
+  gap: 0;
+}
+
+.nav-sidebar-primary__project-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-subtle);
+  flex-shrink: 0;
+}
+
+.nav-sidebar-primary__project-name {
+  font: var(--text-subtitle-4);
+  color: var(--color-text-primary);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Separator — full-width, no horizontal padding ── */
+.nav-sidebar-primary__separator {
+  height: 1px;
+  background: var(--color-bg-emphasis);
+  flex-shrink: 0;
+  width: 100%;
+}
