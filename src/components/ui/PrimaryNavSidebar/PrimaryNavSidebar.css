@@ -70,6 +70,8 @@
   border-radius: var(--radius-sm);
   background: var(--color-brand-subtle);
   flex-shrink: 0;
+  object-fit: cover;
+  display: block;
 }
 
 .nav-sidebar-primary__project-name {

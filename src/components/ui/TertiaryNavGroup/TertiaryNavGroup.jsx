@@ -1,18 +1,29 @@
 import React from 'react';
+import { TertiaryNavItem } from '../TertiaryNavItem/TertiaryNavItem';
+import '../TertiaryNavItem/TertiaryNavItem.css';
 import './TertiaryNavGroup.css';
 
 export const TertiaryNavGroup = ({
-  start,
-  end,
+  items = [],
   className,
   ...rest
 }) => {
   const classes = ['nav-group-tertiary', className ?? ''].filter(Boolean).join(' ');
 
   return (
+    <div>
     <div className={classes} {...rest}>
-      <div className="nav-group-tertiary__start">{start}</div>
-      {/* <div className="nav-group-tertiary__end">{end}</div> */}
+      {items.map((item, i) => (
+        <TertiaryNavItem
+          key={i}
+          icon={item.icon}
+          label={item.label}
+          href={item.href}
+          tooltipArrowPosition={item.tooltipArrowPosition}
+        />
+      ))}
+    </div>
+    <div><p class="build-version">Version 1.0.0</p></div>
     </div>
   );
 };

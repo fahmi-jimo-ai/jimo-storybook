@@ -7,6 +7,7 @@ export const TertiaryNavItem = ({
   icon,
   label,
   state = 'idle',
+  tooltipArrowPosition = 'bottom',
   href,
   className,
   ...rest
@@ -19,14 +20,21 @@ export const TertiaryNavItem = ({
     .filter(Boolean)
     .join(' ');
 
+  const tooltipWrapClass = [
+    'nav-item-tertiary__tooltip-wrap',
+    tooltipArrowPosition !== 'bottom' ? `nav-item-tertiary__tooltip-wrap--${tooltipArrowPosition}` : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const content = (
     <>
       <span className="nav-item-tertiary__icon" aria-hidden="true">
         {icon}
       </span>
       {label && (
-        <span className="nav-item-tertiary__tooltip-wrap">
-          <Tooltip arrowPosition="bottom">{label}</Tooltip>
+        <span className={tooltipWrapClass}>
+          <Tooltip arrowPosition={tooltipArrowPosition}>{label}</Tooltip>
         </span>
       )}
     </>

@@ -6,7 +6,7 @@
 .nav-group-tertiary {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
+  gap: var(--space-2);
   width: 100%;
   padding: var(--space-2) var(--space-3);
   border-top: 1px solid var(--color-border-default);
@@ -15,14 +15,17 @@
   background: var(--color-bg-default);
 }
 
-.nav-group-tertiary__start {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  width: 100%;
+.build-version {
+font: var(--text-body-5);
+color: var(--color-neutral-500);
+justify-content:center;
+display: flex;
+width:100%;
+ padding-bottom: var(--space-2);
 }
 
-/* .nav-group-tertiary__end {
-  display: flex;
-  align-items: center;
-} */
+/* Each item stretches to fill equal width in the grid */
+.nav-group-tertiary .nav-item-tertiary {
+  flex: 1;
+  width: auto;
+}

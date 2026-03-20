@@ -48,6 +48,12 @@
   white-space: nowrap;
 }
 
+/* bottom-left: arrow at bottom-left of bubble → tooltip anchors to item's left edge */
+.nav-item-tertiary__tooltip-wrap--bottom-left {
+  left: 0;
+  transform: none;
+}
+
 .nav-item-tertiary:hover .nav-item-tertiary__tooltip-wrap,
 .nav-item-tertiary--hover .nav-item-tertiary__tooltip-wrap {
   opacity: 1;

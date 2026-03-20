@@ -5,6 +5,7 @@ import {
   Routing2,
   Notepad2,
   Notification1,
+  Notification,
   TaskSquare,
   Story,
   DirectboxNotif,
@@ -16,12 +17,13 @@ import {
   Profile,
   ArrowDown2,
   SliderVertical,
+  Like1,
+  Book,
 } from 'iconsax-react';
 import { BannerIcon, AgentIcon } from '../Icon/Icon';
 import { PrimaryNavItem } from '../PrimaryNavItem/PrimaryNavItem';
 import { PrimaryNavGroup } from '../PrimaryNavGroup/PrimaryNavGroup';
 import { TertiaryNavGroup } from '../TertiaryNavGroup/TertiaryNavGroup';
-import { TertiaryNavItem } from '../TertiaryNavItem/TertiaryNavItem';
 import '../PrimaryNavItem/PrimaryNavItem.css';
 import '../PrimaryNavGroup/PrimaryNavGroup.css';
 import '../TertiaryNavGroup/TertiaryNavGroup.css';
@@ -133,6 +135,8 @@ export const PrimaryNavSidebar = ({
   collapsed = false,
   activeItem,
   onItemClick,
+  projectName = 'Jimo',
+  projectImage,
   className,
   ...rest
 }) => {
@@ -152,12 +156,20 @@ export const PrimaryNavSidebar = ({
         <div className="nav-sidebar-primary__project-section">
           {collapsed ? (
             <div className="nav-sidebar-primary__project-item nav-sidebar-primary__project-item--collapsed">
-              <div className="nav-sidebar-primary__project-avatar" />
+              {projectImage ? (
+                <img className="nav-sidebar-primary__project-avatar" src={projectImage} alt={projectName} />
+              ) : (
+                <div className="nav-sidebar-primary__project-avatar" />
+              )}
             </div>
           ) : (
             <div className="nav-sidebar-primary__project-item">
-              <div className="nav-sidebar-primary__project-avatar" />
-              <span className="nav-sidebar-primary__project-name">Jimo</span>
+              {projectImage ? (
+                <img className="nav-sidebar-primary__project-avatar" src={projectImage} alt={projectName} />
+              ) : (
+                <div className="nav-sidebar-primary__project-avatar" />
+              )}
+              <span className="nav-sidebar-primary__project-name">{projectName}</span>
               <ArrowDown2 size={16} variant="Linear" color="currentColor" />
             </div>
           )}
@@ -183,24 +195,12 @@ export const PrimaryNavSidebar = ({
       {/* Footer — only shown in expanded mode */}
       {!collapsed && (
         <TertiaryNavGroup
-          start={
-            <>
-              <TertiaryNavItem
-                icon={<Setting2 size={16} variant="Linear" color="currentColor" />}
-                label="Settings"
-              />
-              <TertiaryNavItem
-                icon={<MessageQuestion size={16} variant="Linear" color="currentColor" />}
-                label="Help"
-              />
-            </>
-          }
-          end={
-            <TertiaryNavItem
-              icon={<Profile size={16} variant="Linear" color="currentColor" />}
-              label="Profile"
-            />
-          }
+          items={[
+            { icon: <Like1 size={16} variant="Linear" color="currentColor" />, label: 'Give Feedback', tooltipArrowPosition: 'bottom-left' },
+            { icon: <Notification size={16} variant="Linear" color="currentColor" />, label: "What's new?" },
+            { icon: <Book size={16} variant="Linear" color="currentColor" />, label: 'Documentation' },
+            { icon: <MessageQuestion size={16} variant="Linear" color="currentColor" />, label: 'Get Started' },
+          ]}
         />
       )}
     </div>

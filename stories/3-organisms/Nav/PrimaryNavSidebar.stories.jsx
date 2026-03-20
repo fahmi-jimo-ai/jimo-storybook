@@ -37,6 +37,8 @@ const meta = {
         'Users & Segments',
       ],
     },
+    projectName: { control: 'text' },
+    projectImage: { control: 'text' },
     onItemClick: { control: false },
   },
   parameters: {
@@ -51,6 +53,8 @@ export const Expanded = {
   args: {
     collapsed: false,
     activeItem: 'Tours',
+    projectName: 'Jimo',
+    projectImage: '/Jimo Logo.png',
   },
   decorators: [
     (StoryComponent) => (
@@ -65,6 +69,8 @@ export const Collapsed = {
   args: {
     collapsed: true,
     activeItem: 'Tours',
+    projectName: 'Jimo',
+    projectImage: '/Jimo Logo.png',
   },
   decorators: [
     (StoryComponent) => (
@@ -91,6 +97,8 @@ export const Playground = {
   args: {
     collapsed: false,
     activeItem: 'Tours',
+    projectName: 'Jimo',
+    projectImage: '/Jimo Logo.png',
   },
   parameters: { chromatic: { disableSnapshot: true } },
 };

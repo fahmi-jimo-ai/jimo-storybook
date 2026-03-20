@@ -1,19 +1,18 @@
-import { Setting2, MessageQuestion, Profile, Notification, Book } from 'iconsax-react';
+import React from 'react';
+import { Like1, Notification, Book, MessageQuestion, Setting2, Profile } from 'iconsax-react';
 import { TertiaryNavGroup } from '../../../src/components/ui/TertiaryNavGroup/TertiaryNavGroup';
-import { TertiaryNavItem } from '../../../src/components/ui/TertiaryNavItem/TertiaryNavItem';
 import '../../../src/components/ui/TertiaryNavGroup/TertiaryNavGroup.css';
 import '../../../src/components/ui/TertiaryNavItem/TertiaryNavItem.css';
 
 const FIGMA_URL =
-  'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=3015-2967';
+  'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=3015-2907';
 
 const meta = {
   title: 'Organisms/Nav/TertiaryNavGroup',
   component: TertiaryNavGroup,
   tags: ['autodocs'],
   argTypes: {
-    start: { control: false },
-    end: { control: false },
+    items: { control: false },
   },
   parameters: {
     layout: 'centered',
@@ -26,53 +25,12 @@ export default meta;
 export const Default = {
   render: () => (
     <TertiaryNavGroup
-      start={
-        <>
-          <TertiaryNavItem
-            icon={<Setting2 size={16} variant="Linear" color="currentColor" />}
-            label="Settings"
-          />
-          <TertiaryNavItem
-            icon={<MessageQuestion size={16} variant="Linear" color="currentColor" />}
-            label="Help"
-          />
-        </>
-      }
-      end={
-        <TertiaryNavItem
-          icon={<Profile size={16} variant="Linear" color="currentColor" />}
-          label="Profile"
-        />
-      }
-    />
-  ),
-};
-
-export const ThreeStart = {
-  render: () => (
-    <TertiaryNavGroup
-      start={
-        <>
-          <TertiaryNavItem
-            icon={<Notification size={16} variant="Linear" color="currentColor" />}
-            label="Notifications"
-          />
-          <TertiaryNavItem
-            icon={<Book size={16} variant="Linear" color="currentColor" />}
-            label="Docs"
-          />
-          <TertiaryNavItem
-            icon={<MessageQuestion size={16} variant="Linear" color="currentColor" />}
-            label="Help"
-          />
-        </>
-      }
-      end={
-        <TertiaryNavItem
-          icon={<Profile size={16} variant="Linear" color="currentColor" />}
-          label="Profile"
-        />
-      }
+      items={[
+        { icon: <Like1 size={16} variant="Linear" color="currentColor" />, label: 'Give Feedback' },
+        { icon: <Notification size={16} variant="Linear" color="currentColor" />, label: "What's new?" },
+        { icon: <Book size={16} variant="Linear" color="currentColor" />, label: 'Documentation' },
+        { icon: <MessageQuestion size={16} variant="Linear" color="currentColor" />, label: 'Get Started' },
+      ]}
     />
   ),
 };
@@ -80,24 +38,12 @@ export const ThreeStart = {
 export const Playground = {
   render: () => (
     <TertiaryNavGroup
-      start={
-        <>
-          <TertiaryNavItem
-            icon={<Setting2 size={16} variant="Linear" color="currentColor" />}
-            label="Settings"
-          />
-          <TertiaryNavItem
-            icon={<MessageQuestion size={16} variant="Linear" color="currentColor" />}
-            label="Help"
-          />
-        </>
-      }
-      end={
-        <TertiaryNavItem
-          icon={<Profile size={16} variant="Linear" color="currentColor" />}
-          label="Profile"
-        />
-      }
+      items={[
+        { icon: <Like1 size={16} variant="Linear" color="currentColor" />, label: 'Give Feedback' },
+        { icon: <Notification size={16} variant="Linear" color="currentColor" />, label: "What's new?" },
+        { icon: <Book size={16} variant="Linear" color="currentColor" />, label: 'Documentation' },
+        { icon: <MessageQuestion size={16} variant="Linear" color="currentColor" />, label: 'Get Started' },
+      ]}
     />
   ),
   parameters: { chromatic: { disableSnapshot: true } },
