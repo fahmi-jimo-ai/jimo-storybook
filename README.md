@@ -4,7 +4,7 @@ The living documentation and development environment for the **Moji design syste
 
 [![Storybook](https://img.shields.io/badge/Storybook-10.x-FF4785?logo=storybook&logoColor=white)](https://storybook.js.org)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
 
 ---
@@ -55,10 +55,10 @@ npm run build-storybook
 # Output: storybook-static/
 ```
 
-### Type-check
+### Verify correctness
 
 ```bash
-npx tsc --noEmit
+npm run build-storybook
 # Must pass with zero errors before committing
 ```
 
@@ -73,14 +73,14 @@ The components live in `src/components/ui/`. To use them in another project:
 Copy the component directory you need:
 
 ```
-src/components/ui/Button/        → Button.tsx + Button.css
-src/components/ui/Input/         → Input.tsx + Input.css
+src/components/ui/Button/        → Button.jsx + Button.css
+src/components/ui/Input/         → Input.jsx + Input.css
 src/styles/tokens.css            → required by all components
 ```
 
 Then in your project:
 
-```tsx
+```jsx
 // Import the token sheet once at your app root
 import './tokens.css';
 
@@ -154,12 +154,12 @@ jimo-storybook/
 │   ├── 2-molecules/            # Molecule stories (individual items: inputs, nav items, tab items)
 │   ├── 3-organisms/            # Organism stories (groups, sidebars, composed UI sections)
 │   └── utils/
-│       └── icons.ts            # 993 iconsax icon names + resolver
+│       └── icons.js            # 993 iconsax icon names + resolver
 │
 ├── .storybook/
-│   ├── main.ts                 # Storybook config, addons, Vite aliases
-│   ├── preview.ts              # Global token imports, viewports
-│   ├── manager.ts              # Storybook UI theme (Jimo branding)
+│   ├── main.js                 # Storybook config, addons, Vite aliases
+│   ├── preview.js              # Global token imports, viewports
+│   ├── manager.js              # Storybook UI theme (Jimo branding)
 │   ├── preview-head.html       # Google Fonts (Inter + Montserrat)
 │   └── mcp-system-prompt.md    # MCP system prompt for AI agents
 │
@@ -196,7 +196,7 @@ All tokens are CSS custom properties defined in `src/styles/tokens.css` and scop
 | Tool | Version | Role |
 |------|---------|------|
 | React | 18.3 | Component framework |
-| TypeScript | 5.6 | Type safety (strict mode) |
+| JavaScript (ES2022) | — | Plain JS, no TypeScript |
 | Vite | 6.0 | Build tooling |
 | Storybook | 10.2 | Component explorer |
 | iconsax-react | 0.0.8 | 993-icon library |
@@ -209,13 +209,13 @@ All tokens are CSS custom properties defined in `src/styles/tokens.css` and scop
 
 ## Writing Stories
 
-All stories follow the [CSF3](https://storybook.js.org/docs/api/csf) format with TypeScript. Key rules:
+All stories follow the [CSF3](https://storybook.js.org/docs/api/csf) format in plain JavaScript. Key rules:
 
 - **Token-only styling** — never hardcode hex values, pixel values, or rgba strings
 - **Playground story last** — always with `chromatic: { disableSnapshot: true }`
 - **PascalCase exports** — `export const Default`, `export const Disabled`, never `story1`
 - **Interactive wrappers** — Toast and Tooltip use wrapper components with visible triggers
-- **Full icon set** — any icon control uses all 993 icons via `ALL_ICON_NAMES` from `stories/utils/icons.ts`
+- **Full icon set** — any icon control uses all 993 icons via `ALL_ICON_NAMES` from `stories/utils/icons.js`
 
 See `CLAUDE.md` for the complete story-writing reference.
 
