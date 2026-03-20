@@ -508,6 +508,47 @@ export const Playground = {
 
 ---
 
+## Jimo Product Brand Icons — MANDATORY
+
+Each Jimo product has a **fixed brand icon**. These icons are not interchangeable — they are tied to the product's visual identity. Whenever a component, story, or nav item is labeled with a Jimo product name, it MUST use the corresponding brand icon for both the default (Linear) and active (Bold) variants. No exceptions.
+
+| # | Product | iconsax-react export | Source | Notes |
+|---|---------|---------------------|--------|-------|
+| 1 | Tours | `Routing2` | `iconsax-react` | |
+| 2 | Surveys | `Notepad2` | `iconsax-react` | `Note2` does not exist in v0.0.8 |
+| 3 | Banners | `BannerIcon` | `src/components/ui/Icon/Icon` | Custom SVG, supports Linear/Bold variant |
+| 4 | Hints | `Notification1` | `iconsax-react` | |
+| 5 | Checklists | `TaskSquare` | `iconsax-react` | |
+| 6 | Resource Centers | `DirectboxNotif` | `iconsax-react` | |
+| 7 | Agent | `AgentIcon` | `src/components/ui/Icon/Icon` | Custom SVG, supports Linear/Bold variant |
+| 8 | Spaces | `Element3` | `iconsax-react` | |
+| 9 | Success Tracker | `Chart2` | `iconsax-react` | |
+| 10 | Actions | `Flash1` | `iconsax-react` | |
+| 11 | Users & Segments | `Profile2User` | `iconsax-react` | |
+| 12 | Settings | `Setting2` | `iconsax-react` | |
+
+**Usage pattern (always both variants):**
+```jsx
+import { Routing2, Notepad2, Notification1, TaskSquare, DirectboxNotif, Element3, Chart2, Flash1, Profile2User, Setting2 } from 'iconsax-react';
+import { BannerIcon, AgentIcon } from '../Icon/Icon'; // or adjust path
+
+// Linear = default/idle state, Bold = active state
+icon:       <Routing2 size={20} variant="Linear" color="currentColor" />
+iconActive: <Routing2 size={20} variant="Bold"   color="currentColor" />
+```
+
+**Scope of this rule:**
+- `PrimaryNavSidebar` — the canonical nav (already updated)
+- Any other nav group, nav item, or story that labels an item with a Jimo product name
+- Any future component that surfaces a Jimo product — always look up this table first
+
+**What this rule does NOT affect:**
+- Generic UI status icons (e.g. `InfoCircle` in Toast/Infobox for "info" status)
+- Semantic icon usage unrelated to product branding (e.g. `Global` for "All Environments" in ExperienceCard)
+- Agent secondary nav sub-items like Knowledge, Chat, Triggers, Analyze — these are sub-features, not product brand placements
+
+---
+
 ## Figma Node Type Rule (for /jimo-add-component)
 
 **When a Figma node returned by `get_design_context` is NOT a "component" node** (i.e. it's a frame, group, or instance), do NOT generate a brand-new component from scratch. Instead:

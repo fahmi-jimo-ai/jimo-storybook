@@ -1,4 +1,4 @@
-import { Home, Home2, MagicStar, RouteSquare } from 'iconsax-react';
+import { Home, Home2, MagicStar, Routing2 } from 'iconsax-react';
 import { PrimaryNavItem } from '../../../src/components/ui/PrimaryNavItem/PrimaryNavItem';
 import '../../../src/components/ui/PrimaryNavItem/PrimaryNavItem.css';
 import '../../../src/components/ui/Chip/Chip.css';
@@ -39,8 +39,8 @@ export const Default = {
     state: 'idle',
     type: 'default',
     label: 'Tours',
-    icon: <RouteSquare size={20} variant="Linear" color="currentColor" />,
-    iconActive: <RouteSquare size={20} variant="Bold" color="currentColor" />,
+    icon: <Routing2 size={20} variant="Linear" color="currentColor" />,
+    iconActive: <Routing2 size={20} variant="Bold" color="currentColor" />,
   },
 };
 
@@ -49,8 +49,8 @@ export const Hover = {
     state: 'hover',
     type: 'default',
     label: 'Tours',
-    icon: <RouteSquare size={20} variant="Linear" color="currentColor" />,
-    iconActive: <RouteSquare size={20} variant="Bold" color="currentColor" />,
+    icon: <Routing2 size={20} variant="Linear" color="currentColor" />,
+    iconActive: <Routing2 size={20} variant="Bold" color="currentColor" />,
   },
 };
 
@@ -59,8 +59,8 @@ export const Active = {
     state: 'active',
     type: 'default',
     label: 'Tours',
-    icon: <RouteSquare size={20} variant="Linear" color="currentColor" />,
-    iconActive: <RouteSquare size={20} variant="Bold" color="currentColor" />,
+    icon: <Routing2 size={20} variant="Linear" color="currentColor" />,
+    iconActive: <Routing2 size={20} variant="Bold" color="currentColor" />,
     chip: 'New',
   },
 };
@@ -70,8 +70,8 @@ export const Collapsed = {
     state: 'idle',
     type: 'collapsed',
     label: 'Tours',
-    icon: <RouteSquare size={20} variant="Linear" color="currentColor" />,
-    iconActive: <RouteSquare size={20} variant="Bold" color="currentColor" />,
+    icon: <Routing2 size={20} variant="Linear" color="currentColor" />,
+    iconActive: <Routing2 size={20} variant="Bold" color="currentColor" />,
   },
 };
 
@@ -80,8 +80,8 @@ export const CollapsedActive = {
     state: 'active',
     type: 'collapsed',
     label: 'Tours',
-    icon: <RouteSquare size={20} variant="Linear" color="currentColor" />,
-    iconActive: <RouteSquare size={20} variant="Bold" color="currentColor" />,
+    icon: <Routing2 size={20} variant="Linear" color="currentColor" />,
+    iconActive: <Routing2 size={20} variant="Bold" color="currentColor" />,
   },
 };
 

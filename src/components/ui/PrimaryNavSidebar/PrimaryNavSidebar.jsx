@@ -2,21 +2,22 @@ import React from 'react';
 import {
   Flag2,
   MagicStar,
-  RouteSquare,
-  ClipboardText,
-  Note,
-  InfoCircle,
+  Routing2,
+  Notepad2,
+  Notification1,
   TaskSquare,
   Story,
-  Book,
-  Global,
-  Chart,
-  People,
+  DirectboxNotif,
+  Element3,
+  Chart2,
+  Profile2User,
   Setting2,
   MessageQuestion,
   Profile,
   ArrowDown2,
+  SliderVertical,
 } from 'iconsax-react';
+import { BannerIcon, AgentIcon } from '../Icon/Icon';
 import { PrimaryNavItem } from '../PrimaryNavItem/PrimaryNavItem';
 import { PrimaryNavGroup } from '../PrimaryNavGroup/PrimaryNavGroup';
 import { TertiaryNavGroup } from '../TertiaryNavGroup/TertiaryNavGroup';
@@ -37,34 +38,26 @@ const NAV_ITEMS_TOP = [
   },
 ];
 
-const NAV_ITEMS_COPILOT = [
-  {
-    label: 'Copilot',
-    icon: <MagicStar size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <MagicStar size={ICON_SIZE} variant="Bold" color="currentColor" />,
-  },
-];
-
 const NAV_ITEMS_ENGAGEMENT = [
   {
     label: 'Tours',
-    icon: <RouteSquare size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <RouteSquare size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <Routing2 size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Routing2 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
   {
     label: 'Surveys',
-    icon: <ClipboardText size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <ClipboardText size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <Notepad2 size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Notepad2 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
   {
     label: 'Banners',
-    icon: <Note size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <Note size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <BannerIcon size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <BannerIcon size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
   {
     label: 'Hints',
-    icon: <InfoCircle size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <InfoCircle size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <Notification1 size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Notification1 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
 ];
 
@@ -74,36 +67,41 @@ const NAV_ITEMS_CONTENT = [
     icon: <TaskSquare size={ICON_SIZE} variant="Linear" color="currentColor" />,
     iconActive: <TaskSquare size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
-  {
-    label: 'Changelog Posts',
-    icon: <Story size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <Story size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    {
+    label: 'Agent',
+    icon: <AgentIcon size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <AgentIcon size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
   {
     label: 'Resource Center',
-    icon: <Book size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <Book size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <DirectboxNotif size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <DirectboxNotif size={ICON_SIZE} variant="Bold" color="currentColor" />,
+  },
+    {
+    label: 'Changelog Posts',
+    icon: <SliderVertical size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <SliderVertical size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
 ];
 
 const NAV_ITEMS_SPACES = [
   {
     label: 'Spaces',
-    icon: <Global size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <Global size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <Element3 size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Element3 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
 ];
 
 const NAV_ITEMS_ANALYTICS = [
   {
     label: 'Success Trackers',
-    icon: <Chart size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <Chart size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <Chart2 size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Chart2 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
   {
     label: 'Users & Segments',
-    icon: <People size={ICON_SIZE} variant="Linear" color="currentColor" />,
-    iconActive: <People size={ICON_SIZE} variant="Bold" color="currentColor" />,
+    icon: <Profile2User size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Profile2User size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
 ];
 
@@ -167,11 +165,9 @@ export const PrimaryNavSidebar = ({
 
         <div className="nav-sidebar-primary__separator" />
 
+        {/* Get Started Nav Item
         <NavSection items={NAV_ITEMS_TOP} activeItem={activeItem} collapsed={collapsed} onItemClick={onItemClick} />
-        <div className="nav-sidebar-primary__separator" />
-
-        <NavSection items={NAV_ITEMS_COPILOT} activeItem={activeItem} collapsed={collapsed} onItemClick={onItemClick} />
-        <div className="nav-sidebar-primary__separator" />
+        <div className="nav-sidebar-primary__separator" /> */}
 
         <NavSection items={NAV_ITEMS_ENGAGEMENT} activeItem={activeItem} collapsed={collapsed} onItemClick={onItemClick} />
                 <div className="nav-sidebar-primary__separator" />

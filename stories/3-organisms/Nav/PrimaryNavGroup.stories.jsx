@@ -1,4 +1,5 @@
-import { Home, Home2, RouteSquare, MagicStar, ClipboardText, Note } from 'iconsax-react';
+import { Home, Home2, Routing2, MagicStar, Notepad2 } from 'iconsax-react';
+import { BannerIcon } from '../../../src/components/ui/Icon/Icon';
 import { PrimaryNavGroup } from '../../../src/components/ui/PrimaryNavGroup/PrimaryNavGroup';
 import { PrimaryNavItem } from '../../../src/components/ui/PrimaryNavItem/PrimaryNavItem';
 import '../../../src/components/ui/PrimaryNavGroup/PrimaryNavGroup.css';
@@ -34,22 +35,22 @@ export const Default = {
         state="idle"
         type="default"
         label="Tours"
-        icon={<RouteSquare size={20} variant="Linear" color="currentColor" />}
-        iconActive={<RouteSquare size={20} variant="Bold" color="currentColor" />}
+        icon={<Routing2 size={20} variant="Linear" color="currentColor" />}
+        iconActive={<Routing2 size={20} variant="Bold" color="currentColor" />}
       />
       <PrimaryNavItem
         state="active"
         type="default"
         label="Surveys"
-        icon={<ClipboardText size={20} variant="Linear" color="currentColor" />}
-        iconActive={<ClipboardText size={20} variant="Bold" color="currentColor" />}
+        icon={<Notepad2 size={20} variant="Linear" color="currentColor" />}
+        iconActive={<Notepad2 size={20} variant="Bold" color="currentColor" />}
       />
       <PrimaryNavItem
         state="idle"
         type="default"
         label="Banners"
-        icon={<Note size={20} variant="Linear" color="currentColor" />}
-        iconActive={<Note size={20} variant="Bold" color="currentColor" />}
+        icon={<BannerIcon size={20} variant="Linear" color="currentColor" />}
+        iconActive={<BannerIcon size={20} variant="Bold" color="currentColor" />}
       />
     </PrimaryNavGroup>
   ),
