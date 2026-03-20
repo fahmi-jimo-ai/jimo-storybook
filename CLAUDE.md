@@ -5,6 +5,33 @@
 
 ---
 
+## CRITICAL: This repo uses JavaScript, NOT TypeScript
+
+**All source and story files are plain JavaScript. There is no TypeScript in this repo.**
+
+| File type | Extension | Notes |
+|-----------|-----------|-------|
+| Component source files (with JSX) | `.jsx` | e.g. `Button.jsx`, `Input.jsx` |
+| Story files | `.stories.jsx` | e.g. `Button.stories.jsx` |
+| Index/barrel files | `.js` | e.g. `index.js` |
+| Docs data files | `.js` | e.g. `Button.docs.js` |
+| Utility files | `.js` | e.g. `stories/utils/icons.js` |
+| Config files | `.js` | `vite.config.js`, `.storybook/main.js`, etc. |
+
+**NEVER create `.ts` or `.tsx` files. NEVER use TypeScript syntax.**
+
+What TypeScript syntax means — do NOT write any of these:
+- `interface Foo { ... }` or `type Foo = ...`
+- `: string`, `?: boolean`, `: React.ReactNode`, `: void` — no type annotations
+- `<T>` generic parameters on function calls or component definitions
+- `as SomeType` casts
+- `import type { ... }` — remove the `type` keyword or drop entirely
+- `export type { ... }` — drop entirely
+- `React.forwardRef<El, Props>(...)` — just `React.forwardRef(...)`
+- `React.useRef<HTMLInputElement>(null)` — just `React.useRef(null)`
+
+---
+
 ## Agent Workflow — How to Work in This Repo
 
 These rules apply to every task, regardless of size. Read them first.
@@ -15,13 +42,13 @@ For any task involving 3+ steps or an architectural decision (new story, refacto
 - Enter plan mode and outline the approach before touching any file
 - Identify which files change and why
 - Stop and re-plan immediately if you hit a blocker — never brute-force through it
-- Create your own to-dos, and run thoroughly each ones
+- Create your own to-dos, and run thoroughly each one
 - For simple single-file edits (one-line fix, typo): proceed directly without planning
 
 ### 2. Verify Before Marking Done
 
 A task is not complete until you can prove it works:
-- Run `npx tsc --noEmit` after any story or source change — zero errors required
+- Run `npm run build-storybook` after any story or source change — zero errors required
 - Ask: *"Would a senior engineer approve this?"* before wrapping up
 - Never call a component story done unless all **Definition of Done** criteria are met (see § Definition of Done)
 - Differentiate behavior between before and after your change when reporting results
@@ -44,10 +71,10 @@ For non-trivial changes, pause and ask: is there a simpler way?
 
 ### 5. Autonomous Bug Fixing
 
-When given a build error, type error, or broken story:
+When given a build error or broken story:
 - Read the error, trace it to the source, fix it without asking for hand-holding
-- Run `npx tsc --noEmit` to confirm the fix
-- If Storybook fails to start, check `.storybook/main.ts` and `vite.config.ts` first
+- Run `npm run build-storybook` to confirm the fix
+- If Storybook fails to start, check `.storybook/main.js` and `vite.config.js` first
 - Reference the exact file and line number in your response
 
 ### 6. Task Tracking for Multi-Step Work
@@ -78,7 +105,7 @@ This is the Storybook instance for the Moji design system. It is **fully self-co
 ```
 src/
 ├── styles/          ← tokens.css, global.css (source of truth for all tokens)
-└── components/ui/   ← all 13 components
+└── components/ui/   ← all components as .jsx files
 
 stories/
 ├── 0-foundations/   ← token documentation (Colors, Typography, Spacing, Radius, Shadows, Icons)
@@ -90,9 +117,10 @@ stories/
 **Commands:**
 ```bash
 npm run storybook        # start dev server at :6006
-npm run build-storybook  # static build into storybook-static/
-npx tsc --noEmit         # type-check all story files — run before committing
+npm run build-storybook  # static build into storybook-static/ — run this to verify correctness
 ```
+
+> There is no `npx tsc --noEmit` anymore. This repo has no TypeScript. Use `npm run build-storybook` as the verification step instead.
 
 **Deploying changes — always run in this order:**
 ```bash
@@ -110,7 +138,7 @@ Run Chromatic after every push so visual snapshots are captured and baselines ar
 **NEVER hardcode a hex value, pixel value, or rgba value in a story file.**
 Always reference a CSS custom property from `src/styles/tokens.css`.
 
-```tsx
+```jsx
 // ✅ correct
 style={{ color: 'var(--color-text-primary)' }}
 style={{ gap: 'var(--space-3)' }}
@@ -132,16 +160,16 @@ React inline styles: numbers are treated as pixels. Always pass spacing as `'var
 
 ---
 
-## Story File Template (CSF3 + TypeScript)
+## Story File Template (CSF3 — plain JavaScript)
 
-```tsx
-import type { Meta, StoryObj } from '@storybook/react';
+```jsx
+import React from 'react';
 import { MyComponent } from '../../../src/components/ui/MyComponent/MyComponent';
 import '../../../src/components/ui/MyComponent/MyComponent.css';
 
 const FIGMA_URL = 'https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=XXXX-XXXX';
 
-const meta: Meta<typeof MyComponent> = {
+const meta = {
   title: 'Atoms/MyComponent',   // or Molecules/ or Foundations/
   component: MyComponent,
   tags: ['autodocs'],
@@ -155,16 +183,21 @@ const meta: Meta<typeof MyComponent> = {
   },
 };
 export default meta;
-type Story = StoryObj<typeof MyComponent>;
 
-export const Default: Story = { args: { /* minimal required props */ } };
+export const Default = { args: { /* minimal required props */ } };
 
 // Playground MUST be last and MUST have chromatic disabled
-export const Playground: Story = {
+export const Playground = {
   args: { /* all props */ },
   parameters: { chromatic: { disableSnapshot: true } },
 };
 ```
+
+Key differences from TypeScript:
+- No `import type { Meta, StoryObj }` — not needed
+- No `const meta: Meta<typeof MyComponent>` — just `const meta = {`
+- No `type Story = StoryObj<typeof MyComponent>` — not needed
+- No `: Story` on story exports — just `export const Default = {`
 
 ---
 
@@ -207,7 +240,7 @@ Always set `type="number"` for numeric fields (duration, count, days, etc.). All
 
 All story files sit 3 levels deep (`stories/{level}/{Component}/`), so the prefix is always `../../../src/`:
 
-```tsx
+```jsx
 import { Button } from '../../../src/components/ui/Button/Button';
 import '../../../src/components/ui/Button/Button.css';
 
@@ -220,7 +253,42 @@ import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';                    
 
 - Do NOT use `@lib/` alias — use relative paths as shown above
 - Do NOT reference `jimo-component-library` — legacy, must not be used
-- Do NOT re-import `tokens.css` — already loaded globally via `.storybook/preview.ts`
+- Do NOT re-import `tokens.css` — already loaded globally via `.storybook/preview.js`
+
+---
+
+## Component Source File Template (plain JavaScript)
+
+```jsx
+import React from 'react';
+import './MyComponent.css';
+
+export const MyComponent = React.forwardRef(
+  ({ label, disabled, className, onChange, ...rest }, ref) => {
+    const classes = [
+      'my-component',
+      disabled ? 'my-component--disabled' : '',
+      className ?? '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+
+    return (
+      <div ref={ref} className={classes} {...rest}>
+        {label}
+      </div>
+    );
+  }
+);
+
+MyComponent.displayName = 'MyComponent';
+```
+
+Key rules:
+- No interfaces, no type exports, no annotations
+- `React.forwardRef(...)` — no generic parameters
+- Prop destructuring in the function signature only — no separate interface
+- `index.js` barrel: `export * from './MyComponent';` (not `.tsx`, not `.ts`)
 
 ---
 
@@ -243,7 +311,7 @@ If you see a raw `<button>` or custom SVG inside a molecule where an atom exists
 
 When an iconsax icon sits inside a CSS class that sets `color:` via a token, always pass `color="currentColor"` — never hardcode a hex value.
 
-```tsx
+```jsx
 // ✅ correct — CSS token controls the color
 <InfoCircle size={24} variant="Bold" color="currentColor" />
 // ❌ wrong — hardcodes hex, ignores CSS token
@@ -259,10 +327,10 @@ Components with show/hide lifecycle (Toast, Tooltip) must use **wrapper componen
 - **Toast** → `ToastDemo` wrapper with a `<Button>` trigger. Clicking it mounts `<Toast>`. `onDismiss` unmounts it.
 - **Tooltip** → `HoverWrapper` with `onMouseEnter`/`onMouseLeave`. Always keep the wrapper in DOM (never `{visible && <Tooltip>}`); toggle `opacity` + `scale` for animation.
 
-```tsx
+```jsx
 // Toast pattern
 function ToastDemo(props) {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = React.useState(false);
   return (
     <>
       <Button level="secondary" size="small" onClick={() => setVisible(true)}>Show Toast</Button>
@@ -300,7 +368,7 @@ function ToastDemo(props) {
 
 **Any story exposing an icon prop as a control MUST use the complete 993-icon set.**
 
-```tsx
+```jsx
 import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';
 
 const ICON_OPTIONS = ['none', ...ALL_ICON_NAMES];
@@ -336,7 +404,7 @@ A component story is **complete** when:
 2. All meaningful state stories exist (see PRD §5.4–5.5 for exact list per component)
 3. `Playground` story exists with `chromatic: { disableSnapshot: true }`
 4. `parameters.design.url` Figma link is set on every story
-5. `npx tsc --noEmit` passes with zero errors
+5. `npm run build-storybook` passes with zero errors
 6. Chromatic baseline approved
 
 ---
@@ -355,7 +423,7 @@ A component story is **complete** when:
 | Organisms/Dropdown/ | DropdownMenuGroup, Composed |
 | Organisms/HorizontalMenu/ | PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup |
 
-For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.tsx` directly.
+For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.jsx` directly.
 For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
 
 ---
@@ -366,7 +434,7 @@ For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
 
 **NEVER build custom CSS tooltips (border triangle hack).** Always use `<Tooltip>` from `src/components/ui/Tooltip/Tooltip`.
 
-```tsx
+```jsx
 // ✅ Correct — uses Tooltip component
 import { Tooltip } from '../Tooltip/Tooltip';
 import '../Tooltip/Tooltip.css';
@@ -399,11 +467,11 @@ Add CSS `:hover` on the `--idle` state class so the playground reflects hover wi
 
 ### href prop — polymorphic rendering
 
-All nav item components accept `href?: string`. When provided, render as `<a href={href}>` for real navigation in external projects. Without it, render as `<div role="button">`. Pattern:
+All nav item components accept an optional `href` prop. When provided, render as `<a href={href}>` for real navigation. Without it, render as `<div role="button">`. Pattern:
 
-```tsx
+```jsx
 if (href) {
-  return <a className={classes} href={href} {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>{content}</a>;
+  return <a className={classes} href={href} {...rest}>{content}</a>;
 }
 return <div className={classes} role="button" tabIndex={0} {...rest}>{content}</div>;
 ```
@@ -421,12 +489,12 @@ return <div className={classes} role="button" tabIndex={0} {...rest}>{content}</
 
 ### Interactive sidebars
 
-Sidebars expose `onItemClick?: (label: string) => void`. Use `useState` in Playground story render functions:
+Sidebars expose an `onItemClick` callback. Use `useState` in Playground story render functions:
 
-```tsx
-export const Playground: Story = {
+```jsx
+export const Playground = {
   render: (args) => {
-    const [activeItem, setActiveItem] = useState('Tours');
+    const [activeItem, setActiveItem] = React.useState('Tours');
     return <PrimaryNavSidebar {...args} activeItem={activeItem} onItemClick={setActiveItem} />;
   },
   parameters: { chromatic: { disableSnapshot: true } },
