@@ -1,1 +1,1 @@
-export { Icon, CloseIcon, SpinnerIcon } from './Icon';
+export { Icon, CloseIcon, SpinnerIcon, BannerIcon, AgentIcon } from './Icon';

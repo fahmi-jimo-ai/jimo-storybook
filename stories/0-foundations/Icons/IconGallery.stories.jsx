@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import * as IcnsaxReact from 'iconsax-react';
-import { Icon, CloseIcon, SpinnerIcon } from '../../../src/components/ui/Icon/Icon';
+import { Icon, CloseIcon, SpinnerIcon, BannerIcon, AgentIcon } from '../../../src/components/ui/Icon/Icon';
 
 /**
  * Foundations/Icons — IconGallery
@@ -382,6 +382,14 @@ export const IconGallery = {
             {
               name: 'SpinnerIcon',
               component: <Icon icon={SpinnerIcon} size={size} color={color} />,
+            },
+            {
+              name: 'BannerIcon',
+              component: <BannerIcon size={size} color={color} variant={variant} />,
+            },
+            {
+              name: 'AgentIcon',
+              component: <AgentIcon size={size} color={color} variant={variant} />,
             },
           ].map(({ name, component }) => (
             <div
