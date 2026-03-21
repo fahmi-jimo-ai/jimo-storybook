@@ -11,7 +11,7 @@
 
 | File type | Extension | Notes |
 |-----------|-----------|-------|
-| Component source files (with JSX) | `.jsx` | e.g. `Button.jsx`, `Input.jsx` |
+| Component source files (with JSX) | `.js` | e.g. `Button.js`, `Input.js` |
 | Story files | `.stories.jsx` | e.g. `Button.stories.jsx` |
 | Index/barrel files | `.js` | e.g. `index.js` |
 | Docs data files | `.js` | e.g. `Button.docs.js` |
@@ -105,7 +105,7 @@ This is the Storybook instance for the Moji design system. It is **fully self-co
 ```
 src/
 ├── styles/          ← tokens.css, global.css (source of truth for all tokens)
-└── components/ui/   ← all components as .jsx files
+└── components/ui/   ← all components as .js files
 
 stories/
 ├── 0-foundations/   ← token documentation (Colors, Typography, Spacing, Radius, Shadows, Icons)
@@ -423,7 +423,7 @@ A component story is **complete** when:
 | Organisms/Dropdown/ | DropdownMenuGroup, Composed |
 | Organisms/HorizontalMenu/ | PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup |
 
-For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.jsx` directly.
+For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.js` directly.
 For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
 
 ---
