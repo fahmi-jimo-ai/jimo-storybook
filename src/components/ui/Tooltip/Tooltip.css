@@ -9,15 +9,23 @@
   position: relative;
 }
 
+/* ── Ghost (hidden, measures single-line width) ── */
+.tooltip__ghost {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  font: var(--text-body-4);
+  padding: var(--space-2) var(--space-4);
+  pointer-events: none;
+}
+
 /* ── Bubble ── */
 .tooltip__bubble {
   background-color: var(--color-neutral-800);
   color: var(--color-neutral-white);
   font: var(--text-body-4); /* Inter Medium 12px / line-height 1.5 */
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
-  width: max-content;
-  max-width: 200px;
   white-space: normal;
   word-break: break-word;
   position: relative;

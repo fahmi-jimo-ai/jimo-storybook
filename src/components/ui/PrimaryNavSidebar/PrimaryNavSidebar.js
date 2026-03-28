@@ -19,6 +19,7 @@ import {
   SliderVertical,
   Like1,
   Book,
+  Flash,
 } from 'iconsax-react';
 import { BannerIcon, AgentIcon } from '../Icon/Icon';
 import { PrimaryNavItem } from '../PrimaryNavItem/PrimaryNavItem';
@@ -100,10 +101,23 @@ const NAV_ITEMS_ANALYTICS = [
     icon: <Chart2 size={ICON_SIZE} variant="Linear" color="currentColor" />,
     iconActive: <Chart2 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
+      {
+    label: 'Actions',
+    icon: <Flash size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Flash size={ICON_SIZE} variant="Bold" color="currentColor" />,
+  },
   {
     label: 'Users & Segments',
     icon: <Profile2User size={ICON_SIZE} variant="Linear" color="currentColor" />,
     iconActive: <Profile2User size={ICON_SIZE} variant="Bold" color="currentColor" />,
+  },
+];
+
+const NAV_ITEMS_SETTINGS = [
+  {
+    label: 'Settings',
+    icon: <Setting2 size={ICON_SIZE} variant="Linear" color="currentColor" />,
+    iconActive: <Setting2 size={ICON_SIZE} variant="Bold" color="currentColor" />,
   },
 ];
 
@@ -190,6 +204,10 @@ export const PrimaryNavSidebar = ({
         <div className="nav-sidebar-primary__separator" />
 
         <NavSection items={NAV_ITEMS_ANALYTICS} activeItem={activeItem} collapsed={collapsed} onItemClick={onItemClick} />
+        <div className="nav-sidebar-primary__separator" />
+                <NavSection items={NAV_ITEMS_SETTINGS} activeItem={activeItem} collapsed={collapsed} onItemClick={onItemClick} />
+
+
       </div>
 
       {/* Footer — only shown in expanded mode */}

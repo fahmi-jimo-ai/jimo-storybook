@@ -1,0 +1,32 @@
+/* ============================================================
+   ModalOverlay — Moji Design System
+   Full-page backdrop for modals with fade in / fade out.
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+
+  /*
+   * Animation phases:
+   *  entering  → opacity 0  (initial state, before first paint)
+   *  visible   → opacity 1  (200 ms ease-in-out)
+   *  exiting   → opacity 0  (200 ms ease-in)
+   */
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.modal-overlay--visible {
+  opacity: 1;
+}
+
+.modal-overlay--exiting {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}

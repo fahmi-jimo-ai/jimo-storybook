@@ -549,6 +549,28 @@ iconActive: <Routing2 size={20} variant="Bold"   color="currentColor" />
 
 ---
 
+## PageHeader — Primary and Secondary Must Never Stack
+
+**`type='main'` (primary) and `type='sub'` (secondary) PageHeaders must never be rendered simultaneously.**
+
+When a user navigates into a sub-page (e.g. clicks a list row to view a detail), the secondary header must **replace** the primary header — not appear below it.
+
+```jsx
+// ✅ correct — conditional swap
+{selectedItem
+  ? <PageHeader type="sub" title={selectedItem.name} ... />
+  : <PageHeader type="main" title="Users & Segments" ... />
+}
+
+// ❌ wrong — both rendered at once (primary stacked above secondary)
+<PageHeader type="main" title="Users & Segments" ... />
+<PageHeader type="sub" title={selectedItem.name} ... />
+```
+
+This applies to all views in the app: Companies, Users, Segments — any time a list-to-detail transition occurs.
+
+---
+
 ## Figma Node Type Rule (for /jimo-add-component)
 
 **When a Figma node returned by `get_design_context` is NOT a "component" node** (i.e. it's a frame, group, or instance), do NOT generate a brand-new component from scratch. Instead:

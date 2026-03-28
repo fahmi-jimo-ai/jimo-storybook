@@ -11,3 +11,6 @@ export * from './DropdownMenuList';
 export * from './DropdownMenuGroup';
 export * from './Icon';
 export * from './Tooltip';
+export * from './UserIcon';
+export * from './UserAvatar';
+export * from './ModalOverlay';

@@ -2,6 +2,7 @@ import React from 'react';
 import { DropdownSelector } from '../DropdownSelector/DropdownSelector';
 import { DropdownMenuGroup } from '../DropdownMenuGroup/DropdownMenuGroup';
 import { DropdownMenuList } from '../DropdownMenuList/DropdownMenuList';
+import { useSmartMenuAlign } from '../../../hooks/useSmartPopupOffset';
 import './DropdownFilter.css';
 
 export const DropdownFilter = ({
@@ -20,9 +21,12 @@ export const DropdownFilter = ({
   className,
 }) => {
   const wrapperRef = React.useRef(null);
+  const menuRef = React.useRef(null);
 
   const [internalOpen, setInternalOpen] = React.useState(false);
   const isOpen = open !== undefined ? open : internalOpen;
+
+  useSmartMenuAlign(menuRef, isOpen);
 
   const [internalValue, setInternalValue] = React.useState([]);
   const selectedValues =
@@ -84,7 +88,7 @@ export const DropdownFilter = ({
         onClick={() => setOpen(!isOpen)}
       />
       {isOpen && (
-        <div className="dropdown-filter__menu">
+        <div ref={menuRef} className="dropdown-filter__menu">
           <DropdownMenuGroup maxHeight={maxMenuHeight}>
             {items.map((item) => {
               const isSelected = selectedValues.includes(item.value);

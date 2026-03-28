@@ -73,11 +73,15 @@ export const PageHeader = React.forwardRef(
 
         {/* ── Tab bar ── */}
         {showTabs && tabs.length > 0 && (
-          <PrimaryHorizontalMenuGroup
-            tabs={tabs}
-            activeItem={activeTab}
-            onTabClick={onTabClick}
-          />
+          <div className="page-header__tabs">
+            <div className="page-header__tabs-inner">
+              <PrimaryHorizontalMenuGroup
+                tabs={tabs}
+                activeItem={activeTab}
+                onTabClick={onTabClick}
+              />
+            </div>
+          </div>
         )}
       </div>
     );

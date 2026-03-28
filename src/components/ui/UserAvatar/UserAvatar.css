@@ -1,0 +1,15 @@
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.user-avatar--blue   { background: var(--color-blue-150); }
+.user-avatar--green  { background: var(--color-green-200); }
+.user-avatar--orange { background: var(--color-orange-300); }
+.user-avatar--yellow { background: var(--color-yellow-300); }
+.user-avatar--purple { background: var(--color-purple-200); }
+.user-avatar--red    { background: var(--color-red-200); }

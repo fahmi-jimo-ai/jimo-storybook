@@ -1,0 +1,25 @@
+/* ============================================================
+   ViewToolbar — Moji Design System
+   Figma: node 726:1834 (Copilot-Widget)
+   ============================================================ */
+
+.view-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+/* Search input — grows to fill remaining width */
+.view-toolbar__search {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Filters row — stays compact, never grows */
+.view-toolbar__filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
