@@ -14,9 +14,9 @@ The living documentation and development environment for the **Moji design syste
 | Layer | Components |
 |-------|-----------|
 | **Foundations** | Colors, Typography, Spacing, Border Radius, Shadows, Icons |
-| **Atoms** | Button, Checkbox, Toggle, Radio, Icon, Tooltip |
-| **Molecules** | Input, Chip, DropdownSelector, DropdownMenuList, Toast, Infobox, PrimaryNavItem, SecondaryNavItem, TertiaryNavItem, PrimaryHorizontalMenuItem, SecondaryHorizontalMenuItem |
-| **Organisms** | DropdownMenuGroup, Composed Dropdown, PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar, PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup, PageHeader |
+| **Atoms** | Button, Checkbox, Toggle, Radio, Icon, Tooltip, UserIcon, UserAvatar, ModalOverlay, ExperienceStatus |
+| **Molecules** | Input, Chip, DropdownSelector, DropdownMenuList, DropdownFilter, Toast, Infobox, PrimaryNavItem, SecondaryNavItem, TertiaryNavItem, PrimaryHorizontalMenuItem, SecondaryHorizontalMenuItem, ExperienceTags |
+| **Organisms** | DropdownMenuGroup, DropdownFilter (composed), PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar, PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup, PageHeader, ViewToolbar, ExperienceCard |
 
 All components are fully documented with:
 - Interactive controls via Storybook's args panel
@@ -36,7 +36,7 @@ All components are fully documented with:
 ### Install
 
 ```bash
-git clone https://github.com/your-org/jimo-storybook.git
+git clone https://github.com/fahmi-jimo-ai/jimo-storybook.git
 cd jimo-storybook
 npm install
 ```
@@ -73,8 +73,8 @@ The components live in `src/components/ui/`. To use them in another project:
 Copy the component directory you need:
 
 ```
-src/components/ui/Button/        → Button.jsx + Button.css
-src/components/ui/Input/         → Input.jsx + Input.css
+src/components/ui/Button/        → Button.js + Button.css
+src/components/ui/Input/         → Input.js + Input.css
 src/styles/tokens.css            → required by all components
 ```
 
@@ -130,28 +130,51 @@ Copy `.storybook/mcp-system-prompt.md` into your project's `CLAUDE.md` to give y
 ```
 jimo-storybook/
 ├── src/
-│   ├── components/ui/          # Component source (13 components)
+│   ├── components/ui/          # Component source (34 components)
 │   │   ├── Button/
 │   │   ├── Checkbox/
 │   │   ├── Chip/
+│   │   ├── DropdownFilter/
 │   │   ├── DropdownMenuGroup/
 │   │   ├── DropdownMenuList/
 │   │   ├── DropdownSelector/
+│   │   ├── ExperienceCard/
+│   │   ├── ExperienceStatus/
+│   │   ├── ExperienceTags/
 │   │   ├── Icon/
 │   │   ├── Infobox/
 │   │   ├── Input/
+│   │   ├── ModalOverlay/
+│   │   ├── PageHeader/
+│   │   ├── PrimaryHorizontalMenuGroup/
+│   │   ├── PrimaryHorizontalMenuItem/
+│   │   ├── PrimaryNavGroup/
+│   │   ├── PrimaryNavItem/
+│   │   ├── PrimaryNavSidebar/
 │   │   ├── Radio/
+│   │   ├── SecondaryHorizontalMenuGroup/
+│   │   ├── SecondaryHorizontalMenuItem/
+│   │   ├── SecondaryNavGroup/
+│   │   ├── SecondaryNavItem/
+│   │   ├── SecondaryNavSidebar/
+│   │   ├── TertiaryNavGroup/
+│   │   ├── TertiaryNavItem/
 │   │   ├── Toast/
 │   │   ├── Toggle/
-│   │   └── Tooltip/
+│   │   ├── Tooltip/
+│   │   ├── UserAvatar/
+│   │   ├── UserIcon/
+│   │   └── ViewToolbar/
+│   ├── hooks/
+│   │   └── useSmartPopupOffset.js  # Viewport-aware popup/menu alignment hooks
 │   └── styles/
-│       ├── tokens.css          # Design tokens (single source of truth)
-│       └── global.css          # CSS reset + base styles
+│       ├── tokens.css              # Design tokens (single source of truth)
+│       └── global.css              # CSS reset + base styles
 │
 ├── stories/
 │   ├── 0-foundations/          # Token documentation stories
 │   ├── 1-atoms/                # Atom component stories
-│   ├── 2-molecules/            # Molecule stories (individual items: inputs, nav items, tab items)
+│   ├── 2-molecules/            # Molecule stories (inputs, nav items, tab items)
 │   ├── 3-organisms/            # Organism stories (groups, sidebars, composed UI sections)
 │   └── utils/
 │       └── icons.js            # 993 iconsax icon names + resolver
@@ -161,7 +184,7 @@ jimo-storybook/
 │   ├── preview.js              # Global token imports, viewports
 │   ├── manager.js              # Storybook UI theme (Jimo branding)
 │   ├── preview-head.html       # Google Fonts (Inter + Montserrat)
-│   └── mcp-system-prompt.md    # MCP system prompt for AI agents
+│   └── mcp-system-prompt.md   # MCP system prompt for AI agents
 │
 └── docs/
     └── PAPER_DESIGN_SPECS.md   # Design specification reference
@@ -188,6 +211,36 @@ All tokens are CSS custom properties defined in `src/styles/tokens.css` and scop
 | Transition | `var(--transition-base)` | `200ms ease` |
 
 > Always use semantic color tokens (e.g. `--color-text-primary`) over primitive tokens (e.g. `--color-neutral-800`) wherever a semantic alias exists.
+
+---
+
+## Hooks
+
+Reusable positioning hooks live in `src/hooks/`. Do **not** install Radix, Floating UI, or Popper — these hooks cover all cases.
+
+### `useSmartPopupOffset(ref, visible, padding?)`
+
+Clamps a **centered popup** (`translateX(-50%)`) to the viewport. Fires after mount via `requestAnimationFrame` to avoid layout shift. Attach `ref` to the popup element and pass the visibility boolean.
+
+```js
+import { useSmartPopupOffset } from '../../../hooks/useSmartPopupOffset';
+
+const popupRef = useRef(null);
+useSmartPopupOffset(popupRef, isOpen);
+```
+
+### `useSmartMenuAlign(ref, isOpen, padding?)`
+
+Auto-flips a **left-anchored dropdown menu** to right-aligned when it would overflow the viewport. Used by `DropdownFilter`.
+
+```js
+import { useSmartMenuAlign } from '../../../hooks/useSmartPopupOffset';
+
+const menuRef = useRef(null);
+useSmartMenuAlign(menuRef, isOpen);
+```
+
+> For portal elements rendered to `document.body` (position: fixed), use `usePortalDropdown` in the consuming app instead.
 
 ---
 
@@ -221,6 +274,27 @@ See `CLAUDE.md` for the complete story-writing reference.
 
 ---
 
+## Recent Changes
+
+### March 2026
+
+**New components:**
+- **`UserIcon`** — User avatar placeholder with 8 preset SVG avatar assets and initials fallback
+- **`UserAvatar`** — User avatar with image support and graceful fallback
+- **`ModalOverlay`** — Backdrop overlay for modal dialogs
+- **`ViewToolbar`** — Toolbar organism for view-level search, filter, and sort actions
+
+**New hook:**
+- **`useSmartPopupOffset` / `useSmartMenuAlign`** — Viewport-aware alignment hooks for popups and menus; auto-clamp or auto-flip on viewport overflow without any third-party positioning library
+
+**Component updates:**
+- **`Tooltip`** — Replaced arrow-based layout with a binary-search width algorithm for clean 1–2 line wrapping; removed `arrowPosition` prop and SVG arrow element
+- **`PageHeader`** — Refactored padding model so the tab bar spans full-width while heading rows retain horizontal padding; added `page-header__tabs` wrapper
+- **`DropdownFilter`** — Integrated `useSmartMenuAlign` so the menu auto-flips to right-aligned on viewport overflow
+- **`PrimaryNavSidebar`** — Added **Actions** nav item (Flash icon) to the analytics section; added a dedicated **Settings** section at the bottom
+
+---
+
 ## Figma
 
 Design source: [Moji in Figma](https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji)
@@ -234,14 +308,14 @@ Every story links back to its corresponding Figma node via `@storybook/addon-des
 After every push, run Chromatic to capture snapshots and update baselines:
 
 ```bash
-# 1. Push changes (gh auth required for this private repo)
-gh auth setup-git && git push origin main
+# 1. Push changes
+git push origin main
 
 # 2. Run Chromatic to catch visual changes
 npx chromatic --project-token=chpt_b32490bc392df97
 ```
 
-Or use the npm shortcut (skips the push step):
+Or use the npm shortcut:
 
 ```bash
 npm run chromatic
