@@ -1,0 +1,23 @@
+{
+  "skill_name": "jimo-add-component",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "I need to add a Badge atom to the jimo-storybook. It's a small inline label with semantic types: neutral, success, warning, danger. Each type has a subtle background and matching text color. It also has two sizes: regular (14px) and small (12px). There's no existing source file — create everything from scratch. No Figma URL available.",
+      "expected_output": "Creates src/components/ui/Badge/Badge.tsx and Badge.css using only CSS token variables, plus stories/1-atoms/Badge/Badge.stories.tsx with correct imports (@storybook/react-vite), Default story, SemanticTypes story, Sizes story, and Playground story with chromatic disabled. No hardcoded colors or pixel values.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "I have an existing Avatar component at src/components/ui/Avatar/ in the jimo-storybook. Add the story file for it as an Atom. The Avatar shows user initials or an image in a circle. It has sizes: sm (24px), md (32px), lg (40px), xl (48px). The component source already exists — you just need to create the story. Figma URL: https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji?node-id=2906-5218",
+      "expected_output": "Creates only the story file stories/1-atoms/Avatar/Avatar.stories.tsx. Imports from ../../../src/components/ui/Avatar/Avatar. Has Default, Sizes, Playground (chromatic disabled) stories. Sets FIGMA_URL constant. Does NOT create the component source.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Add a new ProgressBar molecule to the jimo-storybook. It shows a horizontal progress bar with a fill percentage (0-100). It has semantic variants: neutral, success, warning, danger. It also shows a label above and optionally a percentage text on the right. Create everything from scratch.",
+      "expected_output": "Creates src/components/ui/ProgressBar/ProgressBar.tsx and ProgressBar.css with token-only values. Creates stories/2-molecules/ProgressBar/ProgressBar.stories.tsx with title Molecules/ProgressBar. Has Default, AllVariants, WithLabel, Sizes or similar stories, plus Playground with chromatic disabled. No hardcoded hex/px values.",
+      "files": []
+    }
+  ]
+}

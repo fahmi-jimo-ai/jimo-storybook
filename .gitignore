@@ -1,6 +1,7 @@
 node_modules
 storybook-static/
-.claude/
+.claude/settings.local.json
+.claude/settings.json
 .claire/
 memory/
 
