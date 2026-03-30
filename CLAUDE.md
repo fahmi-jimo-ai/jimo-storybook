@@ -3,34 +3,35 @@
 > **READ THIS BEFORE WRITING ANY STORY FILE.**
 > Every story must consume tokens from `tokens.css`. No hardcoded values. No exceptions.
 
----
+***
 
 ## CRITICAL: This repo uses JavaScript, NOT TypeScript
 
 **All source and story files are plain JavaScript. There is no TypeScript in this repo.**
 
-| File type | Extension | Notes |
-|-----------|-----------|-------|
-| Component source files (with JSX) | `.js` | e.g. `Button.js`, `Input.js` |
-| Story files | `.stories.jsx` | e.g. `Button.stories.jsx` |
-| Index/barrel files | `.js` | e.g. `index.js` |
-| Docs data files | `.js` | e.g. `Button.docs.js` |
-| Utility files | `.js` | e.g. `stories/utils/icons.js` |
-| Config files | `.js` | `vite.config.js`, `.storybook/main.js`, etc. |
+| File type                         | Extension      | Notes                                        |
+| --------------------------------- | -------------- | -------------------------------------------- |
+| Component source files (with JSX) | `.js`          | e.g. `Button.js`, `Input.js`                 |
+| Story files                       | `.stories.jsx` | e.g. `Button.stories.jsx`                    |
+| Index/barrel files                | `.js`          | e.g. `index.js`                              |
+| Docs data files                   | `.js`          | e.g. `Button.docs.js`                        |
+| Utility files                     | `.js`          | e.g. `stories/utils/icons.js`                |
+| Config files                      | `.js`          | `vite.config.js`, `.storybook/main.js`, etc. |
 
-**NEVER create `.ts` or `.tsx` files. NEVER use TypeScript syntax.**
+**NEVER create** **`.ts`** **or** **`.tsx`** **files. NEVER use TypeScript syntax.**
 
 What TypeScript syntax means — do NOT write any of these:
-- `interface Foo { ... }` or `type Foo = ...`
-- `: string`, `?: boolean`, `: React.ReactNode`, `: void` — no type annotations
-- `<T>` generic parameters on function calls or component definitions
-- `as SomeType` casts
-- `import type { ... }` — remove the `type` keyword or drop entirely
-- `export type { ... }` — drop entirely
-- `React.forwardRef<El, Props>(...)` — just `React.forwardRef(...)`
-- `React.useRef<HTMLInputElement>(null)` — just `React.useRef(null)`
 
----
+* `interface Foo { ... }` or `type Foo = ...`
+* `: string`, `?: boolean`, `: React.ReactNode`, `: void` — no type annotations
+* `<T>` generic parameters on function calls or component definitions
+* `as SomeType` casts
+* `import type { ... }` — remove the `type` keyword or drop entirely
+* `export type { ... }` — drop entirely
+* `React.forwardRef<El, Props>(...)` — just `React.forwardRef(...)`
+* `React.useRef<HTMLInputElement>(null)` — just `React.useRef(null)`
+
+***
 
 ## Agent Workflow — How to Work in This Repo
 
@@ -39,64 +40,71 @@ These rules apply to every task, regardless of size. Read them first.
 ### 1. Plan Before You Build
 
 For any task involving 3+ steps or an architectural decision (new story, refactor, config change):
-- Enter plan mode and outline the approach before touching any file
-- Identify which files change and why
-- Stop and re-plan immediately if you hit a blocker — never brute-force through it
-- Create your own to-dos, and run thoroughly each one
-- For simple single-file edits (one-line fix, typo): proceed directly without planning
+
+* Enter plan mode and outline the approach before touching any file
+* Identify which files change and why
+* Stop and re-plan immediately if you hit a blocker — never brute-force through it
+* Create your own to-dos, and run thoroughly each one
+* For simple single-file edits (one-line fix, typo): proceed directly without planning
 
 ### 2. Verify Before Marking Done
 
 A task is not complete until you can prove it works:
-- Run `npm run build-storybook` after any story or source change — zero errors required
-- Ask: *"Would a senior engineer approve this?"* before wrapping up
-- Never call a component story done unless all **Definition of Done** criteria are met (see § Definition of Done)
-- Differentiate behavior between before and after your change when reporting results
+
+* Run `npm run build-storybook` after any story or source change — zero errors required
+* Ask: *"Would a senior engineer approve this?"* before wrapping up
+* Never call a component story done unless all **Definition of Done** criteria are met (see § Definition of Done)
+* Differentiate behavior between before and after your change when reporting results
 
 ### 3. Self-Improvement After Corrections
 
 When the user corrects your work:
-- Identify the root cause, not just the symptom
-- Write a `feedback_*.md` memory file with the rule, **Why**, and **How to apply** it
-- Apply the correction consistently to all similar patterns in the same session
-- Do not repeat the same mistake in subsequent stories in the same file or across files
+
+* Identify the root cause, not just the symptom
+* Write a `feedback_*.md` memory file with the rule, **Why**, and **How to apply** it
+* Apply the correction consistently to all similar patterns in the same session
+* Do not repeat the same mistake in subsequent stories in the same file or across files
 
 ### 4. Demand Elegance
 
 For non-trivial changes, pause and ask: is there a simpler way?
-- If a fix feels like a workaround, trace it to the root cause
-- Prefer the minimal correct solution over the expedient one
-- Do not add abstractions or helpers for one-time use
-- Do not make style, structure, or "cleanup" improvements that were not asked for
+
+* If a fix feels like a workaround, trace it to the root cause
+* Prefer the minimal correct solution over the expedient one
+* Do not add abstractions or helpers for one-time use
+* Do not make style, structure, or "cleanup" improvements that were not asked for
 
 ### 5. Autonomous Bug Fixing
 
 When given a build error or broken story:
-- Read the error, trace it to the source, fix it without asking for hand-holding
-- Run `npm run build-storybook` to confirm the fix
-- If Storybook fails to start, check `.storybook/main.js` and `vite.config.js` first
-- Reference the exact file and line number in your response
+
+* Read the error, trace it to the source, fix it without asking for hand-holding
+* Run `npm run build-storybook` to confirm the fix
+* If Storybook fails to start, check `.storybook/main.js` and `vite.config.js` first
+* Reference the exact file and line number in your response
 
 ### 6. Task Tracking for Multi-Step Work
 
 For tasks spanning more than one file or component:
+
 1. Write a brief plan: what changes, which files, in what order
 2. Confirm the plan before implementing
 3. Mark steps complete as you go
 4. End with a summary of *what is now different*, not a list of what you did
 5. After any correction: update the memory system with the lesson (`feedback_*.md`)
 
----
+***
 
 ## Font Loading
 
 Google Fonts (Inter + Montserrat) are loaded via `.storybook/preview-head.html`.
-- Inter weight 500 → all `--text-body-*` tokens
-- Montserrat weights 600, 700 → all `--text-heading-*` and `--text-subtitle-*` tokens
+
+* Inter weight 500 → all `--text-body-*` tokens
+* Montserrat weights 600, 700 → all `--text-heading-*` and `--text-subtitle-*` tokens
 
 Do NOT add `@import` for Google Fonts inside any CSS file — `preview-head.html` is the single source of truth.
 
----
+***
 
 ## Project Overview
 
@@ -115,7 +123,8 @@ stories/
 ```
 
 **Commands:**
-```bash
+
+```Shell
 npm run storybook        # start dev server at :6006
 npm run build-storybook  # static build into storybook-static/ — run this to verify correctness
 ```
@@ -123,7 +132,8 @@ npm run build-storybook  # static build into storybook-static/ — run this to v
 > There is no `npx tsc --noEmit` anymore. This repo has no TypeScript. Use `npm run build-storybook` as the verification step instead.
 
 **Deploying changes — always run in this order:**
-```bash
+
+```Shell
 gh auth setup-git && git push origin main
 npx chromatic --project-token=chpt_b32490bc392df97
 ```
@@ -131,14 +141,14 @@ npx chromatic --project-token=chpt_b32490bc392df97
 `gh auth setup-git` is required before pushing — bare `git push` fails on this private repo.
 Run Chromatic after every push so visual snapshots are captured and baselines are updated.
 
----
+***
 
 ## The ONE Rule — Tokens Only
 
 **NEVER hardcode a hex value, pixel value, or rgba value in a story file.**
 Always reference a CSS custom property from `src/styles/tokens.css`.
 
-```jsx
+```JSX
 // ✅ correct
 style={{ color: 'var(--color-text-primary)' }}
 style={{ gap: 'var(--space-3)' }}
@@ -158,11 +168,11 @@ React inline styles: numbers are treated as pixels. Always pass spacing as `'var
 
 **Token reference:** Read `src/styles/tokens.css` directly for the complete list of color, spacing, typography, radius, shadow, and transition tokens.
 
----
+***
 
 ## Story File Template (CSF3 — plain JavaScript)
 
-```jsx
+```JSX
 import React from 'react';
 import { MyComponent } from '../../../src/components/ui/MyComponent/MyComponent';
 import '../../../src/components/ui/MyComponent/MyComponent.css';
@@ -194,53 +204,55 @@ export const Playground = {
 ```
 
 Key differences from TypeScript:
-- No `import type { Meta, StoryObj }` — not needed
-- No `const meta: Meta<typeof MyComponent>` — just `const meta = {`
-- No `type Story = StoryObj<typeof MyComponent>` — not needed
-- No `: Story` on story exports — just `export const Default = {`
 
----
+* No `import type { Meta, StoryObj }` — not needed
+* No `const meta: Meta<typeof MyComponent>` — just `const meta = {`
+* No `type Story = StoryObj<typeof MyComponent>` — not needed
+* No `: Story` on story exports — just `export const Default = {`
+
+***
 
 ## Story Naming Rules (FR-5, FR-6)
 
-| Level | `title` pattern | Example |
-|-------|----------------|---------|
-| Foundation | `Foundations/TokenGroup` | `Foundations/Colors` |
-| Atom | `Atoms/ComponentName` | `Atoms/Button` |
-| Molecule | `Molecules/ComponentName` | `Molecules/Input` |
-| Molecule nav item | `Molecules/Nav/ComponentName` | `Molecules/Nav/PrimaryNavItem` |
-| Molecule menu item | `Molecules/HorizontalMenu/ComponentName` | `Molecules/HorizontalMenu/PrimaryItem` |
-| Organism | `Organisms/ComponentName` | `Organisms/PageHeader` |
-| Organism nav | `Organisms/Nav/ComponentName` | `Organisms/Nav/PrimaryNavGroup` |
-| Organism dropdown | `Organisms/Dropdown/ComponentName` | `Organisms/Dropdown/DropdownMenuGroup` |
+| Level               | `title` pattern                          | Example                                 |
+| ------------------- | ---------------------------------------- | --------------------------------------- |
+| Foundation          | `Foundations/TokenGroup`                 | `Foundations/Colors`                    |
+| Atom                | `Atoms/ComponentName`                    | `Atoms/Button`                          |
+| Molecule            | `Molecules/ComponentName`                | `Molecules/Input`                       |
+| Molecule nav item   | `Molecules/Nav/ComponentName`            | `Molecules/Nav/PrimaryNavItem`          |
+| Molecule menu item  | `Molecules/HorizontalMenu/ComponentName` | `Molecules/HorizontalMenu/PrimaryItem`  |
+| Organism            | `Organisms/ComponentName`                | `Organisms/PageHeader`                  |
+| Organism nav        | `Organisms/Nav/ComponentName`            | `Organisms/Nav/PrimaryNavGroup`         |
+| Organism dropdown   | `Organisms/Dropdown/ComponentName`       | `Organisms/Dropdown/DropdownMenuGroup`  |
 | Organism menu group | `Organisms/HorizontalMenu/ComponentName` | `Organisms/HorizontalMenu/PrimaryGroup` |
 
 Story export names: **PascalCase** state names only. No `Story1`, `Story2`.
 
----
+***
 
 ## argType Remapping (FR-3)
 
-| Component | Prop in code | Control label | Pattern |
-|-----------|-------------|---------------|---------|
-| Button | `level` | `variant` | `name: 'variant'` in argTypes |
-| Input | `inputType` | `type` | `name: 'type'` in argTypes |
-| Input | `status` | `state` | `name: 'state'` in argTypes |
-| Input | `type` (HTML type) | `htmlType` | `name: 'htmlType'` in argTypes |
+| Component | Prop in code       | Control label | Pattern                        |
+| --------- | ------------------ | ------------- | ------------------------------ |
+| Button    | `level`            | `variant`     | `name: 'variant'` in argTypes  |
+| Input     | `inputType`        | `type`        | `name: 'type'` in argTypes     |
+| Input     | `status`           | `state`       | `name: 'state'` in argTypes    |
+| Input     | `type` (HTML type) | `htmlType`    | `name: 'htmlType'` in argTypes |
 
 **Input has two type-related props** — both must be exposed:
-- `inputType` → `'type'` control (variant: text / textarea / dropdown / dropdown-search)
-- `type` → `'htmlType'` control (HTML input type: text / number / email / tel / url / password / search)
+
+* `inputType` → `'type'` control (variant: text / textarea / dropdown / dropdown-search)
+* `type` → `'htmlType'` control (HTML input type: text / number / email / tel / url / password / search)
 
 Always set `type="number"` for numeric fields (duration, count, days, etc.). All other props keep their original name.
 
----
+***
 
 ## Import Paths
 
 All story files sit 3 levels deep (`stories/{level}/{Component}/`), so the prefix is always `../../../src/`:
 
-```jsx
+```JSX
 import { Button } from '../../../src/components/ui/Button/Button';
 import '../../../src/components/ui/Button/Button.css';
 
@@ -251,15 +263,15 @@ import { CloseIcon, SpinnerIcon, Icon } from '../../../src/components/ui/Icon/Ic
 import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';                         // icon control utility
 ```
 
-- Do NOT use `@lib/` alias — use relative paths as shown above
-- Do NOT reference `jimo-component-library` — legacy, must not be used
-- Do NOT re-import `tokens.css` — already loaded globally via `.storybook/preview.js`
+* Do NOT use `@lib/` alias — use relative paths as shown above
+* Do NOT reference `jimo-component-library` — legacy, must not be used
+* Do NOT re-import `tokens.css` — already loaded globally via `.storybook/preview.js`
 
----
+***
 
 ## Component Source File Template (plain JavaScript)
 
-```jsx
+```JSX
 import React from 'react';
 import './MyComponent.css';
 
@@ -285,49 +297,50 @@ MyComponent.displayName = 'MyComponent';
 ```
 
 Key rules:
-- No interfaces, no type exports, no annotations
-- `React.forwardRef(...)` — no generic parameters
-- Prop destructuring in the function signature only — no separate interface
-- `index.js` barrel: `export * from './MyComponent';` (not `.tsx`, not `.ts`)
 
----
+* No interfaces, no type exports, no annotations
+* `React.forwardRef(...)` — no generic parameters
+* Prop destructuring in the function signature only — no separate interface
+* `index.js` barrel: `export * from './MyComponent';` (not `.tsx`, not `.ts`)
+
+***
 
 ## Molecules Must Use Atoms Internally
 
-| Molecule | Part | Atom to use |
-|----------|------|-------------|
-| Toast | CTA action buttons | `<Button level="secondary/primary" size="small" />` |
-| Chip | Remove × button icon | `<CloseCircle size={16} variant="Bold" color="currentColor" />` from `iconsax-react` |
-| PrimaryNavItem (collapsed) | Label tooltip | `<Tooltip arrowPosition="left">` |
-| TertiaryNavItem | Label tooltip | `<Tooltip arrowPosition="bottom">` |
+| Molecule                   | Part                 | Atom to use                                                                          |
+| -------------------------- | -------------------- | ------------------------------------------------------------------------------------ |
+| Toast                      | CTA action buttons   | `<Button level="secondary/primary" size="small" />`                                  |
+| Chip                       | Remove × button icon | `<CloseCircle size={16} variant="Bold" color="currentColor" />` from `iconsax-react` |
+| PrimaryNavItem (collapsed) | Label tooltip        | `<Tooltip arrowPosition="left">`                                                     |
+| TertiaryNavItem            | Label tooltip        | `<Tooltip arrowPosition="bottom">`                                                   |
 
 If you see a raw `<button>` or custom SVG inside a molecule where an atom exists, replace it with the atom.
 
 **Tooltip rule for nav components:** Never implement tooltips with CSS `border` triangle tricks. Always use the `<Tooltip>` component from `src/components/ui/Tooltip/Tooltip`. Import its CSS too. Wrap it in a positioned `<span>` that handles the placement and `opacity` fade — the `<Tooltip>` component itself only renders the bubble + SVG arrow.
 
----
+***
 
 ## iconsax Icon Color — Always `currentColor`
 
 When an iconsax icon sits inside a CSS class that sets `color:` via a token, always pass `color="currentColor"` — never hardcode a hex value.
 
-```jsx
+```JSX
 // ✅ correct — CSS token controls the color
 <InfoCircle size={24} variant="Bold" color="currentColor" />
 // ❌ wrong — hardcodes hex, ignores CSS token
 <InfoCircle size={24} variant="Bold" color="#1260EB" />
 ```
 
----
+***
 
 ## Interactive Stories for Show/Hide Components
 
 Components with show/hide lifecycle (Toast, Tooltip) must use **wrapper components with a visible trigger** — never pre-render them in a static state. Chromatic must be disabled on these stories.
 
-- **Toast** → `ToastDemo` wrapper with a `<Button>` trigger. Clicking it mounts `<Toast>`. `onDismiss` unmounts it.
-- **Tooltip** → `HoverWrapper` with `onMouseEnter`/`onMouseLeave`. Always keep the wrapper in DOM (never `{visible && <Tooltip>}`); toggle `opacity` + `scale` for animation.
+* **Toast** → `ToastDemo` wrapper with a `<Button>` trigger. Clicking it mounts `<Toast>`. `onDismiss` unmounts it.
+* **Tooltip** → `HoverWrapper` with `onMouseEnter`/`onMouseLeave`. Always keep the wrapper in DOM (never `{visible && <Tooltip>}`); toggle `opacity` + `scale` for animation.
 
-```jsx
+```JSX
 // Toast pattern
 function ToastDemo(props) {
   const [visible, setVisible] = React.useState(false);
@@ -347,28 +360,28 @@ function ToastDemo(props) {
 </div>
 ```
 
----
+***
 
 ## Tooltip — arrowPosition Semantics
 
 `arrowPosition` names **where the arrow sits on the bubble**, not where the tooltip floats:
 
-| arrowPosition | Arrow location | Tooltip floats |
-|--------------|----------------|----------------|
-| `up` / `up-left` / `up-right` | Top of bubble, points up | **Below** the trigger |
-| `bottom` / `bottom-left` / `bottom-right` | Bottom of bubble, points down | **Above** the trigger |
-| `left` | Left of bubble, points left | **Right** of the trigger |
-| `right` | Right of bubble, points right | **Left** of the trigger |
+| arrowPosition                             | Arrow location                | Tooltip floats           |
+| ----------------------------------------- | ----------------------------- | ------------------------ |
+| `up` / `up-left` / `up-right`             | Top of bubble, points up      | **Below** the trigger    |
+| `bottom` / `bottom-left` / `bottom-right` | Bottom of bubble, points down | **Above** the trigger    |
+| `left`                                    | Left of bubble, points left   | **Right** of the trigger |
+| `right`                                   | Right of bubble, points right | **Left** of the trigger  |
 
 `getFloatStyle()` implements positioning; `getTransformOrigin()` returns `transform-origin` for scale animations — origin is always the arrow side (toward the trigger).
 
----
+***
 
 ## Icon Controls — Full Set Required
 
 **Any story exposing an icon prop as a control MUST use the complete 993-icon set.**
 
-```jsx
+```JSX
 import { ALL_ICON_NAMES, getIcon } from '../../utils/icons';
 
 const ICON_OPTIONS = ['none', ...ALL_ICON_NAMES];
@@ -382,24 +395,25 @@ render: ({ leftIconName, rightIconName, ...args }) => (
 ),
 ```
 
-- Never build a hand-picked `ICON_MAP` subset — always pull from `ALL_ICON_NAMES`
-- Set icon args via `*IconName` string (e.g. `leftIconName: 'Add'`), not hardcoded elements in args
-- Put the `render` at meta level so all stories inherit icon controls automatically
+* Never build a hand-picked `ICON_MAP` subset — always pull from `ALL_ICON_NAMES`
+* Set icon args via `*IconName` string (e.g. `leftIconName: 'Add'`), not hardcoded elements in args
+* Put the `render` at meta level so all stories inherit icon controls automatically
 
----
+***
 
 ## Chromatic Rules (FR-2)
 
-- `Playground` stories **always** have `parameters: { chromatic: { disableSnapshot: true } }`
-- Hover/focus interaction stories that can't be reliably captured also get `disableSnapshot: true`
-- Every other story is snapshotted at 1280px viewport
-- Never disable snapshots on `Default` or state variant stories
+* `Playground` stories **always** have `parameters: { chromatic: { disableSnapshot: true } }`
+* Hover/focus interaction stories that can't be reliably captured also get `disableSnapshot: true`
+* Every other story is snapshotted at 1280px viewport
+* Never disable snapshots on `Default` or state variant stories
 
----
+***
 
 ## Definition of Done (FR-9)
 
 A component story is **complete** when:
+
 1. `Default` story exists
 2. All meaningful state stories exist (see PRD §5.4–5.5 for exact list per component)
 3. `Playground` story exists with `chromatic: { disableSnapshot: true }`
@@ -407,26 +421,26 @@ A component story is **complete** when:
 5. `npm run build-storybook` passes with zero errors
 6. Chromatic baseline approved
 
----
+***
 
 ## Component Scope
 
-| Level | Components |
-|-------|-----------|
-| Foundations | Colors, Typography, Spacing, Radius, Shadows, Icons |
-| Atoms | Button, Checkbox, Toggle, Radio, Icon, Tooltip |
-| Molecules | Input, Chip, DropdownSelector, DropdownMenuList, Toast, Infobox |
-| Molecules/Nav/ | PrimaryNavItem, SecondaryNavItem, TertiaryNavItem |
-| Molecules/HorizontalMenu/ | PrimaryHorizontalMenuItem, SecondaryHorizontalMenuItem |
-| Organisms | PageHeader |
-| Organisms/Nav/ | PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar |
-| Organisms/Dropdown/ | DropdownMenuGroup, Composed |
-| Organisms/HorizontalMenu/ | PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup |
+| Level                     | Components                                                                                   |
+| ------------------------- | -------------------------------------------------------------------------------------------- |
+| Foundations               | Colors, Typography, Spacing, Radius, Shadows, Icons                                          |
+| Atoms                     | Button, Checkbox, Toggle, Radio, Icon, Tooltip                                               |
+| Molecules                 | Input, Chip, DropdownSelector, DropdownMenuList, Toast, Infobox                              |
+| Molecules/Nav/            | PrimaryNavItem, SecondaryNavItem, TertiaryNavItem                                            |
+| Molecules/HorizontalMenu/ | PrimaryHorizontalMenuItem, SecondaryHorizontalMenuItem                                       |
+| Organisms                 | PageHeader                                                                                   |
+| Organisms/Nav/            | PrimaryNavGroup, SecondaryNavGroup, TertiaryNavGroup, PrimaryNavSidebar, SecondaryNavSidebar |
+| Organisms/Dropdown/       | DropdownMenuGroup, Composed                                                                  |
+| Organisms/HorizontalMenu/ | PrimaryHorizontalMenuGroup, SecondaryHorizontalMenuGroup                                     |
 
 For component API (props, variants): read `src/components/ui/{ComponentName}/{ComponentName}.js` directly.
 For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
 
----
+***
 
 ## Nav Component Patterns
 
@@ -434,7 +448,7 @@ For Figma node IDs: `https://www.figma.com/design/66ejN3hqSMkUXIPgmkebFH/Moji`
 
 **NEVER build custom CSS tooltips (border triangle hack).** Always use `<Tooltip>` from `src/components/ui/Tooltip/Tooltip`.
 
-```jsx
+```JSX
 // ✅ Correct — uses Tooltip component
 import { Tooltip } from '../Tooltip/Tooltip';
 import '../Tooltip/Tooltip.css';
@@ -460,7 +474,7 @@ The wrapper span handles `position: absolute`, placement, and `opacity` fade. Th
 
 Add CSS `:hover` on the `--idle` state class so the playground reflects hover without needing the `state='hover'` prop:
 
-```css
+```CSS
 .nav-item-primary--idle:hover { background: var(--color-bg-muted); color: var(--color-text-primary); }
 .nav-item-secondary--idle:hover { background: var(--color-bg-muted); }
 ```
@@ -469,7 +483,7 @@ Add CSS `:hover` on the `--idle` state class so the playground reflects hover wi
 
 All nav item components accept an optional `href` prop. When provided, render as `<a href={href}>` for real navigation. Without it, render as `<div role="button">`. Pattern:
 
-```jsx
+```JSX
 if (href) {
   return <a className={classes} href={href} {...rest}>{content}</a>;
 }
@@ -482,7 +496,7 @@ return <div className={classes} role="button" tabIndex={0} {...rest}>{content}</
 
 **Fix:** Only apply `overflow-y: auto` when tooltips will never appear. For the collapsed primary sidebar, the body must have `overflow: visible`. Restrict scroll to the expanded variant only:
 
-```css
+```CSS
 .nav-sidebar-primary__body { overflow: visible; }
 .nav-sidebar-primary--expanded .nav-sidebar-primary__body { overflow-y: auto; }
 ```
@@ -491,7 +505,7 @@ return <div className={classes} role="button" tabIndex={0} {...rest}>{content}</
 
 Sidebars expose an `onItemClick` callback. Use `useState` in Playground story render functions:
 
-```jsx
+```JSX
 export const Playground = {
   render: (args) => {
     const [activeItem, setActiveItem] = React.useState('Tours');
@@ -503,32 +517,33 @@ export const Playground = {
 
 ### Separator rules
 
-- **Primary sidebar:** separators are full-width (`width: 100%`, no horizontal padding). Groups handle their own `padding: 0 var(--space-1)` internally via `PrimaryNavGroup`.
-- **Secondary sidebar:** sidebar has `padding: var(--space-3) var(--space-2)`, so dividers are naturally contained within the sidebar bounds.
+* **Primary sidebar:** separators are full-width (`width: 100%`, no horizontal padding). Groups handle their own `padding: 0 var(--space-1)` internally via `PrimaryNavGroup`.
+* **Secondary sidebar:** sidebar has `padding: var(--space-3) var(--space-2)`, so dividers are naturally contained within the sidebar bounds.
 
----
+***
 
 ## Jimo Product Brand Icons — MANDATORY
 
 Each Jimo product has a **fixed brand icon**. These icons are not interchangeable — they are tied to the product's visual identity. Whenever a component, story, or nav item is labeled with a Jimo product name, it MUST use the corresponding brand icon for both the default (Linear) and active (Bold) variants. No exceptions.
 
-| # | Product | iconsax-react export | Source | Notes |
-|---|---------|---------------------|--------|-------|
-| 1 | Tours | `Routing2` | `iconsax-react` | |
-| 2 | Surveys | `Notepad2` | `iconsax-react` | `Note2` does not exist in v0.0.8 |
-| 3 | Banners | `BannerIcon` | `src/components/ui/Icon/Icon` | Custom SVG, supports Linear/Bold variant |
-| 4 | Hints | `Notification1` | `iconsax-react` | |
-| 5 | Checklists | `TaskSquare` | `iconsax-react` | |
-| 6 | Resource Centers | `DirectboxNotif` | `iconsax-react` | |
-| 7 | Agent | `AgentIcon` | `src/components/ui/Icon/Icon` | Custom SVG, supports Linear/Bold variant |
-| 8 | Spaces | `Element3` | `iconsax-react` | |
-| 9 | Success Tracker | `Chart2` | `iconsax-react` | |
-| 10 | Actions | `Flash1` | `iconsax-react` | |
-| 11 | Users & Segments | `Profile2User` | `iconsax-react` | |
-| 12 | Settings | `Setting2` | `iconsax-react` | |
+| #  | Product          | iconsax-react export | Source                        | Notes                                    |
+| -- | ---------------- | -------------------- | ----------------------------- | ---------------------------------------- |
+| 1  | Tours            | `Routing2`           | `iconsax-react`               |                                          |
+| 2  | Surveys          | `Notepad2`           | `iconsax-react`               | `Note2` does not exist in v0.0.8         |
+| 3  | Banners          | `BannerIcon`         | `src/components/ui/Icon/Icon` | Custom SVG, supports Linear/Bold variant |
+| 4  | Hints            | `Notification1`      | `iconsax-react`               |                                          |
+| 5  | Checklists       | `TaskSquare`         | `iconsax-react`               |                                          |
+| 6  | Resource Centers | `DirectboxNotif`     | `iconsax-react`               |                                          |
+| 7  | Agent            | `AgentIcon`          | `src/components/ui/Icon/Icon` | Custom SVG, supports Linear/Bold variant |
+| 8  | Spaces           | `Element3`           | `iconsax-react`               |                                          |
+| 9  | Success Tracker  | `Chart2`             | `iconsax-react`               |                                          |
+| 10 | Actions          | `Flash1`             | `iconsax-react`               |                                          |
+| 11 | Users & Segments | `Profile2User`       | `iconsax-react`               |                                          |
+| 12 | Settings         | `Setting2`           | `iconsax-react`               |                                          |
 
 **Usage pattern (always both variants):**
-```jsx
+
+```JSX
 import { Routing2, Notepad2, Notification1, TaskSquare, DirectboxNotif, Element3, Chart2, Flash1, Profile2User, Setting2 } from 'iconsax-react';
 import { BannerIcon, AgentIcon } from '../Icon/Icon'; // or adjust path
 
@@ -538,24 +553,26 @@ iconActive: <Routing2 size={20} variant="Bold"   color="currentColor" />
 ```
 
 **Scope of this rule:**
-- `PrimaryNavSidebar` — the canonical nav (already updated)
-- Any other nav group, nav item, or story that labels an item with a Jimo product name
-- Any future component that surfaces a Jimo product — always look up this table first
+
+* `PrimaryNavSidebar` — the canonical nav (already updated)
+* Any other nav group, nav item, or story that labels an item with a Jimo product name
+* Any future component that surfaces a Jimo product — always look up this table first
 
 **What this rule does NOT affect:**
-- Generic UI status icons (e.g. `InfoCircle` in Toast/Infobox for "info" status)
-- Semantic icon usage unrelated to product branding (e.g. `Global` for "All Environments" in ExperienceCard)
-- Agent secondary nav sub-items like Knowledge, Chat, Triggers, Analyze — these are sub-features, not product brand placements
 
----
+* Generic UI status icons (e.g. `InfoCircle` in Toast/Infobox for "info" status)
+* Semantic icon usage unrelated to product branding (e.g. `Global` for "All Environments" in ExperienceCard)
+* Agent secondary nav sub-items like Knowledge, Chat, Triggers, Analyze — these are sub-features, not product brand placements
+
+***
 
 ## PageHeader — Primary and Secondary Must Never Stack
 
-**`type='main'` (primary) and `type='sub'` (secondary) PageHeaders must never be rendered simultaneously.**
+**`type='main'`** **(primary) and** **`type='sub'`** **(secondary) PageHeaders must never be rendered simultaneously.**
 
 When a user navigates into a sub-page (e.g. clicks a list row to view a detail), the secondary header must **replace** the primary header — not appear below it.
 
-```jsx
+```JSX
 // ✅ correct — conditional swap
 {selectedItem
   ? <PageHeader type="sub" title={selectedItem.name} ... />
@@ -569,11 +586,11 @@ When a user navigates into a sub-page (e.g. clicks a list row to view a detail),
 
 This applies to all views in the app: Companies, Users, Segments — any time a list-to-detail transition occurs.
 
----
+***
 
 ## Figma Node Type Rule (for /jimo-add-component)
 
-**When a Figma node returned by `get_design_context` is NOT a "component" node** (i.e. it's a frame, group, or instance), do NOT generate a brand-new component from scratch. Instead:
+**When a Figma node returned by** **`get_design_context`** **is NOT a "component" node** (i.e. it's a frame, group, or instance), do NOT generate a brand-new component from scratch. Instead:
 
 1. Check `src/components/ui/` for an existing component that matches the design
 2. Use that existing component — adapt its props and CSS if needed

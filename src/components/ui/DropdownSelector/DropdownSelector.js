@@ -52,7 +52,7 @@ export const DropdownSelector = React.forwardRef(
         )}
         {withText && (
           <span className={`dropdown-selector__chevron${isOpen ? ' dropdown-selector__chevron--up' : ''}`} aria-hidden="true">
-            <ArrowDown2 size={20} variant="Linear" />
+            <ArrowDown2 size={size === 'small' ? 16 : 20} variant="Linear" />
           </span>
         )}
       </button>

@@ -23,6 +23,7 @@ export const ViewToolbar = React.forwardRef(
       itemCount,
       itemLabel = 'items',
       filters = [],
+      size = 'regular',
       className,
       ...rest
     },
@@ -42,6 +43,7 @@ export const ViewToolbar = React.forwardRef(
       >
         <div className="view-toolbar__search">
           <Input
+            size={size}
             leftIcon={
               <SearchNormal1 size={20} variant="Linear" color="currentColor" />
             }
@@ -52,16 +54,18 @@ export const ViewToolbar = React.forwardRef(
         </div>
         {filters.length > 0 && (
           <div className="view-toolbar__filters">
-            {filters.map((filter, i) => (
+            {filters.map(({ placeholder: fp, icon, items, multiSelect, value, onChange, ...filterRest }, i) => (
               <DropdownFilter
                 key={i}
-                placeholder={filter.placeholder}
-                selectorIcon={filter.icon}
-                withSelectorIcon={!!filter.icon}
-                items={filter.items ?? []}
-                multiSelect={filter.multiSelect ?? false}
-                value={filter.value}
-                onChange={filter.onChange}
+                size={size}
+                placeholder={fp}
+                selectorIcon={icon}
+                withSelectorIcon={!!icon}
+                items={items ?? []}
+                multiSelect={multiSelect ?? false}
+                value={value}
+                onChange={onChange}
+                {...filterRest}
               />
             ))}
           </div>

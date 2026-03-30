@@ -1,0 +1,188 @@
+/* ============================================================
+   DropdownFilterNested — Moji Design System
+   Nested / multi-level dropdown with animated panel transitions.
+   Depth is unbounded: 2, 3, 4+ levels all use the same mechanism.
+   ============================================================ */
+
+.dropdown-filter-nested {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Outer menu panel (open/close animation, same as DropdownFilter) ── */
+.dropdown-filter-nested__menu {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  z-index: var(--z-dropdown);
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: top left;
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropdown-filter-nested__menu--open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.dropdown-filter-nested__menu--right {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+/* ── Viewport — clips panel slide animations without cutting box-shadow ── */
+/* overflow: clip (not hidden) avoids creating a scroll container, and
+   overflow-clip-margin gives the shadow room to paint outside the bounds. */
+.dropdown-nested__viewport {
+  position: relative;
+  overflow: clip;
+  overflow-clip-margin: var(--space-5);
+}
+
+/* ── Panel — wraps a single navigation level ── */
+.dropdown-nested__panel {
+  position: relative;
+}
+
+/* Outgoing panel: taken out of flow so the incoming panel sets the height */
+.dropdown-nested__panel--exit-forward,
+.dropdown-nested__panel--exit-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* ── Forward navigation: drill into a submenu ── */
+@keyframes panel-exit-forward {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(calc(var(--space-3) * -1)); }
+}
+
+@keyframes panel-enter-forward {
+  from { opacity: 0; transform: translateX(var(--space-3)); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Back navigation: return to parent ── */
+@keyframes panel-exit-back {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(var(--space-3)); }
+}
+
+@keyframes panel-enter-back {
+  from { opacity: 0; transform: translateX(calc(var(--space-3) * -1)); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.dropdown-nested__panel--exit-forward {
+  animation: panel-exit-forward 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dropdown-nested__panel--enter-forward {
+  animation: panel-enter-forward 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dropdown-nested__panel--exit-back {
+  animation: panel-exit-back 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dropdown-nested__panel--enter-back {
+  animation: panel-enter-back 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Back button — rendered as the first row when depth > 0 ── */
+.dropdown-nested__back {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-neutral-100);
+  border: none;
+  border-bottom: 1px solid var(--color-neutral-200);
+  cursor: pointer;
+  font: var(--text-body-4);
+  color: var(--color-neutral-700);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-nested__back:hover {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-400);
+}
+
+/* ── Nav item — list item that navigates to a submenu (has trailing chevron) ── */
+.dropdown-nested__nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 225px;
+  padding: var(--space-3);
+  background-color: var(--color-neutral-white);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: var(--text-body-3);
+  color: var(--color-neutral-800);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-nested__nav-item:hover {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-400);
+}
+
+.dropdown-nested__nav-item__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--space-5);
+  height: var(--space-5);
+  color: var(--color-neutral-700);
+  transition: color var(--transition-fast);
+}
+
+.dropdown-nested__nav-item:hover .dropdown-nested__nav-item__icon {
+  color: var(--color-blue-400);
+}
+
+.dropdown-nested__nav-item__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.dropdown-nested__nav-item__text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-nested__nav-item__description {
+  display: block;
+  font: var(--text-body-4);
+  color: var(--color-neutral-700);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-nested__nav-item__chevron {
+  flex-shrink: 0;
+  color: var(--color-neutral-400);
+  transition: color var(--transition-fast);
+}
+
+.dropdown-nested__nav-item:hover .dropdown-nested__nav-item__chevron {
+  color: var(--color-blue-400);
+}

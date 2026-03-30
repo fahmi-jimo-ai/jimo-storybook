@@ -1,0 +1,310 @@
+/* ============================================================
+   DatePicker — Moji Design System
+   BEM block: .date-picker
+   Trigger appearance is provided by the Input component.
+   ============================================================ */
+
+/* ── Root ── */
+.date-picker {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Trigger wrapper ── */
+.date-picker__trigger-wrap {
+  cursor: pointer;
+}
+
+/* Make the underlying input non-interactive so clicks bubble to the wrapper */
+.date-picker__trigger-wrap .input-field__control {
+  cursor: pointer;
+  pointer-events: none;
+}
+
+/* Open state — override Input's default border with the focus ring style */
+.date-picker__trigger-input--open .input-field__wrapper {
+  border-color: var(--color-blue-400);
+  box-shadow: 0 0 0 3px rgba(18, 96, 235, 0.15);
+}
+
+/* Clear button inside the trigger cta slot */
+.date-picker__trigger-clear {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  line-height: 0;
+  transition: color var(--transition-fast);
+}
+
+.date-picker__trigger-clear:hover {
+  color: var(--color-text-primary);
+}
+
+/* ── Panel ── */
+.date-picker__panel {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  z-index: var(--z-dropdown);
+  width: 280px;
+  background: var(--color-bg-default);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-elevation-02);
+  overflow: hidden;
+  padding: var(--space-3);
+  box-sizing: border-box;
+
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: top left;
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.date-picker__panel--open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* ── Quick tags (preset pills) ── */
+.date-picker__presets {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.date-picker__presets::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* ── Date text inputs ── */
+.date-picker__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+/* Colored dot used as leftIcon in range inputs */
+.date-picker__input-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.date-picker__input-dot--start {
+  background: var(--color-brand-default);
+}
+
+.date-picker__input-dot--end {
+  background: var(--color-blue-200);
+}
+
+/* Clear button inside the Input cta slot */
+.date-picker__input-clear {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  line-height: 0;
+  transition: color var(--transition-fast);
+}
+
+.date-picker__input-clear:hover {
+  color: var(--color-text-primary);
+}
+
+/* ── Month/year header ── */
+.date-picker__month-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.date-picker__month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.date-picker__month-nav:hover {
+  background: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.date-picker__month-label {
+  font: var(--text-subtitle-4);
+  color: var(--color-text-primary);
+}
+
+/* ── Weekday header ── */
+.date-picker__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: var(--space-1);
+}
+
+.date-picker__weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  font: var(--text-body-5);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Day grid ── */
+.date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+/* ── Day cell ── */
+.date-picker__day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  cursor: pointer;
+  font: var(--text-body-4);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 0;
+}
+
+/* The circular indicator behind the number */
+.date-picker__day::before {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  z-index: -1;
+  transition: background var(--transition-fast);
+}
+
+/* Range band: a full-height bg behind the circle */
+.date-picker__day::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  z-index: -2;
+}
+
+/* Hover circle */
+.date-picker__day:hover:not(.date-picker__day--disabled)::before {
+  background: var(--color-bg-muted);
+}
+
+/* Today */
+.date-picker__day--today::before {
+  background: var(--color-danger-default);
+}
+.date-picker__day--today {
+  color: var(--color-text-inverse);
+}
+
+/* Selected (overrides today) */
+.date-picker__day--selected::before {
+  background: var(--color-brand-default);
+}
+.date-picker__day--selected {
+  color: var(--color-text-inverse);
+}
+
+/* Other month */
+.date-picker__day--other-month {
+  color: var(--color-text-tertiary);
+}
+
+/* Disabled */
+.date-picker__day--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Range styles ── */
+
+/* Days inside the range: light blue band */
+.date-picker__day--in-range::after {
+  background: var(--color-brand-subtle);
+}
+.date-picker__day--in-range:hover::before {
+  background: var(--color-brand-light);
+}
+
+/* Range start: blue circle + right half band */
+.date-picker__day--range-start::before {
+  background: var(--color-brand-default);
+}
+.date-picker__day--range-start {
+  color: var(--color-text-inverse);
+}
+.date-picker__day--range-start::after {
+  background: var(--color-brand-subtle);
+  left: 50%;
+  right: 0;
+}
+
+/* Range end: blue circle + left half band */
+.date-picker__day--range-end::before {
+  background: var(--color-brand-default);
+}
+.date-picker__day--range-end {
+  color: var(--color-text-inverse);
+}
+.date-picker__day--range-end::after {
+  background: var(--color-brand-subtle);
+  left: 0;
+  right: 50%;
+}
+
+/* Single-day range (start === end): circle only, no band */
+.date-picker__day--range-start.date-picker__day--range-end::after {
+  display: none;
+}
+
+/* Hover preview during range selection */
+.date-picker__day--range-hover::after {
+  background: var(--color-brand-subtle);
+}
+
+/* The day the cursor is on (prospective end): left-half band so the range flows behind the circle */
+.date-picker__day--range-hover-end::after {
+  background: var(--color-brand-subtle);
+  left: 0;
+  right: 50%;
+}

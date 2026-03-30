@@ -12,6 +12,7 @@ export const Chip = ({
   iconOnly = false,
   onRemove,
   className,
+  ...rest
 }) => {
   const classes = [
     'chip',
@@ -25,7 +26,7 @@ export const Chip = ({
     .join(' ');
 
   return (
-    <span className={classes}>
+    <span className={classes} {...rest}>
       {iconOnly ? (
         leftIcon ?? rightIcon
       ) : (

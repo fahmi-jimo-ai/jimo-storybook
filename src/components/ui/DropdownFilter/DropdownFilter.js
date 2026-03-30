@@ -13,6 +13,7 @@ export const DropdownFilter = ({
   items,
   multiSelect = false,
   showItemIcons = true,
+  menuAlign = 'left',
   maxMenuHeight,
   value,
   onChange,
@@ -22,9 +23,13 @@ export const DropdownFilter = ({
 }) => {
   const wrapperRef = React.useRef(null);
   const menuRef = React.useRef(null);
+  const exitTimerRef = React.useRef(null);
 
   const [internalOpen, setInternalOpen] = React.useState(false);
   const isOpen = open !== undefined ? open : internalOpen;
+
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [isAnimating, setIsAnimating] = React.useState(false);
 
   useSmartMenuAlign(menuRef, isOpen);
 
@@ -53,6 +58,18 @@ export const DropdownFilter = ({
     if (value === undefined) setInternalValue(next);
     onChange?.(multiSelect ? next : next[0] ?? '');
   };
+
+  React.useEffect(() => {
+    if (isOpen) {
+      clearTimeout(exitTimerRef.current);
+      setIsVisible(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => setIsAnimating(true)));
+    } else {
+      setIsAnimating(false);
+      exitTimerRef.current = setTimeout(() => setIsVisible(false), 150);
+    }
+    return () => clearTimeout(exitTimerRef.current);
+  }, [isOpen]);
 
   React.useEffect(() => {
     if (!isOpen) return;
@@ -87,8 +104,15 @@ export const DropdownFilter = ({
         icon={selectorIcon}
         onClick={() => setOpen(!isOpen)}
       />
-      {isOpen && (
-        <div ref={menuRef} className="dropdown-filter__menu">
+      {isVisible && (
+        <div
+          ref={menuRef}
+          className={[
+            'dropdown-filter__menu',
+            isAnimating ? 'dropdown-filter__menu--open' : '',
+            menuAlign === 'right' ? 'dropdown-filter__menu--right' : '',
+          ].filter(Boolean).join(' ')}
+        >
           <DropdownMenuGroup maxHeight={maxMenuHeight}>
             {items.map((item) => {
               const isSelected = selectedValues.includes(item.value);
