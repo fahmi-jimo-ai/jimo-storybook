@@ -371,7 +371,69 @@ When using iconsax icons inside a component where CSS sets `color:` via a token 
 
 ---
 
-## Step 5 — Definition of Done checklist
+## Step 5 — Create CONTEXT.md for the new component
+
+After source + story files are created, write `src/components/ui/{Name}/CONTEXT.md`.
+
+Use this template — fill in every section:
+
+```markdown
+# {Name}
+
+**Atomic level:** {Atom | Molecule | Organism} — `{Story title}`
+**CSS prefix:** `.{css-block-name}`
+**Source:** `{Name}.js` / `{Name}.css`
+
+## What it does
+{1–2 sentence description. What problem does it solve? When would you reach for it?}
+
+## Props
+
+| Prop | Type | Options | Default | Notes |
+|------|------|---------|---------|-------|
+| `propName` | string | `'a'` `'b'` | `'a'` | brief note |
+
+## States / Variants
+{List visual states: idle → hover → active → disabled, or variant names}
+
+## Dependencies
+{List any Moji UI components used internally. "None" if standalone.}
+
+## Import
+\`\`\`js
+import { {Name} } from '../../../src/components/ui/{Name}/{Name}';
+import '../../../src/components/ui/{Name}/{Name}.css';
+\`\`\`
+
+## Quick example
+\`\`\`jsx
+<{Name} prop="value" />
+\`\`\`
+```
+
+---
+
+## Step 6 — Update the parent component index
+
+After creating the component's `CONTEXT.md`, add a row to the correct table in
+`src/components/ui/CONTEXT.md`.
+
+Find the correct section (Atoms / Molecules / Organisms) and atomic sub-category, then insert:
+
+```markdown
+| [{Name}]({Name}/CONTEXT.md) | {one-line description} | [→]({Name}/CONTEXT.md) |
+```
+
+Also add a row to the "Choosing the right component" table at the bottom of the file if the
+component fills a distinct user need:
+
+```markdown
+| I need… {use case} | `{Name}` |
+```
+
+---
+
+## Step 7 — Definition of Done checklist
 
 Before declaring done, verify every item:
 
@@ -384,6 +446,8 @@ Before declaring done, verify every item:
 - [ ] Icon controls use `ALL_ICON_NAMES` (not a hand-picked subset)
 - [ ] Build passes: run `npm run build-storybook` from the repo root — fix any errors before finishing
 - [ ] No TypeScript syntax anywhere — no interfaces, no type annotations, no generics
+- [ ] `src/components/ui/{Name}/CONTEXT.md` created with all sections filled in
+- [ ] Parent `src/components/ui/CONTEXT.md` updated with a row for the new component
 
 ---
 
