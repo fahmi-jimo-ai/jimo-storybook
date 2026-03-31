@@ -345,7 +345,6 @@ Your agent must follow these — they are non-negotiable:
 
 ### What to avoid telling your agent
 
-- Do **not** tell it to import from `jimo-component-library` — that repo is legacy and must not be used.
 - Do **not** tell it to use `@lib/` import alias — use relative paths (`../../../src/...`).
 - Do **not** ask it to re-import `tokens.css` in story files — it's already loaded globally.
 - Do **not** ask it to add Google Fonts via `@import` in CSS — fonts are in `.storybook/preview-head.html`.
