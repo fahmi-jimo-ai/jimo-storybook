@@ -275,6 +275,83 @@ See `CLAUDE.md` for the complete story-writing reference.
 
 ***
 
+## AI Agent Guide (Codex, Cursor, Copilot, Windsurf, etc.)
+
+This repo is structured so any AI coding agent can navigate it effectively — not just Claude Code. Follow this guide to get full context before asking your agent to write stories or components.
+
+### Step 1 — Load these files as context first
+
+Always give your agent these files before any task. They are the primary sources of truth:
+
+| File | What it contains |
+|------|-----------------|
+| `CLAUDE.md` | All rules: tokens-only, JS-not-TS, story template, naming, argTypes, Chromatic, Definition of Done |
+| `src/styles/tokens.css` | Every design token — color, spacing, typography, radius, shadow, transition |
+| `src/components/ui/CONTEXT.md` | Index of all 37 components: what each does, its atomic level, link to its own CONTEXT.md |
+
+For a specific component, also load its own context file:
+
+```
+src/components/ui/{ComponentName}/CONTEXT.md
+```
+
+Each component CONTEXT.md contains: props table, states, dependencies, import path, and a quick JSX example.
+
+### Step 2 — Understand the file layout
+
+```
+src/components/ui/{Name}/
+├── {Name}.js       ← component source (plain JS + JSX)
+├── {Name}.css      ← scoped styles using var(--token-name) only
+├── index.js        ← barrel: export * from './{Name}'
+└── CONTEXT.md      ← props, states, usage examples (agent reference)
+
+stories/{level}/{Name}/
+└── {Name}.stories.jsx   ← CSF3 story file
+```
+
+### Step 3 — Know the critical rules
+
+Your agent must follow these — they are non-negotiable:
+
+1. **Plain JavaScript only.** No `.ts`, no `.tsx`, no TypeScript syntax of any kind.
+2. **Tokens only.** Never write a hex color, raw pixel value, or rgba string — always `var(--token-name)`.
+3. **`Playground` story last**, always with `parameters: { chromatic: { disableSnapshot: true } }`.
+4. **Icon color always `color="currentColor"`** on `iconsax-react` icons inside CSS-colored containers.
+5. **Verify with `npm run build-storybook`** — zero errors required before a task is considered done.
+
+### Example prompts
+
+**Add a new story for an existing component:**
+> "Read `CLAUDE.md`, `src/styles/tokens.css`, and `src/components/ui/Button/CONTEXT.md`. Then write a Storybook story file at `stories/1-atoms/Button/Button.stories.jsx` following the CSF3 template in CLAUDE.md. Cover: Default, Disabled, Danger, IconOnly, and Playground states."
+
+**Understand a component's API before using it:**
+> "Read `src/components/ui/Input/CONTEXT.md` and `src/components/ui/Input/Input.js`. Summarize the available props, their types, and which argType remappings apply in stories."
+
+**Build a composed story using multiple components:**
+> "Read `CLAUDE.md`, `src/components/ui/CONTEXT.md`, `src/components/ui/DropdownSelector/CONTEXT.md`, and `src/components/ui/DropdownMenuList/CONTEXT.md`. Write a story that shows a DropdownSelector wired to a list of DropdownMenuList items, all styled with tokens from `src/styles/tokens.css`."
+
+**Check what tokens are available for a design:**
+> "Read `src/styles/tokens.css`. List all spacing tokens (`--space-*`), all color tokens for backgrounds (`--color-bg-*`), and all shadow tokens (`--shadow-*`)."
+
+**Fix a broken story build:**
+> "Run `npm run build-storybook`. Read the error output, locate the file and line number, and fix the root cause. Re-run to confirm zero errors."
+
+**Add a nav item to the primary sidebar:**
+> "Read `CLAUDE.md`, `src/components/ui/PrimaryNavSidebar/CONTEXT.md`, and `src/components/ui/PrimaryNavSidebar/PrimaryNavSidebar.js`. Add a new nav item for [product name] using the correct brand icon from the Jimo Product Brand Icons table in CLAUDE.md. Both Linear (idle) and Bold (active) variants are required."
+
+**Create a new component from scratch:**
+> "Read `CLAUDE.md` (Component Source File Template section) and `src/styles/tokens.css`. Create a new component at `src/components/ui/MyComponent/` with `MyComponent.js`, `MyComponent.css`, and `index.js`. Follow the forwardRef template, use only CSS tokens, no TypeScript."
+
+### What to avoid telling your agent
+
+- Do **not** tell it to import from `jimo-component-library` — that repo is legacy and must not be used.
+- Do **not** tell it to use `@lib/` import alias — use relative paths (`../../../src/...`).
+- Do **not** ask it to re-import `tokens.css` in story files — it's already loaded globally.
+- Do **not** ask it to add Google Fonts via `@import` in CSS — fonts are in `.storybook/preview-head.html`.
+
+***
+
 ## Recent Changes
 
 ### March 2026
